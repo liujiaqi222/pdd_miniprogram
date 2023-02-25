@@ -1,0 +1,53 @@
+$text-active: #3b82f6;
+$text-darker: #2563eb;
+
+.container {
+  display: flex;
+  gap: 20px;
+  flex-direction: column;
+  .list-type {
+    padding: 10px;
+    display: flex;
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+    .list {
+      width: 50%;
+      text-align: center;
+      transition: all 0.3s;
+    }
+    .list.active {
+      color: $text-active;
+      font-weight: bold;
+    }
+  }
+  .search-container {
+    padding-inline: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    .input-container {
+      position: relative;
+      flex: 1;
+      .input {
+        border: 1px solid #ccc;
+        border-radius: 20px;
+        padding: 0.25rem;
+        font-size: 0.75rem;
+        padding-left: 1.5rem;
+      }
+    }
+    .btn {
+      width: 2.5rem;
+      padding: 0.5rem;
+      padding-block: 0.15rem;
+      font-size: 0.8rem;
+      background: $text-active;
+      color: white;
+      text-align: center;
+      border-radius: 0.6rem;
+      transition: all 0.3s;
+      &:hover {
+        background-color: $text-darker;
+      }
+    }
+  }
+}

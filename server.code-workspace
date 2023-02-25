@@ -1,0 +1,13 @@
+{
+  "folders": [
+    {
+      "path": "server"
+    },
+    {
+      "path": "pdd"
+    }
+  ],
+  "settings": {
+    "liveServer.settings.multiRootWorkspaceName": "server"
+  }
+}

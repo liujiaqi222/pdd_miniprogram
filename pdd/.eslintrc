@@ -1,0 +1,11 @@
+{
+  "extends": [
+    "taro/react",
+    "plugin:react-hooks/recommended"
+  ],
+  "rules": {
+    "react/jsx-uses-react": "off",
+    "react/react-in-jsx-scope": "off",
+    "jsx-quotes": "off"
+  }
+}
