@@ -1,0 +1,65 @@
+$text-active: #3b82f6;
+$text-darker: #2563eb;
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  .card-container {
+    background: #fff;
+    border-radius: 0.5rem;
+    font-size: 0.8rem;
+    height: 6rem;
+    box-shadow: 0 1px 3px 0 rgb(255, 255, 255/ 0.1),
+      0 1px 2px -1px rgb(255, 255, 255/ 0.1);
+    display: flex;
+    gap: 1.5rem;
+    color: #555;
+    padding: 0.5rem;
+    padding-bottom: 0;
+    .img-container {
+      width: 4rem;
+      height: 4rem;
+      border-radius: 0.5rem;
+      .goods-img {
+        width: 5rem;
+        height: 5rem;
+      }
+    }
+    .price-container {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 1rem;
+      .price {
+        display: flex;
+        gap: 1rem;
+        .goods-price {
+          &.current {
+            color: $text-active;
+          }
+          text-align: center;
+          .wrapper {
+            display: flex;
+            align-items: center;
+            .number {
+              font-size: 1rem;
+            }
+          }
+          .price-type {
+            font-size: 0.7rem;
+            text-align: center;
+          }
+        }
+      }
+      .btn {
+        background-color: $text-darker;
+        color:#fff;
+        padding: 0.5rem ;
+        border-radius: 0.5rem;
+        box-sizing: border-box;
+        cursor: pointer;
+        height: 2rem;
+      }
+    }
+  }
+}

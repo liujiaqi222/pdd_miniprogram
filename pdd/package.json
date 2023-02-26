@@ -9,7 +9,7 @@
     "css": "sass"
   },
   "scripts": {
-    "build:weapp": "taro build --type weapp",
+    "build": "taro build --type weapp",
     "build:swan": "taro build --type swan",
     "build:alipay": "taro build --type alipay",
     "build:tt": "taro build --type tt",
@@ -18,7 +18,7 @@
     "build:qq": "taro build --type qq",
     "build:jd": "taro build --type jd",
     "build:quickapp": "taro build --type quickapp",
-    "dev:weapp": "npm run build:weapp -- --watch",
+    "dev": "npm run build -- --watch",
     "dev:swan": "npm run build:swan -- --watch",
     "dev:alipay": "npm run build:alipay -- --watch",
     "dev:tt": "npm run build:tt -- --watch",
@@ -52,8 +52,7 @@
     "@tarojs/shared": "3.6.1",
     "@tarojs/taro": "3.6.1",
     "react": "^18.0.0",
-    "react-dom": "^18.0.0",
-    "react-icons": "^4.7.1"
+    "react-dom": "^18.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.8.0",

@@ -3,50 +3,56 @@ $text-darker: #2563eb;
 
 .container {
   display: flex;
-  gap: 20px;
   flex-direction: column;
-  .list-type {
-    padding: 10px;
-    display: flex;
-    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
-    .list {
-      width: 50%;
-      text-align: center;
-      transition: all 0.3s;
-    }
-    .list.active {
-      color: $text-active;
-      font-weight: bold;
-    }
-  }
-  .search-container {
-    padding-inline: 10px;
+  color: white;
+  background: $text-active;
+  gap: 0.5rem;
+  min-height: 100vh;
+  padding-inline: 0.6rem;
+  .util-container {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 1rem;
+
     .input-container {
       position: relative;
       flex: 1;
       .input {
         border: 1px solid #ccc;
-        border-radius: 20px;
-        padding: 0.25rem;
-        font-size: 0.75rem;
-        padding-left: 1.5rem;
+        border-radius: 2rem;
+        padding-left: 0.6rem;
+        padding-block: 0.4rem;
+        background-color: white;
+        padding-right: 3.5rem;
+        color:#555;
+      }
+      .btn {
+        position: absolute;
+        right: 0.5rem;
+        top: 0.3rem;
+        width: 2.5rem;
+        padding: 0.1rem;
+        padding-block: 0.15rem;
+        background: $text-active;
+        color: white;
+        text-align: center;
+        border-radius: 0.6rem;
+        transition: all 0.3s;
+        &:hover {
+          background-color: $text-darker;
+        }
       }
     }
-    .btn {
-      width: 2.5rem;
-      padding: 0.5rem;
-      padding-block: 0.15rem;
-      font-size: 0.8rem;
-      background: $text-active;
-      color: white;
-      text-align: center;
-      border-radius: 0.6rem;
-      transition: all 0.3s;
-      &:hover {
-        background-color: $text-darker;
+    .create-btn {
+      width: 2rem;
+    }
+  }
+  .list-type {
+    .list {
+      font-size: 1rem;
+      margin-right: 0.5rem;
+      &.active {
+        font-weight: 600;
       }
     }
   }
