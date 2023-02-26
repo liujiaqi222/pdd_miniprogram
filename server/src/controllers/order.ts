@@ -17,6 +17,7 @@ export const getAllOrders = async (req: Request, res: Response) => {
     }
   }
   const result = await Order.find(queryObject).limit(Number(pageSize) || 10).skip(Number(pageSize) * Number(currentPage) || 0)
+  console.log(result)
   res.json(result)
 }
 
