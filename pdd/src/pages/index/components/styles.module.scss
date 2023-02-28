@@ -5,18 +5,25 @@ $text-darker: #2563eb;
   display: flex;
   flex-direction: column;
   gap: 0.7rem;
+  overflow-y: scroll;
+  height: calc(100vh - 5rem);
   .card-container {
     background: #fff;
     border-radius: 0.5rem;
     font-size: 0.8rem;
     height: 6rem;
+    margin-bottom: 1rem;
     box-shadow: 0 1px 3px 0 rgb(255, 255, 255/ 0.1),
       0 1px 2px -1px rgb(255, 255, 255/ 0.1);
     display: flex;
     gap: 1.5rem;
     color: #555;
     padding: 0.5rem;
-    padding-bottom: 0;
+    position: relative;
+    .custom-number{
+      position: absolute;
+    }
+
     .img-container {
       width: 4rem;
       height: 4rem;

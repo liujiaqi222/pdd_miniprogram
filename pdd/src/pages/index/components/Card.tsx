@@ -1,9 +1,8 @@
 import styles from './styles.module.scss'
-import { type OrderData } from "../../api";
+import { type OrderData } from "../../../api";
 
 const Card = ({ order }: { order: OrderData }) => {
   const { goodsName, hdThumbUrl, customerNum, activityPrice, originPrice, groupRemainCount } = order
-  console.log(hdThumbUrl)
   return (
     <div className={styles['card-container']}>
       <div className={styles['img-container']}>

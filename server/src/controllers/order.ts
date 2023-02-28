@@ -3,7 +3,9 @@ import { Request, Response } from 'express';
 import { Order } from '../models/order';
 
 export const getAllOrders = async (req: Request, res: Response) => {
-  const { goodsName, currentPage, pageSize } = req.query
+  let { goodsName, currentPage, pageSize } = req.query as { goodsName?: string, currentPage?: number, pageSize?: number }
+  pageSize = Number(pageSize) || 10
+
   const queryObject: {
     goodsName?: {
       $regex: string,
@@ -16,12 +18,12 @@ export const getAllOrders = async (req: Request, res: Response) => {
       $options: 'i'
     }
   }
-  const result = await Order.find(queryObject).limit(Number(pageSize) || 10).skip(Number(pageSize) * Number(currentPage) || 0)
-  console.log(result)
+  console.log(req.query)
+  const result = await Order.find(queryObject).limit(pageSize).skip(pageSize * Number(currentPage) || 0)
   res.json(result)
 }
 
 
 export const createNewGroup = (req: Request, res: Response) => {
-  
+
 }

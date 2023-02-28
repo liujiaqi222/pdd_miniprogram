@@ -1,17 +1,7 @@
-import { request, addInterceptor, interceptors, showLoading, hideLoading, RequestTask } from "@tarojs/taro";
+import { request, addInterceptor, interceptors, RequestTask } from "@tarojs/taro";
 
 
-addInterceptor(function (chain) {
-  const requestParams = chain.requestParams
-  showLoading({
-    title: '加载中'
-  })
-  return chain.proceed(requestParams)
-    .then((res: any) => {
-      hideLoading()
-      return res
-    })
-})
+
 
 addInterceptor(interceptors.timeoutInterceptor)
 
@@ -33,9 +23,18 @@ export type OrderData = {
   groupOrderId: number
 }
 
-export function getOrders(): RequestTask<OrderData[]> {
+
+export type OrderParams = { searchKey?: string, listType?: 'shortOne' | 'newGroup' }
+
+export function getOrders(query?: { searchKey?: string, listType?: 'shortOne' | 'newGroup' }, currentPage?: number): RequestTask<OrderData[]> {
   return request({
-    url: 'http://localhost:4000/api/v1/orders',
+    url: `http://localhost:4000/api/v1/orders/`,
+    method: "GET",
+    data: {
+      goodsName: query?.searchKey || '',
+      currentPage: currentPage || 0,
+      listType: query?.listType
+    }
   })
 
 }
