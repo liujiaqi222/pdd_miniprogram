@@ -22,3 +22,16 @@ export type PddData = {
     }
   },
 }
+
+type ReverseShortUrlSuccessResult = {
+  success: true,
+  longUrl: string,
+  headers: http.IncomingHttpHeaders
+}
+type ReverseShortUrlErrorResult = {
+  success: false,
+  headers?: http.IncomingHttpHeaders
+  error: string | Error,
+}
+
+export type ReverseResult = Promise<ReverseShortUrlErrorResult | ReverseShortUrlSuccessResult>

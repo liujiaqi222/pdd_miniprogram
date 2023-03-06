@@ -1,7 +1,7 @@
 export default defineAppConfig({
   pages: [
+    'pages/create/index',
     'pages/index/index',
-    'pages/user/index'
   ],
   window: {
     backgroundTextStyle: 'light',
@@ -12,10 +12,10 @@ export default defineAppConfig({
   },
   tabBar:{
     color: "#999",
-    selectedColor: "#333",
+    selectedColor: "#cc0000",
     list:[
+      {pagePath: "pages/create/index", text: "我的",},
       {pagePath: "pages/index/index", text: "首页",},
-      {pagePath: "pages/user/index", text: "我的",},
     ]
   }
 })

@@ -1,11 +1,12 @@
-import { PddData } from '../types/';
-import { Order } from '../models/order';
-export const getOrderData = async (url: string) => {
+import { PddData } from '../types/index.js';
+import { Order } from '../models/order.js';
+export const getOrderData = async (orderId: string) => {
+  const url = process.env.PDD_URL + orderId
   const response = await fetch(url, {
     headers: {
       "accept-encoding": "gzip, deflate, br",
       cookie:
-        "api_uid=CkpE9GPw91k+cQBzPqFwAg==; webp=1; _nano_fp=XpE8n5mqn5XYnqEolT_zZyli1w~EbFG_GZeynInA; dilx=nfpTMmPhxjCNVQGksDHz5; jrpl=bUhUtApnXVy0OjJQy4gG9Qki1liUXBPv; njrpl=bUhUtApnXVy0OjJQy4gG9Qki1liUXBPv; PDDAccessToken=RVZS7KETW7LSFFOBSJQKQVNG67P64J27CN4ZWJACGSPANMD3OKQQ1118851; pdd_user_id=1250169224; pdd_user_uin=Q3TFJCOWZHDZZOXFDJXBG2BC7Q_GEXDA; pdd_vds=gadlxnwblbmmNOEttlynNltwxLssbyNOmOEwnwLGLsELbInsNwllwlGGlbGw; rec_list_brand_amazing_price_group=rec_list_brand_amazing_price_group_94Hfph",
+        process.env.COOKIE!,
     },
   });
   const data = await response.text()
@@ -16,11 +17,11 @@ export const getOrderData = async (url: string) => {
   }
 
   const pddData: PddData = JSON.parse(matchedResult[0])
-  return saveOrderData(pddData)
+  return saveOrderData(pddData, url)
 };
 
 
-async function saveOrderData(pddData: PddData) {
+async function saveOrderData(pddData: PddData, url: string) {
   const { goodsInfo, groupInfo } = pddData.store || {}
   const { goodsId, hdThumbUrl, goodsName, linkUrl, activityPrice, originPrice, brandName } = goodsInfo || {}
   const { customerNum, expireTime, groupStatus, groupUserList, groupOrderId, groupRemainCount } = groupInfo || {}
@@ -32,11 +33,12 @@ async function saveOrderData(pddData: PddData) {
   })
   if (res) return {
     success: true,
-    message: '保存成功'
+    message: '上传成功',
+    url
   }
   return {
     success: false,
-    message: '保存失败'
+    message: '该拼单已经存在'
   }
 }
 

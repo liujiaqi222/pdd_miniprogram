@@ -1,4 +1,5 @@
 import { useState, useRef } from 'react'
+import { switchTab } from '@tarojs/taro'
 import { View, Text, Input, Image } from '@tarojs/components'
 import CardList from './components/CardList';
 import createSvg from '../../assets/create.svg'
@@ -20,7 +21,7 @@ function Index() {
           <Input placeholder='请输入关键字' className={styles.input} ref={inputRef} />
           <View className={styles.btn} onClick={handleSearch}>搜索</View>
         </View>
-        <View className={styles['create-btn']}>
+        <View className={styles['create-btn']} onClick={() => switchTab({ url: '/pages/create/index' })}>
           <Image src={createSvg} style={{ width: '2rem', height: '2rem', display: 'block' }}></Image>
         </View>
       </View>

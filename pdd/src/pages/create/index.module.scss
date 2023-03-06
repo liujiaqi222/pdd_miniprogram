@@ -1,0 +1,54 @@
+.container {
+  padding: 0.5rem;
+  height: 90vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  .tips {
+    border: 1px solid #e7a239;
+    border-radius: 0.2rem;
+    padding: 0.5rem;
+    background-color: rgba($color: #fdf4ed, $alpha: 0.7);
+
+    .header {
+      display: flex;
+      align-items: center;
+    }
+  }
+  .upload {
+    margin-top: 0.5rem;
+
+    .uploadText {
+      color: #444;
+      font-size: 0.8rem;
+    }
+  }
+}
+
+.text {
+  color: #555;
+  font-size: 0.8rem;
+}
+
+.uploadBtn {
+  display: flex;
+  margin-block: 0.5rem;
+  font-size: 0.8rem;
+  background-color: #3b82f6;
+  color: white;
+  justify-content: center;
+  margin-inline: 0.5rem;
+  padding: 0.4rem;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 0.2rem;
+}
+
+.postBtn {
+  background-color: #67c23a;
+}
+
+.svg {
+  width: 1rem;
+  height: 1rem;
+}

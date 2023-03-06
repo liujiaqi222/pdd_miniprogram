@@ -36,5 +36,15 @@ export function getOrders(query?: { searchKey?: string, listType?: 'shortOne' | 
       listType: query?.listType
     }
   })
+}
 
+
+export function createNewGroup(url: string) {
+  return request({
+    url: `http://localhost:4000/api/v1/orders/`,
+    method: "POST",
+    data: {
+      url
+    }
+  })
 }
