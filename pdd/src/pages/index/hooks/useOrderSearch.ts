@@ -25,6 +25,6 @@ export const useOrderSearch = (searchKey: string, listType: 'shortOne' | 'newGro
   // 如果searchKey发生了变化，清空数据
   useEffect(() => {
     setOrders([])
-  }, [searchKey])
+  }, [searchKey, listType])
   return { orders, loading, hasMore, error }
 }

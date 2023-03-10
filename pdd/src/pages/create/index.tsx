@@ -30,7 +30,7 @@ export default function User() {
 
   }
   const handlePost = async () => {
-    if (!url) return showToast({ title: '请上传拼团链接', icon: 'error' })
+    if (!url) return showToast({ title: '请先上传拼团', icon: 'error' })
     const res = await createNewGroup(url)
     const { data } = res
     if (!data) {
