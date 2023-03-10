@@ -19,7 +19,8 @@ export type PddData = {
       }[],
       groupOrderId: string,
       groupRemainCount: number, // 还差几个人成团
-    }
+    },
+    endTimeMs: number, // 拼团结束时间
   },
 }
 

@@ -1,6 +1,7 @@
 import https from 'https';
+import fs from 'fs/promises'
 import http from 'http'
-import type { ReverseResult } from '../types/index.js'
+import type { ReverseResult, PddData } from '../types/index.js'
 
 
 export function reverseShortUrl(url: string): ReverseResult {
@@ -55,3 +56,31 @@ export const isValidUrl = (url: string): false | string => {
   if (orderId.length < 10) return false
   return orderId
 }
+
+
+const PDD_URL = 'https://mobile.yangkeduo.com/pincard_ask.html?__rp_name=brand_amazing_price_group&_pdd_tc=ffffff&_pdd_sbs=1&group_order_id='
+export const getOrderData = async (orderId: string) => {
+  console.log(process.env.PDD_URL)
+  const url = (process.env.PDD_URL || PDD_URL) + orderId
+  console.log(url)
+  const response = await fetch(url, {
+    headers: {
+      "accept-encoding": "gzip, deflate, br",
+      cookie:
+        process.env.COOKIE!,
+    },
+  });
+  const data = await response.text()
+  const matchedResult = data.match((/(?<=window.rawData=).+(?=;<\/script>)/))
+
+  if (!matchedResult || !matchedResult[0].length) return false
+  const pddData: PddData = JSON.parse(matchedResult[0])
+  fs.writeFile('test.html', matchedResult)
+
+  console.log(pddData.store.goodsInfo)
+  return pddData.store
+
+};
+
+// https://mobile.yangkeduo.com/pincard_ask.html?__rp_name=brand_amazing_price_group&_pdd_tc=ffffff&_pdd_sbs=1&group_order_id=2154318300507153606
+// https://mobile.yangkeduo.com/pincard_ask.html?__rp_name=brand_amazing_price_group&_pdd_tc=ffffff&_pdd_sbs=1&group_order_id=2154318300507153606
