@@ -1,4 +1,4 @@
-# 拼多多百亿补贴团购小程序
+# 拼多多百亿补贴团购微信小程序
 
 拼多多百亿补贴里面有些拼团需要多个人拼单才能购买成功，所以打算做一个免费开源的小程序，用来帮助大家拼团购买。
 
@@ -14,10 +14,21 @@ react + taro.js + ts
 
 这次我没有用tailwindcss，因为有同事说我已经不会写原生的css了，确实是忘记了一些属性。但是用scss+css module写css真是太痛苦了，比如想class的名称，还有css和html是在2个文件中编写都是很麻烦的。
 
+```bash
+# 运行
+npm i 
+npm run dev
+```
 
 ### 后端
 
 node + express + ts + mongodb
+
+```bash
+# 运行
+npm i 
+npm run dev
+```
 
 目前还没有配eslint那些哈哈，我有点懒。
 
