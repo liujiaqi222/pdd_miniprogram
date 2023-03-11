@@ -5,9 +5,7 @@ import { connectDB } from './db/connection.js';
 import { notFound } from './errors/not-found.js';
 import { errorHandlerMiddleWare } from './errors/error-handler.js';
 import order from './routes/order.js'
-import { traverseOrders } from './db/traverseOrders.js';
-import { isValidUrl, reverseShortUrl, getOrderData, } from './util/index.js';
-import { saveOrderData } from './db/saveOrder.js';
+
 dotenv.config()
 
 const app: Express = express();
