@@ -1,7 +1,8 @@
 {
   "scripts": {
     "dev": "nodemon ./src/app.ts",
-    "build": "tsc"
+    "build": "tsc",
+    "serve": "node ./dist/app.js"
   },
   "type": "module",
   "dependencies": {

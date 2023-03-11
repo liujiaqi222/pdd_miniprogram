@@ -60,9 +60,7 @@ export const isValidUrl = (url: string): false | string => {
 
 const PDD_URL = 'https://mobile.yangkeduo.com/pincard_ask.html?__rp_name=brand_amazing_price_group&_pdd_tc=ffffff&_pdd_sbs=1&group_order_id='
 export const getOrderData = async (orderId: string) => {
-  console.log(process.env.PDD_URL)
   const url = (process.env.PDD_URL || PDD_URL) + orderId
-  console.log(url)
   const response = await fetch(url, {
     headers: {
       "accept-encoding": "gzip, deflate, br",
@@ -82,5 +80,3 @@ export const getOrderData = async (orderId: string) => {
 
 };
 
-// https://mobile.yangkeduo.com/pincard_ask.html?__rp_name=brand_amazing_price_group&_pdd_tc=ffffff&_pdd_sbs=1&group_order_id=2154318300507153606
-// https://mobile.yangkeduo.com/pincard_ask.html?__rp_name=brand_amazing_price_group&_pdd_tc=ffffff&_pdd_sbs=1&group_order_id=2154318300507153606

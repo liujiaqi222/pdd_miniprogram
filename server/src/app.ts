@@ -23,12 +23,6 @@ connectDB(process.env.MONGO_URI!).then(async() => {
     console.log(` running at http://localhost:4000`);
   });
 
-
-  const fetchResult = await getOrderData('2154149291079262014')
-  if (fetchResult) {
-    const saveResult = await saveOrderData(fetchResult)
-  }
-
 }).catch(err => {
   console.log(err)
 })
