@@ -1,9 +1,11 @@
 .container {
   padding: 0.5rem;
-  height: 90vh;
+  height: 95vh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  overflow: hidden;
+  position: relative;
   .tips {
     border: 1px solid #e7a239;
     border-radius: 0.2rem;
@@ -18,16 +20,51 @@
   .upload {
     margin-top: 0.5rem;
 
-    .uploadText {
-      color: #444;
-      font-size: 0.8rem;
+    .uploadTip {
+      display: flex;
+      gap: 0.2rem;
+      .uploadText {
+        color: #444;
+        font-size: 0.8rem;
+      }
     }
+  }
+  .modal {
+    position: absolute;
+    background: white;
+    height: 45vh;
+    bottom: 0;
+    inset-inline: 0;
+    padding: 0.5rem;
+    z-index: 2;
+    transition: bottom 0.3s linear;
+    &.close{
+      bottom: -100vh;
+    }
+    .modalContent {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      .title {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+    }
+  }
+  .mask{
+    background: #000;
+    opacity: 0.5;
+    z-index: 1;
+    inset: 0;
+    position: absolute;
   }
 }
 
 .text {
   color: #555;
   font-size: 0.8rem;
+  display: flex;
 }
 
 .uploadBtn {
@@ -52,3 +89,4 @@
   width: 1rem;
   height: 1rem;
 }
+
