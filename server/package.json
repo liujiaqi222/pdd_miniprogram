@@ -1,9 +1,10 @@
 {
   "scripts": {
+    "start": "tsc && node ./dist/app.js",
     "dev": "nodemon ./src/app.ts",
-    "build": "tsc",
-    "serve": "node ./dist/app.js"
+    "build": "tsc"
   },
+  "main": "dist/app.js",
   "type": "module",
   "dependencies": {
     "dotenv": "^16.0.3",
