@@ -19,8 +19,8 @@ app.use(notFound)
 app.use(errorHandlerMiddleWare)
 
 connectDB(process.env.MONGO_URI!).then(async() => {
-  app.listen(4000, () => {
-    console.log(` running at http://localhost:4000`);
+  app.listen(3000, () => {
+    console.log(` running at http://localhost:3000`);
   });
 
 }).catch(err => {
