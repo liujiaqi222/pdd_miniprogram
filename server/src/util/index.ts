@@ -1,5 +1,4 @@
 import https from 'https';
-import fs from 'fs/promises'
 import http from 'http'
 import type { ReverseResult, PddData } from '../types/index.js'
 import nodeFetch from 'node-fetch';
@@ -76,9 +75,7 @@ export const getOrderData = async (orderId: string) => {
 
   if (!matchedResult || !matchedResult[0].length) return false
   const pddData: PddData = JSON.parse(matchedResult[0])
-  fs.writeFile('test.html', matchedResult)
 
-  console.log(pddData.store.goodsInfo)
   return pddData.store
 
 };
