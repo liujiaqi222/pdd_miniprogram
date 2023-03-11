@@ -2,6 +2,7 @@ import https from 'https';
 import fs from 'fs/promises'
 import http from 'http'
 import type { ReverseResult, PddData } from '../types/index.js'
+import nodeFetch from 'node-fetch';
 
 
 export function reverseShortUrl(url: string): ReverseResult {
@@ -60,6 +61,8 @@ export const isValidUrl = (url: string): false | string => {
 
 const PDD_URL = 'https://mobile.yangkeduo.com/pincard_ask.html?__rp_name=brand_amazing_price_group&_pdd_tc=ffffff&_pdd_sbs=1&group_order_id='
 export const getOrderData = async (orderId: string) => {
+  // 如果fetch不存在，使用node-fetch
+  const fetch = globalThis.fetch || nodeFetch
   const url = (process.env.PDD_URL || PDD_URL) + orderId
   const response = await fetch(url, {
     headers: {
