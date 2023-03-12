@@ -4,7 +4,7 @@ $text-darker: #2563eb;
 .list {
   display: flex;
   flex-direction: column;
-  gap: 0.7rem;
+  gap: 0.5rem;
   overflow-y: scroll;
   height: calc(100vh - 5rem);
   .card-container {
@@ -19,18 +19,23 @@ $text-darker: #2563eb;
     gap: 1.5rem;
     color: #555;
     padding: 0.5rem;
+    padding-bottom: 0.2rem;
     position: relative;
-    .custom-number{
-      position: absolute;
-    }
 
     .img-container {
-      width: 4rem;
-      height: 4rem;
-      border-radius: 0.5rem;
       .goods-img {
         width: 5rem;
+        padding-top: 0.8rem;
         height: 5rem;
+        border-radius: 0.5rem;
+      }
+      .custom-number {
+        position: absolute;
+        font-size: 0.7rem;
+        background: $text-darker;
+        color: white;
+        border-radius: 0.4rem;
+        padding: 0.1rem 0.4rem;
       }
     }
     .price-container {
@@ -60,13 +65,17 @@ $text-darker: #2563eb;
       }
       .btn {
         background-color: $text-darker;
-        color:#fff;
-        padding: 0.5rem ;
+        color: #fff;
+        padding: 0.5rem;
         border-radius: 0.5rem;
         box-sizing: border-box;
         cursor: pointer;
         height: 2rem;
       }
     }
+  }
+  .tipText {
+    text-align: center;
+    font-size: small;
   }
 }

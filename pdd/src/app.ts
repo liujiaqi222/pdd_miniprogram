@@ -9,8 +9,7 @@ class App extends Component<PropsWithChildren> {
 
   componentDidHide() { }
 
-  onLaunch(options) {
-    console.log(options)
+  onLaunch() {
   }
   render() {
     // this.props.children 是将要会渲染的页面

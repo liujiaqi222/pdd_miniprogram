@@ -35,13 +35,15 @@ export const getAllOrders = async (req: Request, res: Response) => {
   res.json(result)
 }
 
-
 export const createNewGroup = async (req: Request, res: Response) => {
-  const { url } = req.body
-  if (!url) return res.json({ message: 'URL错误', success: false })
-  const reverseUrlResult = await reverseShortUrl(url)
-  if (!reverseUrlResult.success) return res.json({ message: 'URL错误', success: false })
-  const orderId = isValidUrl(reverseUrlResult.longUrl)
+  let { url, longUrl } = req.body
+  if (!url && !longUrl) return res.json({ message: 'URL不存在！', success: false })
+  if (url) {
+    const reverseUrlResult = await reverseShortUrl(url)
+    if (!reverseUrlResult.success) return res.json({ message: 'URL错误', success: false })
+    longUrl = reverseUrlResult.longUrl
+  }
+  const orderId = isValidUrl(longUrl)
   if (!orderId) return res.json({ message: 'URL错误', success: false })
   const fetchResult = await getOrderData(orderId)
   if (!fetchResult) return res.json({ message: 'URL错误', success: false })
@@ -51,9 +53,16 @@ export const createNewGroup = async (req: Request, res: Response) => {
   res.json(saveResult)
 }
 
+export const deleteGroup = async (req: Request, res: Response) => {
+  const { groupOrderId } = req.body
+  if (!groupOrderId) return res.json({ message: 'groupOrderId不存在', success: false })
 
-const fetchResult = await getOrderData('2154318300507153606')
-if (fetchResult) {
+  const result = await Order.deleteOne({ groupOrderId }).exec()
+  res.json({
+    success: true,
+    data: result
+  })
 
-  const saveResult = await saveOrderData(fetchResult)
 }
+
+

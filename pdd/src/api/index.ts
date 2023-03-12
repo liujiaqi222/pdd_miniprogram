@@ -1,10 +1,6 @@
 import { request, addInterceptor, interceptors, RequestTask } from "@tarojs/taro";
 
-
-
-
 addInterceptor(interceptors.timeoutInterceptor)
-
 
 export type OrderData = {
   goodsName: string, // 商品名称

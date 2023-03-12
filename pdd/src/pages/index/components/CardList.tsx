@@ -2,12 +2,10 @@ import { useEffect, useState } from "react";
 import { getSystemInfoSync, showLoading, hideLoading } from "@tarojs/taro";
 import { ScrollView, type BaseEventOrig, type ScrollViewProps } from '@tarojs/components'
 import { useOrderSearch } from "../hooks/useOrderSearch";
-
 import Card from './Card'
 import { type OrderParams } from "../../../api";
 import styles from './styles.module.scss'
 
-// 待优化，应该放在store里面
 const phoneInfo = getSystemInfoSync()
 const remWidth = phoneInfo.windowWidth / 20
 
@@ -37,6 +35,8 @@ const CardList = ({ searchKey, listType }: Required<OrderParams>) => {
   return (
     <ScrollView scrollY enableFlex scrollWithAnimation className={styles.list} onScroll={(e) => handleScroll(e)}>
       {orders.map((order) => <Card order={order} key={order.groupOrderId} />)}
+      <div className={styles.tipText}>无更多拼单信息</div>
+
     </ScrollView>
   )
 }

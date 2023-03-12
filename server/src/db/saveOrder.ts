@@ -3,10 +3,16 @@ import { Order } from '../models/order.js';
 
 
 
-export const saveOrderData = async (pddData: PddData['store'])=> {
+export const saveOrderData = async (pddData: PddData['store']) => {
   const { goodsInfo, groupInfo, endTimeMs } = pddData || {}
   const { goodsId, hdThumbUrl, goodsName, linkUrl, activityPrice, originPrice, brandName } = goodsInfo || {}
   const { customerNum, groupStatus, groupUserList, groupOrderId, groupRemainCount } = groupInfo || {}
+
+  if (groupRemainCount === 0 || groupStatus !== 0) return {
+    success: false,
+    message: '该拼单已经结束'
+  }
+
   const res = await Order.create({
     goodsId, hdThumbUrl, goodsName, linkUrl, activityPrice, originPrice, brandName,
     customerNum, expireTime: endTimeMs, groupStatus, groupUserList, groupOrderId, groupRemainCount

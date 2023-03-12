@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react'
-import { switchTab } from '@tarojs/taro'
+import { switchTab, usePullDownRefresh } from '@tarojs/taro'
 import { View, Text, Input, Image } from '@tarojs/components'
 import CardList from './components/CardList';
 import createSvg from '../../assets/create.svg'
@@ -14,6 +14,11 @@ function Index() {
   function handleSearch() {
     setSearchKey(inputRef.current?.value || '')
   }
+  usePullDownRefresh(() => {
+    setSearchKey('')
+    inputRef.current!.value = ''
+  })
+
   return (
     <View className={styles.container} >
       <View className={styles['util-container']}>
