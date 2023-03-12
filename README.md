@@ -6,6 +6,14 @@
 
 ## 技术栈
 
+运行：
+
+```bash
+npm run install 
+npm run dev
+npm run build
+```
+
 ### 前端
 
 react + taro.js + ts
@@ -15,26 +23,17 @@ react + taro.js + ts
 这次我没有用tailwindcss，因为有同事说我已经不会写原生的css了，确实是忘记了一些属性。但是用scss+css module写css真是太痛苦了，比如想class的名称，还有css和html是在2个文件中编写都是很麻烦的。
 
 ```bash
-# 运行
-npm i 
-npm run dev
-```
+
 
 ### 后端
 
 node + express + ts + mongodb
 
-```bash
-# 运行
-npm i 
-npm run dev
-```
 
-目前还没有配eslint那些哈哈，我有点懒。
+
 
 ## 未来优化
 
 1. 增加`我的`页面，用户可以登录后，然后统计历史拼单数据
-2. 改成monorepo
 
 
