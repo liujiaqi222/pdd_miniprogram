@@ -7,14 +7,21 @@ $text-darker: #2563eb;
   gap: 0.5rem;
   overflow-y: scroll;
   height: calc(100vh - 5rem);
-  .card-container {
+
+  .tipText {
+    text-align: center;
+    font-size: small;
+  }
+}
+
+ .card-container {
     background: #fff;
     border-radius: 0.5rem;
     font-size: 0.8rem;
     height: 6rem;
     margin-bottom: 1rem;
-    box-shadow: 0 1px 3px 0 rgb(255, 255, 255/ 0.1),
-      0 1px 2px -1px rgb(255, 255, 255/ 0.1);
+     box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1),
+      0 4px 6px -4px rgb(0 0 0 / 0.1);
     display: flex;
     gap: 1.5rem;
     color: #555;
@@ -36,6 +43,8 @@ $text-darker: #2563eb;
         color: white;
         border-radius: 0.4rem;
         padding: 0.1rem 0.4rem;
+        box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1),
+          0 1px 2px -1px rgb(0 0 0 / 0.1);
       }
     }
     .price-container {
@@ -74,8 +83,3 @@ $text-darker: #2563eb;
       }
     }
   }
-  .tipText {
-    text-align: center;
-    font-size: small;
-  }
-}

@@ -8,23 +8,24 @@ export const useOrderSearch = (searchKey: string, listType: 'shortOne' | 'newGro
   const [orders, setOrders] = useState<OrderData[]>([])
   const [hasMore, setHasMore] = useState(true)
   const [error, setError] = useState('')
-  console.log(searchKey, listType, pageNumber)
+
   useEffect(() => {
     setLoading(true)
     getOrders({ searchKey, listType }, pageNumber).then(res => {
       const { data } = res
       setHasMore(data.length === 0 ? false : true)
-      console.log(data)
       setOrders(pre => [...pre, ...data])
       setLoading(false)
     }).catch(err => {
       setLoading(false)
       setError(err)
     })
-  }, [pageNumber, searchKey, listType])
+  }, [listType, pageNumber, searchKey])
   // 如果searchKey发生了变化，清空数据
   useEffect(() => {
     setOrders([])
+    console.log('changed, clear orders')
   }, [searchKey, listType])
+
   return { orders, loading, hasMore, error }
 }

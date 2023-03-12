@@ -1,10 +1,11 @@
 import styles from './styles.module.scss'
 import { type OrderData } from "../../../api";
 
-const Card = ({ order }: { order: OrderData }) => {
+const Card = ({ order, onClick }: { order: OrderData,onClick?:()=>void }) => {
   const { goodsName, hdThumbUrl, customerNum, activityPrice, originPrice, groupRemainCount } = order
+
   return (
-    <div className={styles['card-container']}>
+    <div className={styles['card-container']} onClick={onClick}>
       <div className={styles['img-container']}>
         <span className={styles['custom-number']}>{customerNum}人团</span>
         <img className={styles['goods-img']} src={hdThumbUrl} alt="" />

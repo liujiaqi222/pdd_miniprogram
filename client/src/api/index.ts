@@ -16,7 +16,7 @@ export type OrderData = {
   expireTime: Date,
   groupUserList: { avatar: string }[], //拼单的用户头像
   groupRemainCount: number, // 还差几个人成团
-  groupOrderId: number
+  groupOrderId: string
 }
 
 
