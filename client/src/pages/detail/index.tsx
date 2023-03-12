@@ -24,7 +24,7 @@ const OrderDetail = () => {
     <div className={styles.container}>
       <Card order={order!} />
       <div className={styles.info}>
-        <div className={styles.text}>拼团到期时间：{new Date(order?.expireTime || '').toLocaleString('zh-cn', { hour12: false })}</div>
+        <div className={styles.text}>拼团到期时间：{new Date(order?.expireTime || '').toLocaleString('zh-CN', { hour12: false })}</div>
         <div className={styles.text}>目前还差：{order?.groupRemainCount} 人</div>
         {
           order?.groupUserList.length && (

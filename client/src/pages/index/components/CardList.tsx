@@ -13,8 +13,6 @@ const remWidth = phoneInfo.windowWidth / 20
 // 每个盒子的高度是6rem小程序：1rem = 屏幕的宽度除以20
 const CardList = ({ searchKey, listType }: Required<OrderParams>) => {
   const [pageNumber, setPageNumber] = useState(0);
-  console.log('refreshKey fuck')
-
   const { orders, loading, hasMore } = useOrderSearch(searchKey, listType, pageNumber)
   if (loading) {
     showLoading({ title: '加载中' })
@@ -24,7 +22,7 @@ const CardList = ({ searchKey, listType }: Required<OrderParams>) => {
   }
   useEffect(() => {
     setPageNumber(0)
-  }, [searchKey])
+  }, [searchKey,listType])
 
   function handleScroll(e: BaseEventOrig<ScrollViewProps.onScrollDetail>) {
     if (loading || !hasMore) return

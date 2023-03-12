@@ -18,7 +18,7 @@ $text-darker: #2563eb;
       gap: 0.4rem;
       background-color: #409eff;
       color: #fff;
-      padding: 0.5rem 1rem;
+      padding: 1.5rem;
       border-radius: 0.5rem;
       box-sizing: border-box;
       box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1),
@@ -37,7 +37,7 @@ $text-darker: #2563eb;
     gap: 1rem;
     .userList {
       display: flex;
-      align-items: start;
+      align-items: flex-start;
       gap: 0.5rem;
 
       .avatar {
