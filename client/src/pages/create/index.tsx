@@ -54,7 +54,7 @@ export default function User() {
         </div>
         <div className={styles.upload}>
           <div className={styles.uploadTip}>
-            <span className={styles.uploadText}>上传拼团分享图片</span>
+            <span className={styles.text}>上传拼团分享图片</span>
             <img src={questionSvg} alt="" className={styles.svg}
               onClick={(e) => { e.stopPropagation(); setShowModal(pre => !pre) }}
             />
