@@ -15,7 +15,8 @@ export default defineAppConfig({
     selectedColor: "#cc0000",
     list:[
       {pagePath: "pages/index/index", text: "首页",},
-      {pagePath: "pages/create/index", text: "我的",},
+      {pagePath: "pages/create/index", text: "发布",},
+      
     ]
   }
 })

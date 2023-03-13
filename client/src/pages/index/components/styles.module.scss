@@ -14,72 +14,72 @@ $text-darker: #2563eb;
   }
 }
 
- .card-container {
-    background: #fff;
-    border-radius: 0.5rem;
-    font-size: 0.8rem;
-    height: 6rem;
-    margin-bottom: 1rem;
-     box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1),
-      0 4px 6px -4px rgb(0 0 0 / 0.1);
-    display: flex;
-    gap: 1.5rem;
-    color: #555;
-    padding: 0.5rem;
-    padding-bottom: 0.2rem;
-    position: relative;
+.card-container {
+  background: #fff;
+  border-radius: 0.5rem;
+  font-size: 0.9rem;
+  height: 6rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  display: flex;
+  gap: 1.5rem;
+  color: #444;
+  padding: 0.5rem;
+  padding-bottom: 0.4rem;
+  position: relative;
 
-    .img-container {
-      .goods-img {
-        width: 5rem;
-        padding-top: 0.8rem;
-        height: 5rem;
-        border-radius: 0.5rem;
-      }
-      .custom-number {
-        position: absolute;
-        font-size: 0.7rem;
-        background: $text-darker;
-        color: white;
-        border-radius: 0.4rem;
-        padding: 0.1rem 0.4rem;
-        box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1),
-          0 1px 2px -1px rgb(0 0 0 / 0.1);
-      }
+  .img-container {
+    .goods-img {
+      width: 5rem;
+      padding-top: 0.8rem;
+      height: 5rem;
+      border-radius: 0.5rem;
     }
-    .price-container {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 1rem;
-      .price {
-        display: flex;
-        gap: 1rem;
-        .goods-price {
-          &.current {
-            color: $text-active;
-          }
-          text-align: center;
-          .wrapper {
-            display: flex;
-            align-items: center;
-            .number {
-              font-size: 1rem;
-            }
-          }
-          .price-type {
-            font-size: 0.7rem;
-            text-align: center;
-          }
-        }
-      }
-      .btn {
-        background-color: $text-darker;
-        color: #fff;
-        padding: 0.5rem;
-        border-radius: 0.5rem;
-        box-sizing: border-box;
-        cursor: pointer;
-        height: 2rem;
-      }
+    .custom-number {
+      position: absolute;
+      font-size: 0.7rem;
+      background: $text-darker;
+      color: white;
+      border-radius: 0.4rem;
+      padding: 0.1rem 0.4rem;
+      box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
     }
   }
+  .price-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
+    .price {
+      display: flex;
+      gap: 1rem;
+      .goods-price {
+        &.current {
+          color: $text-active;
+        }
+        text-align: center;
+        .wrapper {
+          display: flex;
+          align-items: center;
+          .number {
+            font-size: 1rem;
+          }
+        }
+        .price-type {
+          font-size: 0.8rem;
+          text-align: center;
+        }
+      }
+    }
+    .btn {
+      background-color: $text-darker;
+      color: #fff;
+      padding: 0.5rem;
+      border-radius: 0.5rem;
+      box-sizing: border-box;
+      cursor: pointer;
+      height: 2rem;
+      display: flex;
+      align-items: center;
+    }
+  }
+}

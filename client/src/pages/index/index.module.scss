@@ -48,11 +48,15 @@ $text-darker: #2563eb;
     }
   }
   .list-type {
+    margin-bottom: 0.5rem;
     .list {
-      font-size: 1rem;
-      margin-right: 0.5rem;
+      font-size: 1.2rem;
+      margin-right: 1rem;
+      transition: all 0.3s;
       &.active {
-        font-weight: 600;
+        font-weight: bold;
+        text-decoration: underline;
+        text-underline-offset: 0.4rem;
       }
     }
   }
