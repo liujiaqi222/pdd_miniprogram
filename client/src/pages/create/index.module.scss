@@ -23,10 +23,7 @@
     .uploadTip {
       display: flex;
       gap: 0.2rem;
-      .uploadText {
-        color: #444;
-        font-size: 0.8rem;
-      }
+
     }
   }
   .modal {
@@ -62,15 +59,15 @@
 }
 
 .text {
-  color: #555;
-  font-size: 0.8rem;
+  color: #444;
+  font-size: 0.9rem;
   display: flex;
 }
 
 .uploadBtn {
   display: flex;
-  margin-block: 0.5rem;
-  font-size: 0.8rem;
+  margin-block: 0.8rem;
+  font-size: 1rem;
   background-color: #3b82f6;
   color: white;
   justify-content: center;

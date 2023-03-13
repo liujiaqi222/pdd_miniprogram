@@ -12,11 +12,11 @@ export default defineAppConfig({
   },
   tabBar:{
     color: "#999",
-    selectedColor: "#cc0000",
+    selectedColor: "#3b82f6",
     list:[
-      {pagePath: "pages/index/index", text: "首页",},
-      {pagePath: "pages/create/index", text: "发布",},
-      
+      {pagePath: "pages/index/index", text: "首页",iconPath:'./assets/home.png',selectedIconPath:'./assets/home-active.png'},
+      {pagePath: "pages/create/index", text: "发布",iconPath:'./assets/post.png',selectedIconPath:'./assets/post-active.png'},
+
     ]
   }
 })
