@@ -20,8 +20,6 @@ function Index() {
     setRefreshKey(prev => prev + 1)
   })
 
-
-
   return (
     <View className={styles.container} >
       <View className={styles['util-container']}>

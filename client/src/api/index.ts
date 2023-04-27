@@ -24,23 +24,23 @@ export type OrderParams = { searchKey?: string, listType?: 'shortOne' | 'newGrou
 
 export function getOrders(query?: { searchKey?: string, listType?: 'shortOne' | 'newGroup' }, currentPage?: number): RequestTask<OrderData[]> {
   return request({
-    url: `http://192.168.1.3:4000/api/v1/orders/`,
+    url: `http://192.168.101.6:4000/api/v1/orders/`,
     method: "GET",
     data: {
-      goodsName: query?.searchKey || '',
+      goodsName: query?.searchKey || "",
       currentPage: currentPage || 0,
-      listType: query?.listType
-    }
-  })
+      listType: query?.listType,
+    },
+  });
 }
 
 
 export function createNewGroup(url: string) {
   return request({
-    url: `http://192.168.1.3:4000/api/v1/orders/`,
+    url: ` http://192.168.101.6:4000/api/v1/orders/`,
     method: "POST",
     data: {
-      url
-    }
-  })
+      url,
+    },
+  });
 }

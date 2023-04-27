@@ -21,6 +21,7 @@ react + taro.js + ts
 进度：100%
 
 这次我没有用tailwindcss，因为有同事说我已经不会写原生的css了，确实是忘记了一些属性。但是用scss+css module写css真是太痛苦了，比如想class的名称，还有css和html是在2个文件中编写都是很麻烦的。
+我是百分之一万后悔没有使用tailwind
 
 
 

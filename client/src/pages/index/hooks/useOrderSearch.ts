@@ -12,6 +12,7 @@ export const useOrderSearch = (searchKey: string, listType: 'shortOne' | 'newGro
   useEffect(() => {
     setLoading(true)
     getOrders({ searchKey, listType }, pageNumber).then(res => {
+      console.log(res,'result')
       const { data } = res
       setHasMore(data.length === 0 ? false : true)
       setOrders(pre => [...pre, ...data])
@@ -24,7 +25,6 @@ export const useOrderSearch = (searchKey: string, listType: 'shortOne' | 'newGro
   // 如果searchKey发生了变化，清空数据
   useEffect(() => {
     setOrders([])
-    console.log('changed, clear orders')
   }, [searchKey, listType])
 
   return { orders, loading, hasMore, error }
