@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { getOrders, OrderData } from "../../../api";
+import { getOrders,  } from "../../../api";
+import { OrderData } from "../../../api/types";
 
 type OrderSearchReturn = { orders: OrderData[], loading: boolean, hasMore: boolean, error: any }
 

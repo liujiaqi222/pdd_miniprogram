@@ -17,7 +17,7 @@ function Index() {
   usePullDownRefresh(() => {
     setSearchKey('')
     inputRef.current!.value = ''
-    setRefreshKey(prev => prev + 1)
+    setRefreshKey(prev => prev + 1) // 用于刷新组件
   })
 
   return (

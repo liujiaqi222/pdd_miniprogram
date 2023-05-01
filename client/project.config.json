@@ -2,7 +2,7 @@
   "miniprogramRoot": "./dist",
   "projectname": "pdd",
   "description": "拼多多拼团小程序",
-  "appid": "touristappid",
+  "appid": "wx411044d35cbe38b0",
   "setting": {
     "urlCheck": true,
     "es6": false,

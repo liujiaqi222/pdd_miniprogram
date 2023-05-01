@@ -3,7 +3,7 @@ import { getSystemInfoSync, showLoading, hideLoading, stopPullDownRefresh, navig
 import { ScrollView, type BaseEventOrig, type ScrollViewProps } from '@tarojs/components'
 import { useOrderSearch } from "../hooks/useOrderSearch";
 import Card from './Card'
-import { type OrderParams,OrderData } from "../../../api";
+import { type OrderParams,OrderData } from "../../../api/types";
 import styles from './styles.module.scss'
 
 const phoneInfo = getSystemInfoSync()
@@ -33,7 +33,7 @@ const CardList = ({ searchKey, listType }: Required<OrderParams>) => {
   }
   const handleClick = (order: OrderData) => {
     navigateTo({
-      url: '/pages/detail/index',
+      url: '/pages/index/detail/index',
       success: (res) => {
         res.eventChannel.emit('order', order)
       }

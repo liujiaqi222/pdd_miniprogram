@@ -32,6 +32,7 @@ export const getAllOrders = async (req: Request, res: Response) => {
   }
   console.log(req.query)
   const result = await Order.find(queryObject).limit(pageSize).skip(pageSize * Number(currentPage) || 0).sort('-createdAt').exec()
+  console.log(result)
   res.json(result)
 }
 

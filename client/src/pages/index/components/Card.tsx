@@ -1,5 +1,5 @@
 import styles from './styles.module.scss'
-import { type OrderData } from "../../../api";
+import { type OrderData } from "../../../api/types";
 
 const Card = ({ order, onClick }: { order: OrderData,onClick?:()=>void }) => {
   const { goodsName, hdThumbUrl, customerNum, activityPrice, originPrice, groupRemainCount } = order
