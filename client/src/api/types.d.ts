@@ -9,7 +9,7 @@ export type OrderData = {
   groupSize: string;
   groupStatus: number; // 0: 拼团中, 1: 拼团成功
   customerNum: string; // 几人团
-  expireTime: Date;
+  expireTime: string;
   groupUserList: { avatar: string }[]; //拼单的用户头像
   groupRemainCount: number; // 还差几个人成团
   groupOrderId: string;

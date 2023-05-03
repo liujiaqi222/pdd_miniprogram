@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { Order, ExpiredOrder } from "../models/order.js";
 import { User } from "../models/user.js";
 
 export const wxLogin = async (req: Request, res: Response) => {
@@ -27,4 +28,26 @@ export const wxLogin = async (req: Request, res: Response) => {
     .catch((err) => {
       console.log(err);
     });
+};
+
+export const getUserOrders = async (req: Request, res: Response) => {
+  const openId = req.params.openId;
+  if (!openId) {
+    return res.json({ message: "未提供openId", data: [], success: false });
+  }
+  const user = await User.findOne({ openId: openId }).exec();
+  if (!user)
+    return res.json({ message: "用户不存在", data: [], success: false });
+  // 需要优化，目前是全量查询
+  const currentOrders = await Order.find({ user: user._id }).sort({
+    createdAt:-1,
+  });
+  const expiredOrders = await ExpiredOrder.find({ user: user._id }).sort({
+    createdAt: -1,
+  });
+  res.json({
+    message: "查询成功",
+    data: [...currentOrders, ...expiredOrders],
+    success: true,
+  });
 };

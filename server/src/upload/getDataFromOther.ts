@@ -9,7 +9,6 @@ const options = {
     authorization: "ov7Pv5FLeiMVRP3YGollHGhBruOw",
   },
 };
-// 没错从别人的小程序里爬数据
 export const uploadOrderData = async () => {
   let page = 1;
   while (true) {
@@ -23,7 +22,6 @@ export const uploadOrderData = async () => {
       }
       for await (const { url } of data) {
         if (!url) continue;
-
         const res = await fetch("http://localhost:4000/api/v1/orders/byId", {
           method: "POST",
           headers: {
@@ -41,4 +39,3 @@ export const uploadOrderData = async () => {
     }
   }
 };
-

@@ -1,6 +1,6 @@
 import Taro from "@tarojs/taro";
 import { useState } from "react";
-import { getOpenId } from "../../../api";
+import { getOpenId } from "../api";
 
 /**@description 登录  */
 const login = async () => {

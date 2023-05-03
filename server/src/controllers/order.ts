@@ -47,7 +47,8 @@ export const getAllOrders = async (req: Request, res: Response) => {
 
 // 可以根据拼多多拼团二维码识别后的短url创建新的拼单,这个接口给前端调用
 export const createNewGroup = async (req: Request, res: Response) => {
-  const url = req.body.url;
+  const { url, openId } = req.body;
+  console.log(url,openId,'用户上传的短链')
   if (!url) return res.json({ message: "URL不存在！", success: false });
   const reverseUrlResult = await reverseShortUrl(url);
   if (!reverseUrlResult.success)
@@ -62,7 +63,7 @@ export const createNewGroup = async (req: Request, res: Response) => {
   if (isExist) return res.json({ message: "该拼单已存在", success: false });
   const fetchResult = await getOrderData(validateUrlResult.orderId);
   if (!fetchResult) return res.json({ message: "URL错误", success: false });
-  const saveResult = await saveOrderData(fetchResult).catch(() => {
+  const saveResult = await saveOrderData(fetchResult, openId).catch(() => {
     res.json({ success: false, message: "上传失败！" });
   });
   res.json(saveResult);
@@ -70,7 +71,7 @@ export const createNewGroup = async (req: Request, res: Response) => {
 
 // 根据groupOrderId或者原始url创建新的拼单，这个接口方便我上传新的拼单
 export const createNewGroupByOrderId = async (req: Request, res: Response) => {
-  let { groupOrderId, longUrl } = req.body;
+  let { groupOrderId, longUrl, openId } = req.body;
   if (!groupOrderId && !longUrl) {
     return res.json({ message: "groupOrderId和url不存在", success: false });
   }
@@ -81,13 +82,12 @@ export const createNewGroupByOrderId = async (req: Request, res: Response) => {
     }
     groupOrderId = validateUrlResult.orderId;
   }
-  console.log(groupOrderId)
   const isExist = await Order.findOne({ groupOrderId }).exec();
   if (isExist)
     return res.json({ message: "groupOrderId已存在", success: false });
   const fetchResult = await getOrderData(groupOrderId);
   if (!fetchResult) return res.json({ message: "URL错误", success: false });
-  const saveResult = await saveOrderData(fetchResult).catch(() => {
+  const saveResult = await saveOrderData(fetchResult, openId).catch(() => {
     res.json({ success: false, message: "上传失败！" });
   });
   res.json(saveResult);

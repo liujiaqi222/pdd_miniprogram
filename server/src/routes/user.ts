@@ -1,8 +1,10 @@
 import express from "express";
-import { wxLogin } from "../controllers/user.js";
+import { wxLogin, getUserOrders } from "../controllers/user.js";
 
 const router = express.Router();
 
-router.route("/login").get(wxLogin);
+router.get("/login",wxLogin);
+router.get("/orders/:openId", getUserOrders);
+
 
 export default router;

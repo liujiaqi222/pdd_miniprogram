@@ -27,12 +27,13 @@ export const getOrders = (
 };
 
 // 创建新拼单
-export const createNewGroup = (url: string) => {
+export const createNewGroup = (url: string, openId: string) => {
   return request({
-    url: ` ${urlPrefix}/orders/`,
+    url: `${urlPrefix}/orders/`,
     method: "POST",
     data: {
       url,
+      openId,
     },
   });
 };
@@ -50,4 +51,12 @@ export const getOpenId = (
   });
 };
 
-
+// 获取用户名下的拼单
+export const getMyOrders = (
+  openId: string
+): RequestTask<{ success: boolean; message: string; data: OrderData[] }> => {
+  return request({
+    url: `${urlPrefix}/user/orders/${openId}`,
+    method: "GET",
+  });
+};
