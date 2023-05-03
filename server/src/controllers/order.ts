@@ -41,7 +41,6 @@ export const getAllOrders = async (req: Request, res: Response) => {
     .skip(pageSize * Number(currentPage) || 0)
     .sort("-createdAt")
     .exec();
-  console.log(result);
   res.json(result);
 };
 
