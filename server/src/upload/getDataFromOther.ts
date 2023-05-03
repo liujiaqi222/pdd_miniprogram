@@ -10,7 +10,7 @@ const options = {
   },
 };
 // 没错从别人的小程序里爬数据
-const getOrderData = async () => {
+export const uploadOrderData = async () => {
   let page = 1;
   while (true) {
     try {
@@ -42,4 +42,3 @@ const getOrderData = async () => {
   }
 };
 
-getOrderData();

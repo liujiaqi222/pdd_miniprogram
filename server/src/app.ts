@@ -6,6 +6,7 @@ import { notFound } from "./errors/not-found.js";
 import { errorHandlerMiddleWare } from "./errors/error-handler.js";
 import orderRoute from "./routes/order.js";
 import userRoute from "./routes/user.js";
+import "./cron/index.js";
 
 dotenv.config();
 
@@ -25,3 +26,5 @@ connectDB(process.env.MONGO_URI!)
   .catch((err) => {
     console.log(err);
   });
+
+
