@@ -8,7 +8,7 @@ import { OrderData, OrderParams } from "./types";
 
 addInterceptor(interceptors.timeoutInterceptor);
 
-const urlPrefix = "http://192.168.101.6:4000/api/v1";
+const urlPrefix = "http://localhost:4000/api/v1";
 
 // 获取拼单列表
 export const getOrders = (
@@ -42,7 +42,7 @@ export const getOpenId = (
   code: string
 ): RequestTask<{ openid: string; session_key: string }> => {
   return request({
-    url: `${urlPrefix}/login/`,
+    url: `${urlPrefix}/user/login`,
     method: "GET",
     data: {
       code,

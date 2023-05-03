@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { User } from "../models/user.js";
 
 export const wxLogin = async (req: Request, res: Response) => {
   const { code } = req.query as { code: string };
@@ -8,6 +9,22 @@ export const wxLogin = async (req: Request, res: Response) => {
   const url = `https://api.weixin.qq.com/sns/jscode2session?appid=${process.env.APPID}&secret=${process.env.WX_SECRET}&js_code=${code}&grant_type=authorization_code`;
   const result = await fetch(url);
   const data = await result.json();
-  console.log(data);
+  const { openid, session_key } = data;
+  if (!openid || !session_key) return res.status(400).json(data);
   res.status(200).json(data);
+  // 根据openid用户是否存在，不存在则创建用户
+  User.findOneAndUpdate(
+    { openId: openid },
+    {
+      $setOnInsert: {
+        openId: openid,
+        sessionKey: session_key,
+      },
+    },
+    { upsert: true }
+  )
+    .exec()
+    .catch((err) => {
+      console.log(err);
+    });
 };
