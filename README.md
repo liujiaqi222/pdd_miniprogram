@@ -24,19 +24,19 @@
 
 查看拼单界面：
 
-<img src="https://raw.githubusercontent.com/liujiaqi222/warehouse/main/image-20230503233003395.png" alt="image-20230503233003395" style="zoom: 33%;" />
+<img src="https://raw.githubusercontent.com/liujiaqi222/warehouse/main/image-20230503233003395.png" alt="image-20230503233003395" style="width: 33%;" />
 
 发布界面：
 
-<img src="https://raw.githubusercontent.com/liujiaqi222/warehouse/main/image-20230503233141521.png" alt="image-20230503233141521" style="zoom:33%;" />
+<img src="https://raw.githubusercontent.com/liujiaqi222/warehouse/main/image-20230503233141521.png" alt="image-20230503233141521" style="width:33%;" />
 
 我的界面：
 
-<img src="https://raw.githubusercontent.com/liujiaqi222/warehouse/main/image-20230503233219963.png" alt="image-20230503233219963" style="zoom:33%;" />
+<img src="https://raw.githubusercontent.com/liujiaqi222/warehouse/main/image-20230503233219963.png" alt="image-20230503233219963" style="width:33%;" />
 
 查看自己发布的拼团：
 
-<img src="https://raw.githubusercontent.com/liujiaqi222/warehouse/main/image-20230503233318367.png" alt="image-20230503233318367" style="zoom: 33%;" />
+<img src="https://raw.githubusercontent.com/liujiaqi222/warehouse/main/image-20230503233318367.png" alt="image-20230503233318367" style="width: 33%;" />
 
 ## 技术栈
 
