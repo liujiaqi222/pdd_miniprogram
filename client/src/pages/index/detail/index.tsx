@@ -1,11 +1,12 @@
 import { useState } from 'react'
 import { getCurrentPages, setClipboardData, navigateToMiniProgram } from '@tarojs/taro'
-import { type OrderData } from "../../api";
-import { PDD_URL, PDD_APPID, getPddMiniProgramURL } from '../../consts';
+import { formatDate } from '../../../utils';
+import { type OrderData } from "../../../api/types";
+import { PDD_URL, PDD_APPID, getPddMiniProgramURL } from '../../../consts';
 import styles from './index.module.scss'
-import Card from '../index/components/Card'
-import pddLogo from '../../assets/pdd-logo.svg'
-import copySvg from '../../assets/copy.svg'
+import Card from '../components/Card'
+import pddLogo from '../../../assets/pdd-logo.svg'
+import copySvg from '../../../assets/copy.svg'
 
 const OrderDetail = () => {
   const [order, setOrder] = useState<OrderData | null>(null)
@@ -44,18 +45,6 @@ const OrderDetail = () => {
     </div>
 
   )
-}
-
-// 小程序不支持toLocaleString
-// 转换日期为 年/月/日 时:分:秒
-function formatDate(date: Date) {
-  const year = date.getFullYear()
-  const month = date.getMonth() + 1
-  const day = date.getDate()
-  const hour = date.getHours()
-  const minute = date.getMinutes()
-  const second = date.getSeconds()
-  return `${year}/${month}/${day} ${hour}:${minute}:${second}`
 }
 
 export default OrderDetail

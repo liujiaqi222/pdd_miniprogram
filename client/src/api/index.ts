@@ -1,46 +1,62 @@
-import { request, addInterceptor, interceptors, RequestTask } from "@tarojs/taro";
+import {
+  request,
+  addInterceptor,
+  interceptors,
+  RequestTask,
+} from "@tarojs/taro";
+import { OrderData, OrderParams } from "./types";
 
-addInterceptor(interceptors.timeoutInterceptor)
+addInterceptor(interceptors.timeoutInterceptor);
 
-export type OrderData = {
-  goodsName: string, // 商品名称
-  goodsId: number,
-  hdThumbUrl: string, // 商品图片
-  goodsImg: string,
-  activityPrice: string, // 活动价格
-  originPrice: string, // 原价
-  linkUrl: string, // 商品链接
-  groupSize: string,
-  groupStatus: number, // 0: 拼团中, 1: 拼团成功
-  customerNum: string, // 几人团
-  expireTime: Date,
-  groupUserList: { avatar: string }[], //拼单的用户头像
-  groupRemainCount: number, // 还差几个人成团
-  groupOrderId: string
-}
+const urlPrefix = "http://localhost:4000/api/v1";
 
-
-export type OrderParams = { searchKey?: string, listType?: 'shortOne' | 'newGroup' }
-
-export function getOrders(query?: { searchKey?: string, listType?: 'shortOne' | 'newGroup' }, currentPage?: number): RequestTask<OrderData[]> {
+// 获取拼单列表
+export const getOrders = (
+  query?: OrderParams,
+  currentPage?: number
+): RequestTask<OrderData[]> => {
   return request({
-    url: `http://192.168.1.3:4000/api/v1/orders/`,
+    url: `${urlPrefix}/orders/`,
     method: "GET",
     data: {
-      goodsName: query?.searchKey || '',
+      goodsName: query?.searchKey || "",
       currentPage: currentPage || 0,
-      listType: query?.listType
-    }
-  })
-}
+      listType: query?.listType,
+    },
+  });
+};
 
-
-export function createNewGroup(url: string) {
+// 创建新拼单
+export const createNewGroup = (url: string, openId: string) => {
   return request({
-    url: `http://192.168.1.3:4000/api/v1/orders/`,
+    url: `${urlPrefix}/orders/`,
     method: "POST",
     data: {
-      url
-    }
-  })
-}
+      url,
+      openId,
+    },
+  });
+};
+
+// 获取用户ID
+export const getOpenId = (
+  code: string
+): RequestTask<{ openid: string; session_key: string }> => {
+  return request({
+    url: `${urlPrefix}/user/login`,
+    method: "GET",
+    data: {
+      code,
+    },
+  });
+};
+
+// 获取用户名下的拼单
+export const getMyOrders = (
+  openId: string
+): RequestTask<{ success: boolean; message: string; data: OrderData[] }> => {
+  return request({
+    url: `${urlPrefix}/user/orders/${openId}`,
+    method: "GET",
+  });
+};
