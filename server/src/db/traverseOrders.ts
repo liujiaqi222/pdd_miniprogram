@@ -48,7 +48,8 @@ export const moveExpiredOrders = async () => {
 };
 
 export const traverseOrders = async () => {
-  const orders = await Order.find({});
+  const orders = await Order.find({ expireTime: { $gt: Date.now() } });
+
   for (const order of orders) {
     const { groupOrderId, _id } = order;
     getOrderData(groupOrderId!).then((res) => {

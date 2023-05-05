@@ -1,4 +1,10 @@
-import { scanCode, showToast, showLoading, hideLoading } from "@tarojs/taro";
+import {
+  scanCode,
+  showToast,
+  showLoading,
+  hideLoading,
+  useShareAppMessage,
+} from "@tarojs/taro";
 import { useState, useContext } from "react";
 import { OpenIdContext } from "../../context";
 import styles from "./index.module.scss";
@@ -13,6 +19,11 @@ export default function User() {
   const openId = useContext(OpenIdContext);
   const [isLoading, setIsLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  useShareAppMessage(() => {
+    return {
+      title: "百亿多人团 | 发布拼团",
+    };
+  });
   const handleUpload = () => {
     showLoading();
     scanCode({
@@ -42,7 +53,7 @@ export default function User() {
     if (isLoading) return showToast({ title: "正在发布", icon: "error" });
     setIsLoading(true);
     showLoading();
-    const res = await createNewGroup(url,openId).catch((err) => {
+    const res = await createNewGroup(url, openId).catch((err) => {
       setIsLoading(false);
       hideLoading();
     });

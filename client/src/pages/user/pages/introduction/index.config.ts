@@ -1,3 +1,3 @@
 export default definePageConfig({
-  navigationBarTitleText: "功能介绍",
+  navigationBarTitleText: "版本介绍",
 });
