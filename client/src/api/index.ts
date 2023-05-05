@@ -8,15 +8,14 @@ import { OrderData, OrderParams } from "./types";
 
 addInterceptor(interceptors.timeoutInterceptor);
 
-const urlPrefix = "http://localhost:4000/api/v1";
-
+const urlPrefix = "http://xiaobaijun.top/api/v1";
 // 获取拼单列表
 export const getOrders = (
   query?: OrderParams,
   currentPage?: number
 ): RequestTask<OrderData[]> => {
   return request({
-    url: `${urlPrefix}/orders/`,
+    url: `${process.env.URL_PREFIX}/orders/`,
     method: "GET",
     data: {
       goodsName: query?.searchKey || "",

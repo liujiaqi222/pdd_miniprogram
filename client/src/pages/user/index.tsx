@@ -8,6 +8,7 @@ import trumpetIcon from "../../assets/trumpet.svg";
 import styles from "./index.module.scss";
 
 const User = () => {
+
   useShareAppMessage(() => {
     return {
       title: "百亿多人团 | 一键参团 快速成团",
