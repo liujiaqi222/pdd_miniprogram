@@ -7,6 +7,7 @@ import {
 import { View, Text, Input, Image } from "@tarojs/components";
 import CardList from "./components/CardList";
 import createSvg from "../../assets/create.svg";
+import clearSvg from "../../assets/clear.svg";
 import styles from "./index.module.scss";
 
 function Index() {
@@ -15,7 +16,13 @@ function Index() {
   const [refreshKey, setRefreshKey] = useState(0);
   const [searchKey, setSearchKey] = useState("");
   function handleSearch() {
+    console.log();
     setSearchKey(inputRef.current?.value || "");
+  }
+
+  function handleClear() {
+    setSearchKey("");
+    inputRef.current!.value = "";
   }
   usePullDownRefresh(() => {
     setSearchKey("");
@@ -35,7 +42,18 @@ function Index() {
             placeholder="请输入关键字"
             className={styles.input}
             ref={inputRef}
+            onConfirm={handleSearch}
+            confirmType="search"
           />
+
+          {searchKey && (
+            <Image
+              onClick={handleClear}
+              src={clearSvg}
+              className={styles.clearBtn}
+            />
+          )}
+
           <View className={styles.btn} onClick={handleSearch}>
             搜索
           </View>

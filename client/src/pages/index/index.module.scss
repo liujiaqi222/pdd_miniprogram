@@ -23,8 +23,18 @@ $text-darker: #2563eb;
         padding-left: 0.6rem;
         padding-block: 0.4rem;
         background-color: white;
-        padding-right: 3.5rem;
+        padding-right: 5.5rem;
         color: #555;
+        z-index: 0;
+      }
+
+      .clearBtn {
+        width: 1.2rem;
+        height: 1.2rem;
+        z-index: 1;
+        position: absolute;
+        right: 3.5rem;
+        top: 0.5rem;
       }
       .btn {
         position: absolute;
@@ -60,5 +70,4 @@ $text-darker: #2563eb;
       }
     }
   }
-
 }

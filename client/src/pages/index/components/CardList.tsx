@@ -40,12 +40,23 @@ const CardList = ({ searchKey, listType }: Required<OrderParams>) => {
     })
   }
   return (
-    <ScrollView scrollY enableFlex scrollWithAnimation className={styles.list} onScroll={(e) => handleScroll(e)}>
-      {orders.map((order) => <Card order={order} key={order.groupOrderId} onClick={() => handleClick(order)} />)}
-      <div className={styles.tipText}>无更多拼单信息</div>
-
+    <ScrollView
+      scrollY
+      enableFlex
+      scrollWithAnimation
+      className={styles.list}
+      onScroll={(e) => handleScroll(e)}
+    >
+      {orders.map((order) => (
+        <Card
+          order={order}
+          key={order.groupOrderId}
+          onClick={() => handleClick(order)}
+        />
+      ))}
+      {!hasMore && <div className={styles.tipText}>无更多拼单信息</div>}
     </ScrollView>
-  )
+  );
 }
 
 export default CardList

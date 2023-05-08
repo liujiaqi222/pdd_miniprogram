@@ -6,11 +6,12 @@ $text-darker: #2563eb;
   flex-direction: column;
   gap: 0.5rem;
   overflow-y: scroll;
-  height: calc(100vh - 5rem);
+  height: calc(100vh - 6rem);
 
   .tipText {
     text-align: center;
     font-size: small;
+    padding-bottom: 0.2rem;
   }
 }
 
@@ -44,41 +45,45 @@ $text-darker: #2563eb;
       box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
     }
   }
-  .price-container {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 1rem;
-    .price {
+  .order-info {
+    flex:1;
+    .price-container {
       display: flex;
-      gap: 1rem;
-      .goods-price {
-        &.current {
-          color: $text-active;
-        }
-        text-align: center;
-        .wrapper {
-          display: flex;
-          align-items: center;
-          .number {
-            font-size: 1rem;
+      justify-content: space-between;
+      margin-top: 1rem;
+      .price {
+        display: flex;
+        gap: 1rem;
+        .goods-price {
+          &.current {
+            color: $text-active;
+          }
+          text-align: center;
+          .wrapper {
+            display: flex;
+            align-items: center;
+            .number {
+              font-size: 1rem;
+            }
+          }
+          .price-type {
+            font-size: 0.8rem;
+            text-align: center;
           }
         }
-        .price-type {
-          font-size: 0.8rem;
-          text-align: center;
-        }
       }
-    }
-    .btn {
-      background-color: $text-darker;
-      color: #fff;
-      padding: 0.5rem;
-      border-radius: 0.5rem;
-      box-sizing: border-box;
-      cursor: pointer;
-      height: 2rem;
-      display: flex;
-      align-items: center;
+      .btn {
+        background-color: $text-darker;
+        color: #fff;
+        padding: 0.5rem;
+        border-radius: 0.5rem;
+        box-sizing: border-box;
+        cursor: pointer;
+        height: 2rem;
+        display: flex;
+        align-items: center;
+        margin-left: auto;
+      }
     }
   }
 }

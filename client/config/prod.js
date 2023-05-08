@@ -1,6 +1,6 @@
 require("dotenv-flow").config();
 
-console.log(process.env.URL_PREFIX, "yes-propd");
+console.log(process.env.URL_PREFIX, "prod");
 module.exports = {
   env: {
     NODE_ENV: '"production"',

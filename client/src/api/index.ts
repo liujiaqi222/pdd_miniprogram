@@ -8,7 +8,7 @@ import { OrderData, OrderParams } from "./types";
 
 addInterceptor(interceptors.timeoutInterceptor);
 
-const urlPrefix = "http://xiaobaijun.top/api/v1";
+const urlPrefix = process.env.URL_PREFIX;
 // 获取拼单列表
 export const getOrders = (
   query?: OrderParams,
@@ -27,8 +27,9 @@ export const getOrders = (
 
 // 创建新拼单
 export const createNewGroup = (url: string, openId: string) => {
+  console.log(urlPrefix);
   return request({
-    url: `${urlPrefix}/orders/`,
+    url: `https://xiaobaijun.top/api/v1/orders/`,
     method: "POST",
     data: {
       url,

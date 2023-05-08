@@ -51,9 +51,10 @@ export const createNewGroup = async (req: Request, res: Response) => {
   if (!url) return res.json({ message: "URL不存在！", success: false });
   const reverseUrlResult = await reverseShortUrl(url);
   if (!reverseUrlResult.success)
-    return res.json({ message: "URL错误", success: false });
+  return res.json({ message: "URL错误", success: false });
   const longUrl = reverseUrlResult.longUrl;
   const validateUrlResult = isValidUrl(longUrl);
+  console.log(validateUrlResult,'检验的结果')
   if (!validateUrlResult.isValid)
     return res.json({ message: "URL错误", success: false });
   const isExist = await Order.findOne({
@@ -61,6 +62,7 @@ export const createNewGroup = async (req: Request, res: Response) => {
   }).exec();
   if (isExist) return res.json({ message: "该拼单已存在", success: false });
   const fetchResult = await getOrderData(validateUrlResult.orderId);
+  console.log(fetchResult)
   if (!fetchResult) return res.json({ message: "URL错误", success: false });
   const saveResult = await saveOrderData(fetchResult, openId).catch(() => {
     res.json({ success: false, message: "上传失败！" });

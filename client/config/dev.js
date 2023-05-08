@@ -1,6 +1,6 @@
 require("dotenv-flow").config();
 
-console.log(process.env.URL_PREFIX, "yes-dev");
+console.log(process.env.URL_PREFIX, "dev");
 
 module.exports = {
   env: {

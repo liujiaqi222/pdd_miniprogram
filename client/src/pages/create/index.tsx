@@ -53,7 +53,7 @@ export default function User() {
     if (isLoading) return showToast({ title: "正在发布", icon: "error" });
     setIsLoading(true);
     showLoading();
-    const res = await createNewGroup(url, openId).catch((err) => {
+    const res = await createNewGroup(url, openId).catch(() => {
       setIsLoading(false);
       hideLoading();
     });
