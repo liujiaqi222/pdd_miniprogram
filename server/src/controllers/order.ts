@@ -47,14 +47,12 @@ export const getAllOrders = async (req: Request, res: Response) => {
 // 可以根据拼多多拼团二维码识别后的短url创建新的拼单,这个接口给前端调用
 export const createNewGroup = async (req: Request, res: Response) => {
   const { url, openId } = req.body;
-  console.log(url,openId,'用户上传的短链')
   if (!url) return res.json({ message: "URL不存在！", success: false });
   const reverseUrlResult = await reverseShortUrl(url);
   if (!reverseUrlResult.success)
   return res.json({ message: "URL错误", success: false });
   const longUrl = reverseUrlResult.longUrl;
   const validateUrlResult = isValidUrl(longUrl);
-  console.log(validateUrlResult,'检验的结果')
   if (!validateUrlResult.isValid)
     return res.json({ message: "URL错误", success: false });
   const isExist = await Order.findOne({

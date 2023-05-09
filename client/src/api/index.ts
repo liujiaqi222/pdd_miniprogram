@@ -29,7 +29,7 @@ export const getOrders = (
 export const createNewGroup = (url: string, openId: string) => {
   console.log(urlPrefix);
   return request({
-    url: `https://xiaobaijun.top/api/v1/orders/`,
+    url: `${urlPrefix}/orders/`,
     method: "POST",
     data: {
       url,

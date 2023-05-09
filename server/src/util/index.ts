@@ -77,5 +77,5 @@ export const getOrderData = async (orderId: string) => {
   if (!matchedResult || !matchedResult[0].length) return false;
   const pddData: PddData = JSON.parse(matchedResult[0]);
 
-  return pddData.store;
+  return pddData?.store;
 };
