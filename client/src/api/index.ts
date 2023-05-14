@@ -5,7 +5,7 @@ import {
   RequestTask,
 } from "@tarojs/taro";
 import { pddRequest } from "../utils/index";
-import type { CouponGoodsData, OrderData, OrderParams } from "./types";
+import type { OrderData, OrderParams, CouponData } from "./types";
 
 addInterceptor(interceptors.timeoutInterceptor);
 
@@ -66,10 +66,36 @@ console.log(process.env.CLIENT_ID, process.env.CLIENT_SECRET);
 /**
  * @description 获取拼多多优惠商品信息
  * @see https://jinbao.pinduoduo.com/third-party/api-detail?apiName=pdd.ddk.goods.recommend.get
- * @param {number} offset - 从多少位置开始请求；默认值 ： 0 // 必须是limit的整数倍，limit默认是20
+ * @param {number} currentPage - 从多少位置开始请求；默认值 ： 0 // 必须是limit的整数倍，limit默认是20
  */
-export const getCouponGoods = (
-  { offset, limit } = { offset: 0, limit: 20 }
-): RequestTask<CouponGoodsData> => {
-  return pddRequest({ type: "pdd.ddk.goods.recommend.get", offset, limit });
+export const getCouponGoods = async (
+  currentPage: number
+): Promise<CouponData[]> => {
+  const res = await pddRequest({
+    type: "pdd.ddk.goods.recommend.get",
+    offset: currentPage * 20,
+    channel_type: 6,
+  });
+  if (!res) return [];
+  return res.data.goods_basic_detail_response.list;
+};
+
+/**
+ * @description 搜索商品
+ * @see https://jinbao.pinduoduo.com/third-party/api-detail?apiName=pdd.ddk.goods.search
+ */
+
+export const searchCouponGoods = async (
+  currentPage: number,
+  searchKey: string
+): Promise<CouponData[]> => {
+  const res = await pddRequest({
+    type: "pdd.ddk.goods.search",
+    keyword: searchKey,
+    offset: currentPage * 20,
+    pid: process.env.PID as string,
+    sort_type: 2,
+  }).catch();
+  if (!res) return [];
+  return res.data.goods_search_response.goods_list;
 };

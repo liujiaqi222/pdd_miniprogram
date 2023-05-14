@@ -20,20 +20,16 @@ export type OrderParams = {
   listType?: "shortOne" | "newGroup";
 };
 
-
-export type CouponGoodsData = {
-  goods_basic_detail_response: {
-    list: {
-      category_name: string;
-      goods_name: string;
-      goods_desc: string;
-      goods_thumbnail_url: string;
-      goods_image_url: string; // 商品主图
-      goods_sign: string; // https://jinbao.pinduoduo.com/qa-system?questionId=252
-      coupon_price: string;
-      min_group_price: number; // 单位分
-      min_normal_price: number; // 单位分
-      sales_tip: string; // 销售量
-    }[];
-  };
+export type CouponData = {
+  category_name: string;
+  goods_name: string;
+  goods_desc: string;
+  goods_thumbnail_url: string;
+  goods_image_url: string; // 商品主图
+  goods_sign: string; // https://jinbao.pinduoduo.com/qa-system?questionId=252
+  coupon_discount: number; // 单位分
+  min_group_price: number; // 单位分
+  min_normal_price: number; // 单位分
+  sales_tip: string; // 销售量
 };
+
