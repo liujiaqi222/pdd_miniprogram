@@ -6,6 +6,7 @@ import { notFound } from "./errors/not-found.js";
 import { errorHandlerMiddleWare } from "./errors/error-handler.js";
 import orderRoute from "./routes/order.js";
 import userRoute from "./routes/user.js";
+import pddRoute from "./routes/pdd.js";
 import "./cron/index.js";
 
 dotenv.config();
@@ -14,6 +15,8 @@ const app: Express = express();
 app.use(express.json());
 app.use("/api/v1/orders", orderRoute);
 app.use("/api/v1/user", userRoute);
+app.use("/api/v1/pdd", pddRoute);
+
 app.use(notFound);
 app.use(errorHandlerMiddleWare);
 

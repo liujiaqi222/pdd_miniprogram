@@ -1,32 +1,22 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import {
   switchTab,
   usePullDownRefresh,
   useShareAppMessage,
 } from "@tarojs/taro";
-import { View, Text, Input, Image } from "@tarojs/components";
+import { View, Text, Image } from "@tarojs/components";
+import SearchInput from "../../components/SearchInput";
 import CardList from "./components/CardList";
 import createSvg from "../../assets/create.svg";
-import clearSvg from "../../assets/clear.svg";
 import styles from "./index.module.scss";
 
 function Index() {
   const [listType, setListType] = useState<"newGroup" | "shortOne">("newGroup");
-  const inputRef = useRef<HTMLInputElement | null>(null);
   const [refreshKey, setRefreshKey] = useState(0);
   const [searchKey, setSearchKey] = useState("");
-  function handleSearch() {
-    console.log();
-    setSearchKey(inputRef.current?.value || "");
-  }
 
-  function handleClear() {
-    setSearchKey("");
-    inputRef.current!.value = "";
-  }
   usePullDownRefresh(() => {
     setSearchKey("");
-    inputRef.current!.value = "";
     setRefreshKey((prev) => prev + 1); // 用于刷新组件
   });
   useShareAppMessage(() => {
@@ -37,27 +27,11 @@ function Index() {
   return (
     <View className={styles.container}>
       <View className={styles["util-container"]}>
-        <View className={styles["input-container"]}>
-          <Input
-            placeholder="请输入关键字"
-            className={styles.input}
-            ref={inputRef}
-            onConfirm={handleSearch}
-            confirmType="search"
-          />
+        <SearchInput
+          onClear={() => setSearchKey("")}
+          onSearch={(data) => setSearchKey(data)}
+        />
 
-          {searchKey && (
-            <Image
-              onClick={handleClear}
-              src={clearSvg}
-              className={styles.clearBtn}
-            />
-          )}
-
-          <View className={styles.btn} onClick={handleSearch}>
-            搜索
-          </View>
-        </View>
         <View
           className={styles["create-btn"]}
           onClick={() => switchTab({ url: "/pages/create/index" })}

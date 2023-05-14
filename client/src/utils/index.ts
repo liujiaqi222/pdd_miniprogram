@@ -1,4 +1,12 @@
-import Taro from "@tarojs/taro";
+import md5 from "md5";
+import {
+  request,
+  RequestTask,
+  checkSession,
+  setStorageSync,
+  getStorageSync,
+  login,
+} from "@tarojs/taro";
 import { getOpenId } from "../api";
 
 // 小程序不支持toLocaleString
@@ -14,29 +22,61 @@ export const formatDate = (date: Date) => {
 };
 
 /**@description 登录  */
-export const login = async () => {
-  const { code } = await Taro.login();
+export const loginUser = async () => {
+  const { code } = await login();
   const { data } = await getOpenId(code);
   const { openid, session_key } = data;
-  Taro.setStorageSync("openId", openid);
-  Taro.setStorageSync("sessionKey", session_key);
-  Taro.setStorageSync("loginTime", Date.now());
+  setStorageSync("openId", openid);
+  setStorageSync("sessionKey", session_key);
+  setStorageSync("loginTime", Date.now());
 };
 
 /**@description 检查登录状态  */
 export const checkLogin = async () => {
-  const loginTime = Taro.getStorageSync("loginTime");
-  const sessionKey = Taro.getStorageSync("sessionKey");
-  const openId = Taro.getStorageSync("openId");
+  const loginTime = getStorageSync("loginTime");
+  const sessionKey = getStorageSync("sessionKey");
+  const openId = getStorageSync("openId");
   // 如果没有sessionKey或者openId,则登录
   if (!sessionKey || !openId) {
-    return login();
+    return loginUser();
   }
   // 如果有sessionKey和openId,则判断是否超过一天，超过一天则检查登录状态
   if (Date.now() - loginTime > 24 * 60 * 60 * 1000) {
-    const res = await Taro.checkSession().catch();
-    // 如果sessionKey过期，wx会报错，catch后，此时res为空
-    if (!res) return login();
+    try {
+      const res = await checkSession().catch();
+      if (!res) return loginUser();
+    } catch (err) {
+      console.log(err);
+      return loginUser();
+    }
   }
-  console.log("登录有效！");
+};
+
+export const createSign = (params: Record<string, string | number>) => {
+  const str = `${process.env.CLIENT_SECRET}${Object.keys(params)
+    .sort()
+    .map((key) => `${key}${params[key]}`)
+    .join("")}${process.env.CLIENT_SECRET}`;
+
+  console.log(str);
+  return md5(str).toUpperCase();
+};
+
+export const pddRequest = (
+  params: Record<string, string | number> & { type: string }
+): RequestTask<any> => {
+  Object.assign(params, {
+    client_id: process.env.CLIENT_ID,
+    timestamp: Math.floor(Date.now() / 1000),
+  });
+  const sign = createSign(params);
+  console.log(sign);
+  return request({
+    url: "http://gw-api.pinduoduo.com/api/router",
+    method: "POST",
+    data: {
+      ...params,
+      sign,
+    },
+  });
 };

@@ -1,3 +1,8 @@
+require("dotenv-flow").config();
+console.log(process.env.CLIENT_ID);
+
+const { UnifiedWebpackPluginV5 } = require("weapp-tailwindcss-webpack-plugin");
+
 const config = {
   projectName: "pdd",
   date: "2023-2-17",
@@ -14,6 +19,10 @@ const config = {
   copy: {
     patterns: [],
     options: {},
+  },
+  env: {
+    CLIENT_ID: `"${process.env.CLIENT_ID}"`,
+    CLIENT_SECRET: `"${process.env.CLIENT_SECRET}"`,
   },
   framework: "react",
   compiler: "webpack5",
@@ -39,6 +48,20 @@ const config = {
           generateScopedName: "[name]__[local]___[hash:base64:5]",
         },
       },
+    },
+    webpackChain(chain, webpack) {
+      chain.merge({
+        plugin: {
+          install: {
+            plugin: UnifiedWebpackPluginV5,
+            args: [
+              {
+                appType: "taro",
+              },
+            ],
+          },
+        },
+      });
     },
   },
   h5: {

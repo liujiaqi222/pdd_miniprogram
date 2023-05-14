@@ -1,4 +1,5 @@
-import fetch from "node-fetch";
+import { timeOut } from "../util/index.js";
+
 const url =
   "https://pdd.mkstone.club/index.php/pdd/index/get_group?current_page=";
 
@@ -9,7 +10,7 @@ const options = {
     authorization: "ov7Pv5FLeiMVRP3YGollHGhBruOw",
   },
 };
-export const uploadOrderData = async () => {
+export const uploadOrderData1 = async () => {
   let page = 1;
   while (true) {
     try {
@@ -20,8 +21,9 @@ export const uploadOrderData = async () => {
       if (!data.length) {
         break; // 跳出while循环
       }
-      for await (const { url } of data) {
+      for (const { url } of data) {
         if (!url) continue;
+        await timeOut(Math.random() * 2000);
         const res = await fetch("http://localhost:4000/api/v1/orders/byId", {
           method: "POST",
           headers: {

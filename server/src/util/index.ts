@@ -79,3 +79,13 @@ export const getOrderData = async (orderId: string) => {
 
   return pddData?.store;
 };
+
+
+
+export const timeOut = (ms: number) => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve(ms);
+    }, ms);
+  });
+};

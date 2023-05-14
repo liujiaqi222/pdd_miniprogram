@@ -4,7 +4,8 @@ import {
   interceptors,
   RequestTask,
 } from "@tarojs/taro";
-import { OrderData, OrderParams } from "./types";
+import { pddRequest } from "../utils/index";
+import type { CouponGoodsData, OrderData, OrderParams } from "./types";
 
 addInterceptor(interceptors.timeoutInterceptor);
 
@@ -59,4 +60,16 @@ export const getMyOrders = (
     url: `${urlPrefix}/user/orders/${openId}`,
     method: "GET",
   });
+};
+console.log(process.env.CLIENT_ID, process.env.CLIENT_SECRET);
+
+/**
+ * @description 获取拼多多优惠商品信息
+ * @see https://jinbao.pinduoduo.com/third-party/api-detail?apiName=pdd.ddk.goods.recommend.get
+ * @param {number} offset - 从多少位置开始请求；默认值 ： 0 // 必须是limit的整数倍，limit默认是20
+ */
+export const getCouponGoods = (
+  { offset, limit } = { offset: 0, limit: 20 }
+): RequestTask<CouponGoodsData> => {
+  return pddRequest({ type: "pdd.ddk.goods.recommend.get", offset, limit });
 };

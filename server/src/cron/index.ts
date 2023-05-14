@@ -10,7 +10,8 @@ import {
   traverseOrders,
   deleteIncompleteOrders,
 } from "./../db/traverseOrders.js";
-import { uploadOrderData } from "./../upload/getDataFromOther.js";
+import { uploadOrderData1 } from "../upload/getDataFromOther1.js";
+import { uploadOrderData2 } from "../upload/getDataFromOther2.js";
 
 // 每5min执行一次
 nodeSchedule.scheduleJob("*/5 * * * *", () => {
@@ -27,7 +28,8 @@ nodeSchedule.scheduleJob("*/10 * * * *", () => {
 // 每30min执行一次
 nodeSchedule.scheduleJob("*/30 * * * *", () => {
   console.log("定时任务：获取拼单信息");
-  uploadOrderData();
+  uploadOrderData1();
+  uploadOrderData2()
 });
 
 // 每天执行一次

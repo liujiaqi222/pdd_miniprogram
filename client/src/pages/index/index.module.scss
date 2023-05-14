@@ -12,47 +12,8 @@ $text-darker: #2563eb;
   .util-container {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 0.5rem;
 
-    .input-container {
-      position: relative;
-      flex: 1;
-      .input {
-        border: 1px solid #ccc;
-        border-radius: 2rem;
-        padding-left: 0.6rem;
-        padding-block: 0.4rem;
-        background-color: white;
-        padding-right: 5.5rem;
-        color: #555;
-        z-index: 0;
-      }
-
-      .clearBtn {
-        width: 1.2rem;
-        height: 1.2rem;
-        z-index: 1;
-        position: absolute;
-        right: 3.5rem;
-        top: 0.5rem;
-      }
-      .btn {
-        position: absolute;
-        right: 0.5rem;
-        top: 0.3rem;
-        width: 2.5rem;
-        padding: 0.1rem;
-        padding-block: 0.15rem;
-        background: $text-active;
-        color: white;
-        text-align: center;
-        border-radius: 0.6rem;
-        transition: all 0.3s;
-        &:hover {
-          background-color: $text-darker;
-        }
-      }
-    }
     .create-btn {
       width: 2rem;
     }

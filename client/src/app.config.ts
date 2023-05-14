@@ -1,5 +1,6 @@
 export default defineAppConfig({
   pages: [
+    "pages/coupon/index",
     "pages/index/index",
     "pages/index/detail/index",
     "pages/create/index",
@@ -23,6 +24,10 @@ export default defineAppConfig({
         text: "首页",
         iconPath: "./assets/home.png",
         selectedIconPath: "./assets/home-active.png",
+      },
+      {
+        pagePath: "pages/coupon/index",
+        text: "优惠券",
       },
       {
         pagePath: "pages/create/index",
