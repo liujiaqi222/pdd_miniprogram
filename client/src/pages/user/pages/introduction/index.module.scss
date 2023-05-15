@@ -1,13 +1,15 @@
 .container {
   padding: 0.5rem;
+
   .version {
     font-weight: bold;
     font-family: "宋体";
     margin-bottom: 0.5rem;
     font-size: 0.9rem;
+    font-weight: bold;
   }
-  ul{
-    list-style-type: disc;
+  .list{
+    margin-bottom: 1rem;
 
   }
 }

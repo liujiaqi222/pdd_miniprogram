@@ -4,7 +4,10 @@ const { Schema } = mongoose;
 
 const OrderSchema = new Schema(
   {
-    goodsName: String, // 商品名称
+    goodsName: {
+      type: String,
+      required: true,
+    }, // 商品名称
     goodsId: Number,
     hdThumbUrl: String, // 商品图片
     goodsImg: String,
@@ -28,10 +31,14 @@ const OrderSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: "User",
     },
+    groupOrderType: Number, // 0 普通多人拼团 1多人任意商品团
   },
   { timestamps: true }
 );
 
 export const Order = mongoose.model("Order", OrderSchema);
-export const ExpiredOrder = mongoose.model("ExpiredOrder", OrderSchema,'expiredOrders');
-
+export const ExpiredOrder = mongoose.model(
+  "ExpiredOrder",
+  OrderSchema,
+  "expiredOrders"
+);

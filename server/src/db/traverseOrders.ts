@@ -40,7 +40,7 @@ export const moveExpiredOrders = async () => {
   const expiredOrders = await Order.find({
     expireTime: { $lt: Date.now() },
   }).catch((err) => console.log("查询过期订单报错", err));
-
+  console.log(expiredOrders);
   expiredOrders?.forEach((doc) => {
     console.log("从orders中删除过期订单", doc._id);
     deleteOrderById(doc._id);
@@ -57,7 +57,8 @@ export const traverseOrders = async () => {
         return deleteOrderById(_id);
       }
       const { groupStatus, groupRemainCount } = res.groupInfo;
-      if (groupStatus === 1 || groupRemainCount === 0) {
+      if (groupStatus !== 0 || !groupRemainCount ) {
+        console.log(_id, "订单已经拼满，移动到过期订单集合中")
         return moveOrderById(_id);
       }
       if (order.groupRemainCount !== groupRemainCount) {

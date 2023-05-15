@@ -25,12 +25,16 @@ nodeSchedule.scheduleJob("*/10 * * * *", () => {
   traverseOrders();
 });
 
+
 // 每30min执行一次
 nodeSchedule.scheduleJob("*/30 * * * *", () => {
   console.log("定时任务：获取拼单信息");
-  uploadOrderData1();
-  uploadOrderData2()
+
 });
+
+uploadOrderData1();
+uploadOrderData2();
+
 
 // 每天执行一次
 nodeSchedule.scheduleJob("0 0 * * *", () => {

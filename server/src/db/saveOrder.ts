@@ -7,7 +7,7 @@ export const saveOrderData = async (
   openId?: string
 ) => {
   const { goodsInfo, groupInfo, endTimeMs } = pddData || {};
-  const {
+  let {
     goodsId,
     hdThumbUrl,
     goodsName,
@@ -24,16 +24,27 @@ export const saveOrderData = async (
     groupRemainCount,
   } = groupInfo || {};
 
-  if (groupRemainCount === 0 || groupStatus !== 0)
+  if (!groupRemainCount || groupStatus !== 0)
     return {
       success: false,
       message: "该拼单已经结束",
     };
 
+  // 多人团，但是商品任选
+  if (groupInfo.groupOrderType === 1) {
+    goodsName = `【${groupInfo.subjectGroupTitle}】${
+      groupInfo.subjectGroupTitleDetail
+    }${groupInfo.subjectGroupGoodsText} ${groupInfo.subjectGroupGoodsList
+      ?.map((item) => item.goodsName)
+      .join(" ")}`;
+    linkUrl = groupInfo.subjectGroupGoodsList[0].linkUrl;
+    hdThumbUrl = groupInfo.subjectGroupGoodsList[0].hdThumbUrl;
+  }
+
   const newGroupInfo: any = {
     goodsId,
     hdThumbUrl,
-    goodsName,
+    goodsName: goodsName.replace(/<\/?[^>]+(>|$)/g, ""), // 去除html标签
     linkUrl,
     activityPrice,
     originPrice,
