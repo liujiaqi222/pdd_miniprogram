@@ -21,17 +21,18 @@ const SearchInput = ({
         confirmType="search"
         onInput={(e) => setSearchKey(e.detail.value)}
         onConfirm={() => onSearch(searchKey)}
-        className=" h-8 bg-[#f5f5f5] rounded-full text-[#555] px-8 text-sm"
+        className=" h-8 bg-[#f5f5f5] rounded-full text-[#555] pl-8 pr-12 text-sm "
       />
       {searchKey && (
-        <Image
-          src={clearIcon}
-          className="w-4 h-4 absolute right-4 top-2"
+        <div
+          className="absolute flex items-center justify-center right-4 top-1 w-7 h-6 "
           onClick={() => {
             setSearchKey("");
             onClear();
           }}
-        />
+        >
+          <Image src={clearIcon} className="w-4 h-4 " />
+        </div>
       )}
     </div>
   );

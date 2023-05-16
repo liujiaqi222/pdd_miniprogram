@@ -14,7 +14,7 @@ import {
 import { useOrderDataStore } from "../../../store";
 import { useOrderSearch } from "../hooks/useOrderSearch";
 import Card from "./Card";
-import { type OrderParams, OrderData } from "../../../api/types";
+import type { OrderParams, OrderData } from "../../../api/types";
 import styles from "./styles.module.scss";
 
 const phoneInfo = getSystemInfoSync();
@@ -38,6 +38,7 @@ const CardList = ({ searchKey, listType }: Required<OrderParams>) => {
   }
   useEffect(() => {
     setPageNumber(0);
+    console.log("ListType", listType);
   }, [searchKey, listType]);
 
   function handleScroll(e: BaseEventOrig<ScrollViewProps.onScrollDetail>) {
@@ -47,6 +48,7 @@ const CardList = ({ searchKey, listType }: Required<OrderParams>) => {
       e.detail.scrollTop + (phoneInfo.windowHeight - 5 * remWidth) >=
       e.detail.scrollHeight - 6 * remWidth
     ) {
+   
       setPageNumber(pageNumber + 1);
     }
   }
@@ -60,9 +62,9 @@ const CardList = ({ searchKey, listType }: Required<OrderParams>) => {
     <ScrollView
       scrollY
       enableFlex
-      scrollWithAnimation
       className={styles.list}
       onScroll={(e) => handleScroll(e)}
+      key={listType}
     >
       {orders.map((order) => (
         <Card

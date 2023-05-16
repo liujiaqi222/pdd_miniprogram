@@ -13,8 +13,8 @@ export const useOrderSearch = (searchKey: string, listType: 'shortOne' | 'newGro
   useEffect(() => {
     setLoading(true)
     getOrders({ searchKey, listType }, pageNumber).then(res => {
-      console.log(res,'result')
       const { data } = res
+      console.log(pageNumber)
       setHasMore(data.length === 0 ? false : true)
       setOrders(pre => [...pre, ...data])
       setLoading(false)
