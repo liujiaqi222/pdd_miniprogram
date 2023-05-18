@@ -76,8 +76,7 @@ export const getOrderData = async (orderId: string) => {
 
   if (!matchedResult || !matchedResult[0].length) return false;
   const pddData: PddData = JSON.parse(matchedResult[0]);
-  console.log(pddData?.store.groupInfo.groupRemainCount, pddData?.store.groupInfo.groupStatus,url)
- 
+
   return pddData?.store;
 };
 

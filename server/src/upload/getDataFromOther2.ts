@@ -29,18 +29,15 @@ export const uploadOrderData2 = async () => {
       console.log(err, id, "json");
     });
     if (!json || json.result_msg !== "Success!") return;
-    const uploadResult = await fetch(
-      "http://localhost:4000/api/v1/orders/byId",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          longUrl: json.result_object.group_url,
-        }),
-      }
-    ).catch((err) => console.log(err, json.result_object.group_url));
+    const uploadResult = await fetch("http://localhost:4000/api/v1/orders/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        url: json.result_object.group_url,
+      }),
+    }).catch((err) => console.log(err, json.result_object.group_url));
     if (!uploadResult) return;
     const uploadJSON = await uploadResult.json().catch((err) => {
       console.log(err, "uploadJSON", json.result_object.group_url);
@@ -48,4 +45,3 @@ export const uploadOrderData2 = async () => {
     console.log(uploadJSON);
   }
 };
-

@@ -24,13 +24,13 @@ export const uploadOrderData1 = async () => {
       for (const { url } of data) {
         if (!url) continue;
         await timeOut(Math.random() * 2000);
-        const res = await fetch("http://localhost:4000/api/v1/orders/byId", {
+        const res = await fetch("http://localhost:4000/api/v1/orders/", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            longUrl: url,
+            url: url,
           }),
         });
         const json = await res.json();

@@ -47,11 +47,18 @@ export const getAllOrders = async (req: Request, res: Response) => {
 // 可以根据拼多多拼团二维码识别后的短url创建新的拼单,这个接口给前端调用
 export const createNewGroup = async (req: Request, res: Response) => {
   const { url, openId } = req.body;
+  let longUrl = "";
   if (!url) return res.json({ message: "URL不存在！", success: false });
-  const reverseUrlResult = await reverseShortUrl(url);
-  if (!reverseUrlResult.success)
-  return res.json({ message: "URL错误", success: false });
-  const longUrl = reverseUrlResult.longUrl;
+
+  // 如果是短链
+  if (!url.includes("group_order_id")) {
+    const reverseUrlResult = await reverseShortUrl(url);
+    if (!reverseUrlResult.success)
+      return res.json({ message: "URL错误", success: false });
+    longUrl = reverseUrlResult.longUrl;
+  } else {
+    longUrl = url;
+  }
   const validateUrlResult = isValidUrl(longUrl);
   if (!validateUrlResult.isValid)
     return res.json({ message: "URL错误", success: false });
@@ -60,7 +67,6 @@ export const createNewGroup = async (req: Request, res: Response) => {
   }).exec();
   if (isExist) return res.json({ message: "该拼单已存在", success: false });
   const fetchResult = await getOrderData(validateUrlResult.orderId);
-  console.log(fetchResult)
   if (!fetchResult) return res.json({ message: "URL错误", success: false });
   const saveResult = await saveOrderData(fetchResult, openId).catch(() => {
     res.json({ success: false, message: "上传失败！" });
@@ -68,19 +74,13 @@ export const createNewGroup = async (req: Request, res: Response) => {
   res.json(saveResult);
 };
 
-// 根据groupOrderId或者原始url创建新的拼单，这个接口方便我上传新的拼单
+// 根据groupOrderId这个接口方便我上传新的拼单
 export const createNewGroupByOrderId = async (req: Request, res: Response) => {
-  let { groupOrderId, longUrl, openId } = req.body;
-  if (!groupOrderId && !longUrl) {
-    return res.json({ message: "groupOrderId和url不存在", success: false });
+  let { groupOrderId,  openId } = req.body;
+  if (!groupOrderId ) {
+    return res.json({ message: "groupOrderId不存在", success: false });
   }
-  if (longUrl) {
-    const validateUrlResult = isValidUrl(longUrl);
-    if (!validateUrlResult.isValid) {
-      return res.json({ message: "URL错误", success: false });
-    }
-    groupOrderId = validateUrlResult.orderId;
-  }
+
   const isExist = await Order.findOne({ groupOrderId }).exec();
   if (isExist)
     return res.json({ message: "groupOrderId已存在", success: false });
