@@ -2,7 +2,6 @@ import { useContext, useEffect, useState } from "react";
 import {
   showLoading,
   hideLoading,
-  showActionSheet,
   navigateTo,
 } from "@tarojs/taro";
 import { OrderData } from "../../../../api/types";
@@ -54,13 +53,9 @@ const MyOrders = () => {
 
     setOrderState({ state, visible: true });
     if (state) return;
-    showActionSheet({
-      itemList: ["查看详情"],
-      success() {
-        navigateTo({
-          url: `/pages/index/detail/index?groupOrderId=${order.groupOrderId}`,
-        });
-      },
+
+    navigateTo({
+      url: `/pages/index/detail/index?groupOrderId=${order.groupOrderId}`,
     });
   };
   return (
