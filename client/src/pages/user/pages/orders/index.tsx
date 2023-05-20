@@ -1,5 +1,10 @@
 import { useContext, useEffect, useState } from "react";
-import { showLoading, hideLoading } from "@tarojs/taro";
+import {
+  showLoading,
+  hideLoading,
+  showActionSheet,
+  navigateTo,
+} from "@tarojs/taro";
 import { OrderData } from "../../../../api/types";
 import { OpenIdContext } from "../../../../context/index";
 import { getMyOrders } from "../../../../api/index";
@@ -9,23 +14,55 @@ import styles from "./index.module.scss";
 const MyOrders = () => {
   const openId = useContext(OpenIdContext);
   const [orders, setOrders] = useState<OrderData[]>([]);
+  const [orderState, setOrderState] = useState<{
+    state: "outdated" | "" | "fulfilled";
+    visible: boolean;
+  }>({
+    state: "",
+    visible: false,
+  });
   useEffect(() => {
     if (openId) {
       showLoading();
       getMyOrders(openId)
         .then((res) => {
+          hideLoading();
           if (res.data.data) {
             setOrders(res.data.data);
-            console.log(res.data.data);
           }
-          hideLoading();
         })
         .catch(() => {
           hideLoading();
         });
     }
   }, [openId]);
-  console.log(openId);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setOrderState(() => ({ state: "", visible: false }));
+    }, 2000);
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [orderState.visible]);
+  const handleCardClick = (order: OrderData) => {
+    const state =
+      new Date(order.expireTime).getTime() > Date.now()
+        ? order.groupRemainCount > 0
+          ? ""
+          : "fulfilled"
+        : "outdated";
+
+    setOrderState({ state, visible: true });
+    if (state) return;
+    showActionSheet({
+      itemList: ["查看详情"],
+      success() {
+        navigateTo({
+          url: `/pages/index/detail/index?groupOrderId=${order.groupOrderId}`,
+        });
+      },
+    });
+  };
   return (
     <>
       {!orders.length ? (
@@ -33,15 +70,30 @@ const MyOrders = () => {
       ) : (
         <div className={styles.orderContainer}>
           {orders.map((order) => (
-            <OrderCard key={order.groupOrderId} orderData={order} />
+            <OrderCard
+              key={order.groupOrderId}
+              orderData={order}
+              onClick={() => handleCardClick(order)}
+            />
           ))}
+          {orderState.visible && orderState.state && (
+            <div className="fade-out fixed top-1/2 left-1/2 translate-x-y bg-black/75 text-white shadow px-4 py-2 rounded">
+              拼单已{orderState.state === "fulfilled" ? "拼满" : "过期"}
+            </div>
+          )}
         </div>
       )}
     </>
   );
 };
 
-const OrderCard = ({ orderData }: { orderData: OrderData }) => {
+const OrderCard = ({
+  orderData,
+  onClick,
+}: {
+  orderData: OrderData;
+  onClick: () => void;
+}) => {
   const orderState =
     new Date(orderData.expireTime).getTime() > Date.now()
       ? orderData.groupRemainCount > 0
@@ -49,7 +101,7 @@ const OrderCard = ({ orderData }: { orderData: OrderData }) => {
         : "已拼满"
       : "已过期";
   return (
-    <div className={styles.orderCard}>
+    <div className={styles.orderCard} onClick={onClick}>
       <div className={styles.orderInfo}>
         <div
           className={

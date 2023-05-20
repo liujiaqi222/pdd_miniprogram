@@ -12,12 +12,15 @@ import { getOpenId } from "../api";
 // 小程序不支持toLocaleString
 // 转换日期为 年/月/日 时:分:秒
 export const formatDate = (date: Date) => {
+  if (!date) return "";
   const year = date.getFullYear();
   const month = date.getMonth() + 1;
   const day = date.getDate();
   const hour = date.getHours();
-  const minute = date.getMinutes();
-  const second = date.getSeconds();
+  const minute =
+    date.getMinutes() < 10 ? `0${date.getMinutes()}` : date.getMinutes();
+  const second =
+    date.getSeconds() < 10 ? `0${date.getSeconds()}` : date.getSeconds();
   return `${year}/${month}/${day} ${hour}:${minute}:${second}`;
 };
 
@@ -52,7 +55,9 @@ export const checkLogin = async () => {
   }
 };
 
-export const createSign = (params: Record<string, string | number|boolean>) => {
+export const createSign = (
+  params: Record<string, string | number | boolean>
+) => {
   const str = `${process.env.CLIENT_SECRET}${Object.keys(params)
     .sort()
     .map((key) => `${key}${params[key]}`)
@@ -63,7 +68,7 @@ export const createSign = (params: Record<string, string | number|boolean>) => {
 };
 
 export const pddRequest = (
-  params: Record<string, string | number|boolean> & { type: string }
+  params: Record<string, string | number | boolean> & { type: string }
 ): RequestTask<any> => {
   Object.assign(params, {
     client_id: process.env.CLIENT_ID,

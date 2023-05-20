@@ -4,6 +4,8 @@ import {
   getCurrentPages,
   showLoading,
   hideLoading,
+  showToast,
+  switchTab,
   useShareAppMessage,
 } from "@tarojs/taro";
 import { useEffect } from "react";
@@ -32,8 +34,14 @@ const OrderDetail = () => {
       showLoading();
       getOrderById(groupOrderId)
         .then((res) => {
-          if (!res.data.data) return;
           hideLoading();
+          if (!res.data.data) {
+            showToast({ title: "拼团已过期", icon: "error" });
+            setTimeout(() => {
+              switchTab({ url: "/pages/index/index" });
+            }, 1000);
+            return;
+          }
           useOrderDataStore.getState().setOrderData(res.data.data);
         })
         .catch(() => {

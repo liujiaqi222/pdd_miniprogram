@@ -1,12 +1,12 @@
 export default defineAppConfig({
   pages: [
     "pages/index/index",
-    "pages/coupon/index",
     "pages/index/detail/index",
+    "pages/coupon/index",
     "pages/create/index",
     "pages/user/index",
-    "pages/user/pages/introduction/index",
     "pages/user/pages/orders/index",
+    "pages/user/pages/introduction/index",
     "pages/user/pages/tutorial/index",
   ],
   window: {
