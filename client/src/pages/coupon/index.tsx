@@ -89,11 +89,11 @@ const Card = ({
       onClick={() => onClick()}
     >
       {/* 左边图片 */}
-      <div className="relative">
+      <div className="relative mt-1">
         <img
           src={item.goods_image_url}
           alt={item.goods_name}
-          className="h-32 w-32 shadow rounded"
+          className="h-28 w-28 shadow rounded"
         />
         <span className="absolute top-1 right-1 px-1 text-white  text-xs  bg-[#fc1a1a] shadow rounded-xs">
           已售{item.sales_tip}
@@ -101,8 +101,8 @@ const Card = ({
       </div>
       {/* 右边文字描述 */}
       <div>
-        <div className="text-overflow-2 ">{item.goods_name}</div>
-        <div className=" text-sm text-[#fc1a1a] border border-[#fc1a1a] border-solid w-fit px-2  rounded-full mt-2 mb-4">
+        <div className="text-overflow-2 text-sm h-10">{item.goods_name}</div>
+        <div className=" text-sm text-[#fc1a1a] border border-[#fc1a1a] border-solid w-fit px-2  rounded-full mt-2 mb-2">
           {item.coupon_discount / 100}元优惠券
         </div>
         <div className="flex justify-between items-end">
@@ -110,7 +110,7 @@ const Card = ({
             <div className="text-[#fc1a1a] ">
               <span className="flex items-baseline ">
                 ￥
-                <span className="text-lg">
+                <span >
                   {(item.min_group_price - item.coupon_discount) / 100}
                 </span>
               </span>
@@ -118,7 +118,7 @@ const Card = ({
             </div>
             <div className="text-gray-500">
               <span className="flex items-baseline ">
-                ￥<span className="text-lg">{item.min_group_price / 100}</span>
+                ￥<span >{item.min_group_price / 100}</span>
               </span>
               <span className="text-sm ml-2">拼团价</span>
             </div>

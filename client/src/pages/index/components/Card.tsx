@@ -49,7 +49,7 @@ const Card = ({
           </div>
           {shareBtn ? (
             <button
-              className="text-blue-600  h-8 bg-white shadow ml-28 flex items-center gap-2 text-sm"
+              className="text-blue-600  h-8 bg-white shadow ml-auto mr-0  flex items-center gap-2 text-sm"
               open-type="share"
             >
               <img className="w-4" alt="share-icon" src={shareIcon}></img> 分享
