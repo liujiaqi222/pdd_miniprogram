@@ -24,6 +24,7 @@ export type CouponData = {
   category_name: string;
   goods_name: string;
   goods_desc: string;
+  goods_id:number
   goods_thumbnail_url: string;
   goods_image_url: string; // 商品主图
   goods_sign: string; // https://jinbao.pinduoduo.com/qa-system?questionId=252
@@ -33,3 +34,12 @@ export type CouponData = {
   sales_tip: string; // 销售量
 };
 
+export type PromotionUrlResponse = {
+  mobile_url: string;
+  we_app_info: {
+    page_path: string;
+    app_id: string;
+  };
+  url: string;
+  we_app_web_view_url: string;
+};

@@ -52,7 +52,7 @@ export const checkLogin = async () => {
   }
 };
 
-export const createSign = (params: Record<string, string | number>) => {
+export const createSign = (params: Record<string, string | number|boolean>) => {
   const str = `${process.env.CLIENT_SECRET}${Object.keys(params)
     .sort()
     .map((key) => `${key}${params[key]}`)
@@ -63,7 +63,7 @@ export const createSign = (params: Record<string, string | number>) => {
 };
 
 export const pddRequest = (
-  params: Record<string, string | number> & { type: string }
+  params: Record<string, string | number|boolean> & { type: string }
 ): RequestTask<any> => {
   Object.assign(params, {
     client_id: process.env.CLIENT_ID,

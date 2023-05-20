@@ -1,6 +1,6 @@
 export default defineAppConfig({
   pages: [
-    // "pages/coupon/index",
+    "pages/coupon/index",
     "pages/index/index",
     "pages/index/detail/index",
     "pages/create/index",
@@ -25,10 +25,12 @@ export default defineAppConfig({
         iconPath: "./assets/home.png",
         selectedIconPath: "./assets/home-active.png",
       },
-      // {
-      //   pagePath: "pages/coupon/index",
-      //   text: "优惠券",
-      // },
+      {
+        pagePath: "pages/coupon/index",
+        text: "优惠券",
+        iconPath: "./assets/coupon.png",
+        selectedIconPath: "./assets/coupon.png",
+      },
       {
         pagePath: "pages/create/index",
         text: "发布",
@@ -44,3 +46,4 @@ export default defineAppConfig({
     ],
   },
 });
+

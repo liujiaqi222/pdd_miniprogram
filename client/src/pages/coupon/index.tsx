@@ -9,11 +9,12 @@ import {
   showLoading,
   hideLoading,
   stopPullDownRefresh,
+  navigateToMiniProgram,
 } from "@tarojs/taro";
 import SearchInput from "../../components/SearchInput";
 import type { CouponData } from "../../api/types";
-
 import { useCouponFetch } from "./hooks/useCouponList";
+import { generatePromotionUrl } from "../../api";
 
 const phoneInfo = getSystemInfoSync();
 const remWidth = phoneInfo.windowWidth / 20;
@@ -37,6 +38,16 @@ const Coupon = () => {
       setCurrentPage(currentPage + 1);
     }
   }
+  const handleCardClick = (item: CouponData) => {
+    generatePromotionUrl(item.goods_id, item.goods_sign).then((res) => {
+      console.log(res);
+      navigateToMiniProgram({
+        appId: res.we_app_info.app_id,
+        path: res.we_app_info.page_path,
+      });
+    });
+  };
+
   useEffect(() => {
     setCurrentPage(0);
   }, [searchKey]);
@@ -54,16 +65,29 @@ const Coupon = () => {
         onScroll={(e) => handleScroll(e)}
       >
         {data?.map((item) => (
-          <Card item={item} key={item.goods_sign} />
+          <Card
+            item={item}
+            key={item.goods_sign}
+            onClick={() => handleCardClick(item)}
+          />
         ))}
       </ScrollView>
     </div>
   );
 };
 
-const Card = ({ item }: { item: CouponData }) => {
+const Card = ({
+  item,
+  onClick,
+}: {
+  item: CouponData;
+  onClick: () => void;
+}) => {
   return (
-    <div className="flex gap-2 p-2 bg-white mb-3 rounded-lg shadow">
+    <div
+      className="flex gap-2 p-2 bg-white mb-3 rounded-lg shadow"
+      onClick={() => onClick()}
+    >
       {/* 左边图片 */}
       <div className="relative">
         <img

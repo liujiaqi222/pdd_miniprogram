@@ -40,7 +40,6 @@ const OrderDetail = () => {
         });
     }
   }, [groupOrderId]);
-  console.log(groupOrderId);
   const handleNavigate = () => {
     navigateToMiniProgram({
       appId: PDD_APPID,

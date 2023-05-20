@@ -5,7 +5,12 @@ import {
   RequestTask,
 } from "@tarojs/taro";
 import { pddRequest } from "../utils/index";
-import type { OrderData, OrderParams, CouponData } from "./types";
+import type {
+  OrderData,
+  OrderParams,
+  CouponData,
+  PromotionUrlResponse,
+} from "./types";
 
 addInterceptor(interceptors.timeoutInterceptor);
 
@@ -110,4 +115,27 @@ export const searchCouponGoods = async (
   }).catch();
   if (!res) return [];
   return res.data.goods_search_response.goods_list;
+};
+
+/**
+ * @description 生成推广链接
+ * @see https://jinbao.pinduoduo.com/third-party/api-detail?apiName=pdd.ddk.goods.promotion.url.generate
+ */
+
+export const generatePromotionUrl = async (
+  goodsId: number,
+  goodsSign: string
+): Promise<PromotionUrlResponse> => {
+  const res = await pddRequest({
+    type: "pdd.ddk.goods.promotion.url.generate",
+    p_id: process.env.PID as string,
+    goods_id: goodsId,
+    goods_sign: goodsSign,
+    generate_we_app: true,
+    generate_short_url: false,
+  });
+  if (!res) return { we_app_info: {} } as PromotionUrlResponse;
+
+  return res.data?.goods_promotion_url_generate_response
+    ?.goods_promotion_url_list[0];
 };
