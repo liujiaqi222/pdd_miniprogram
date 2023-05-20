@@ -1,7 +1,7 @@
 import {
   setClipboardData,
   navigateToMiniProgram,
-  useRouter,
+  getCurrentPages,
   showLoading,
   hideLoading,
   useShareAppMessage,
@@ -18,7 +18,8 @@ import copySvg from "../../../assets/copy.svg";
 
 const OrderDetail = () => {
   const order = useOrderDataStore((state) => state.orderData);
-  const groupOrderId = useRouter().params?.groupOrderId;
+  const groupOrderId = getCurrentPages().at(-1)?.options?.groupOrderId;
+
   useShareAppMessage(() => {
     return {
       title: `百亿拼团速购 | ${order.goodsName}`,
@@ -58,10 +59,10 @@ const OrderDetail = () => {
         <div className={styles.text}>
           目前还差：{order?.groupRemainCount} 人
         </div>
-        {order?.groupUserList.length && (
+        {order?.groupUserList?.length && (
           <div className={styles.userList}>
             <div className={styles.text}>当前拼团用户：</div>
-            {order.groupUserList.map((user) => (
+            {order?.groupUserList?.map((user) => (
               <img
                 key={user.avatar}
                 src={user.avatar}
