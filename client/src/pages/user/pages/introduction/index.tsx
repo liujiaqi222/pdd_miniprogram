@@ -17,6 +17,12 @@ const Introduction = () => {
         <li>3.样式优化，样式bug修复</li>
         <li>4.修复苹果手机查看拼单详情不显示的问题</li>
       </ul>
+      <div className={styles.version}>V1.2 (2023/05/20)</div>
+      <ul className={styles.list}>
+        <li>1.发布商品后自动跳回到首页，并刷新页面</li>
+        <li>2.搜索的样式和体验优化</li>
+        <li>3.增加拼多多福利券页面</li>
+      </ul>
     </div>
   );
 };

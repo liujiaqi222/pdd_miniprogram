@@ -72,7 +72,7 @@ export const pddRequest = (
   const sign = createSign(params);
   console.log(sign);
   return request({
-    url: "http://gw-api.pinduoduo.com/api/router",
+    url: "https://gw-api.pinduoduo.com/api/router",
     method: "POST",
     data: {
       ...params,
