@@ -1,7 +1,16 @@
-import { setClipboardData, navigateToMiniProgram } from "@tarojs/taro";
+import {
+  setClipboardData,
+  navigateToMiniProgram,
+  useRouter,
+  showLoading,
+  hideLoading,
+  useShareAppMessage,
+} from "@tarojs/taro";
+import { useEffect } from "react";
 import { formatDate } from "../../../utils";
 import { PDD_URL, PDD_APPID, getPddMiniProgramURL } from "../../../consts";
 import { useOrderDataStore } from "../../../store";
+import { getOrderById } from "../../../api/index";
 import styles from "./index.module.scss";
 import Card from "../components/Card";
 import pddLogo from "../../../assets/pdd-logo.svg";
@@ -9,7 +18,29 @@ import copySvg from "../../../assets/copy.svg";
 
 const OrderDetail = () => {
   const order = useOrderDataStore((state) => state.orderData);
-
+  const groupOrderId = useRouter().params?.groupOrderId;
+  useShareAppMessage(() => {
+    return {
+      title: `百亿拼团速购 | ${order.goodsName}`,
+      path: `/pages/index/detail/index?groupOrderId=${order.groupOrderId}`,
+      imageUrl: order.hdThumbUrl,
+    };
+  });
+  useEffect(() => {
+    if (groupOrderId) {
+      showLoading();
+      getOrderById(groupOrderId)
+        .then((res) => {
+          if (!res.data.data) return;
+          hideLoading();
+          useOrderDataStore.getState().setOrderData(res.data.data);
+        })
+        .catch(() => {
+          hideLoading();
+        });
+    }
+  }, [groupOrderId]);
+  console.log(groupOrderId);
   const handleNavigate = () => {
     navigateToMiniProgram({
       appId: PDD_APPID,
@@ -20,7 +51,7 @@ const OrderDetail = () => {
 
   return (
     <div className={styles.container}>
-      <Card order={order!} />
+      <Card order={order!} shareBtn />
       <div className={styles.info}>
         <div className={styles.text}>
           拼团到期时间：{formatDate(new Date(order?.expireTime || ""))}

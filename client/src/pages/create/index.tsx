@@ -4,21 +4,24 @@ import {
   showLoading,
   hideLoading,
   useShareAppMessage,
+  switchTab,
 } from "@tarojs/taro";
 import { useState, useContext } from "react";
+import { useRefreshStore } from "../../store/";
+import TipModal from "./components/TipModal";
+import { createNewGroup } from "../../api";
 import { OpenIdContext } from "../../context";
 import styles from "./index.module.scss";
 import warningSvg from "../../assets/warning.svg";
 import postSvg from "../../assets/post.svg";
 import questionSvg from "../../assets/question.svg";
-import { createNewGroup } from "../../api";
-import TipModal from "./components/TipModal";
 
 export default function User() {
   const [url, setUrl] = useState("");
   const openId = useContext(OpenIdContext);
   const [isLoading, setIsLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const setRefresh = useRefreshStore((state) => state.setRefresh);
   useShareAppMessage(() => {
     return {
       title: "百亿多人团 | 发布拼团",
@@ -68,6 +71,12 @@ export default function User() {
       title: res.data.message,
       icon: res.data.success ? "success" : "error",
     });
+    if (res.data.success) {
+      switchTab({
+        url: "/pages/index/index",
+      });
+      setRefresh(true);
+    }
   };
   return (
     <div className={styles.container} onClick={() => setShowModal(false)}>

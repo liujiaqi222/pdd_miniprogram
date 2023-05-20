@@ -26,6 +26,18 @@ export const getOrders = (
   });
 };
 
+export const getOrderById = (
+  groupOrderId: string
+): RequestTask<{ data: OrderData; success: boolean }> => {
+  return request({
+    url: `${process.env.URL_PREFIX}/orders/byId`,
+    method: "GET",
+    data: {
+      groupOrderId,
+    },
+  });
+};
+
 // 创建新拼单
 export const createNewGroup = (url: string, openId: string) => {
   console.log(urlPrefix);

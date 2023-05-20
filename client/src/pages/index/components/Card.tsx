@@ -1,8 +1,24 @@
-import styles from './styles.module.scss'
+import styles from "./styles.module.scss";
 import { type OrderData } from "../../../api/types";
+import shareIcon from "../../../assets/share.svg";
 
-const Card = ({ order, onClick }: { order: OrderData,onClick?:()=>void }) => {
-  const { goodsName, hdThumbUrl, customerNum, activityPrice, originPrice, groupRemainCount } = order
+const Card = ({
+  order,
+  onClick,
+  shareBtn,
+}: {
+  order: OrderData;
+  onClick?: () => void;
+  shareBtn?: boolean;
+}) => {
+  const {
+    goodsName,
+    hdThumbUrl,
+    customerNum,
+    activityPrice,
+    originPrice,
+    groupRemainCount,
+  } = order;
 
   return (
     <div className={styles["card-container"]} onClick={onClick}>
@@ -31,11 +47,20 @@ const Card = ({ order, onClick }: { order: OrderData,onClick?:()=>void }) => {
               </div>
             )}
           </div>
-          <div className={styles["btn"]}>还差{groupRemainCount}人</div>
+          {shareBtn ? (
+            <button
+              className="text-blue-600  h-8 bg-white shadow ml-28 flex items-center gap-2 text-sm"
+              open-type="share"
+            >
+              <img className="w-4" alt="share-icon" src={shareIcon}></img> 分享
+            </button>
+          ) : (
+            <div className={styles["btn"]}>还差{groupRemainCount}人</div>
+          )}
         </div>
       </div>
     </div>
   );
-}
+};
 
-export default Card
+export default Card;

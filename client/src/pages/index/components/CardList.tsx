@@ -48,13 +48,12 @@ const CardList = ({ searchKey, listType }: Required<OrderParams>) => {
       e.detail.scrollTop + (phoneInfo.windowHeight - 5 * remWidth) >=
       e.detail.scrollHeight - 6 * remWidth
     ) {
-   
       setPageNumber(pageNumber + 1);
     }
   }
   const handleClick = (order: OrderData) => {
     navigateTo({
-      url: "/pages/index/detail/index",
+      url: `/pages/index/detail/index`,
     });
     setOrderData(order);
   };
@@ -64,7 +63,6 @@ const CardList = ({ searchKey, listType }: Required<OrderParams>) => {
       enableFlex
       className={styles.list}
       onScroll={(e) => handleScroll(e)}
-      key={listType}
     >
       {orders.map((order) => (
         <Card

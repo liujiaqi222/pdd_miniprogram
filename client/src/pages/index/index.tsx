@@ -5,6 +5,7 @@ import {
   useShareAppMessage,
 } from "@tarojs/taro";
 import { View, Text, Image } from "@tarojs/components";
+import { useRefreshStore } from "../../store";
 import SearchInput from "../../components/SearchInput";
 import CardList from "./components/CardList";
 import createSvg from "../../assets/create.svg";
@@ -14,11 +15,21 @@ function Index() {
   const [listType, setListType] = useState<"newGroup" | "shortOne">("newGroup");
   const [refreshKey, setRefreshKey] = useState(0);
   const [searchKey, setSearchKey] = useState("");
+  const refreshStore = useRefreshStore();
 
+  if (refreshStore.refresh) {
+    refreshStore.setRefresh(false);
+    if (listType === "shortOne") {
+      setListType("newGroup");
+    } else {
+      setRefreshKey((prev) => prev + 1);
+    }
+  }
   usePullDownRefresh(() => {
     setSearchKey("");
     setRefreshKey((prev) => prev + 1); // 用于刷新组件
   });
+
   useShareAppMessage(() => {
     return {
       title: "百亿多人团 | 一键参团 快速成团",
@@ -49,7 +60,10 @@ function Index() {
               ? `${styles.active} ${styles.list}`
               : styles.list
           }
-          onClick={() => setListType("newGroup")}
+          onClick={() => {
+            setListType("newGroup");
+            setRefreshKey((prev) => prev + 1);
+          }}
         >
           最新
         </Text>
@@ -59,7 +73,10 @@ function Index() {
               ? `${styles.active} ${styles.list}`
               : styles.list
           }
-          onClick={() => setListType("shortOne")}
+          onClick={() => {
+            setListType("shortOne");
+            setRefreshKey((prev) => prev + 1);
+          }}
         >
           只差一人
         </Text>

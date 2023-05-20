@@ -76,8 +76,8 @@ export const createNewGroup = async (req: Request, res: Response) => {
 
 // 根据groupOrderId这个接口方便我上传新的拼单
 export const createNewGroupByOrderId = async (req: Request, res: Response) => {
-  let { groupOrderId,  openId } = req.body;
-  if (!groupOrderId ) {
+  let { groupOrderId, openId } = req.body;
+  if (!groupOrderId) {
     return res.json({ message: "groupOrderId不存在", success: false });
   }
 
@@ -102,4 +102,19 @@ export const deleteGroup = async (req: Request, res: Response) => {
     success: true,
     data: result,
   });
+};
+
+export const getOrderById = async (req: Request, res: Response) => {
+  const { groupOrderId } = req.query;
+  if (!groupOrderId) {
+    res.json({ success: false, message: "groupOrderId不存在" });
+    return;
+  }
+
+  const order = await Order.findOne({ groupOrderId }).exec();
+  if (!order) {
+    res.json({ success: false, message: "该拼单不存在" });
+    return;
+  }
+  res.json({ success: true, data: order });
 };
