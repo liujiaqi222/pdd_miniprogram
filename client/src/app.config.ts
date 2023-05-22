@@ -12,7 +12,7 @@ export default defineAppConfig({
   window: {
     backgroundTextStyle: "light",
     navigationBarBackgroundColor: "#fff",
-    navigationBarTitleText: "百亿拼购",
+    navigationBarTitleText: "百亿拼GO",
     navigationBarTextStyle: "black",
   },
   tabBar: {
@@ -46,4 +46,3 @@ export default defineAppConfig({
     ],
   },
 });
-

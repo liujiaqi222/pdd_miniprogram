@@ -25,7 +25,7 @@ const OrderDetail = () => {
 
   useShareAppMessage(() => {
     return {
-      title: `百亿拼团速购 | ${order.goodsName}`,
+      title: `百亿拼团GO | ${order.goodsName}`,
       path: `/pages/index/detail/index?groupOrderId=${order.groupOrderId}`,
       imageUrl: order.hdThumbUrl,
     };

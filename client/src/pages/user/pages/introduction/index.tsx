@@ -19,10 +19,10 @@ const Introduction = () => {
       </ul>
       <div className={styles.version}>V1.2 (2023/05/20)</div>
       <ul className={styles.list}>
-        <li>1.发布商品后自动跳回到首页，并刷新页面</li>
-        <li>2.搜索的样式和体验优化</li>
-        <li>3.增加拼多多福利券页面</li>
-        <li>4.支持拼团详情页分享</li>
+<li>1.发布商品后自动跳回到首页，并刷新页面</li>
+<li>2.搜索的样式和体验优化</li>
+<li>3.增加拼多多福利券页面</li>
+<li>4.支持拼团详情页分享</li>
       </ul>
     </div>
   );
