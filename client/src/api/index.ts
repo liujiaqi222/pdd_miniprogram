@@ -4,7 +4,7 @@ import {
   interceptors,
   RequestTask,
 } from "@tarojs/taro";
-import { pddRequest } from "../utils/index";
+import { pddRequest, createSignObject } from "../utils/index";
 import type {
   OrderData,
   OrderParams,
@@ -23,11 +23,11 @@ export const getOrders = (
   return request({
     url: `${process.env.URL_PREFIX}/orders/`,
     method: "GET",
-    data: {
+    data: createSignObject({
       goodsName: query?.searchKey || "",
       currentPage: currentPage || 0,
       listType: query?.listType,
-    },
+    }),
   });
 };
 
@@ -37,9 +37,9 @@ export const getOrderById = (
   return request({
     url: `${process.env.URL_PREFIX}/orders/byId`,
     method: "GET",
-    data: {
+    data: createSignObject({
       groupOrderId,
-    },
+    }),
   });
 };
 
@@ -49,10 +49,10 @@ export const createNewGroup = (url: string, openId: string) => {
   return request({
     url: `${urlPrefix}/orders/`,
     method: "POST",
-    data: {
+    data: createSignObject({
       url,
       openId,
-    },
+    }),
   });
 };
 
@@ -63,9 +63,9 @@ export const getOpenId = (
   return request({
     url: `${urlPrefix}/user/login`,
     method: "GET",
-    data: {
+    data: createSignObject({
       code,
-    },
+    }),
   });
 };
 
@@ -74,8 +74,11 @@ export const getMyOrders = (
   openId: string
 ): RequestTask<{ success: boolean; message: string; data: OrderData[] }> => {
   return request({
-    url: `${urlPrefix}/user/orders/${openId}`,
+    url: `${urlPrefix}/user/orders/`,
     method: "GET",
+    data: createSignObject({
+      openId,
+    }),
   });
 };
 console.log(process.env.CLIENT_ID, process.env.CLIENT_SECRET);

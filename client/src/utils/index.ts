@@ -57,7 +57,7 @@ export const checkLogin = async () => {
 
 export const createSign = (
   params: Record<string, string | number | boolean>
-) => {
+): string => {
   const str = `${process.env.CLIENT_SECRET}${Object.keys(params)
     .sort()
     .map((key) => `${key}${params[key]}`)
@@ -84,4 +84,17 @@ export const pddRequest = (
       sign,
     },
   });
+};
+
+export const createSignObject = <
+  T extends Record<string, any>
+>(
+  origin: T
+): T & { timestamp: number; sign: string } => {
+  const sign = createSign(origin);
+  return {
+    timestamp: Date.now(),
+    sign,
+    ...origin,
+  };
 };

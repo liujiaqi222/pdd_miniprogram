@@ -31,7 +31,7 @@ export const wxLogin = async (req: Request, res: Response) => {
 };
 
 export const getUserOrders = async (req: Request, res: Response) => {
-  const openId = req.params.openId;
+  const openId = req.query.openId;
   if (!openId) {
     return res.json({ message: "未提供openId", data: [], success: false });
   }
@@ -40,7 +40,7 @@ export const getUserOrders = async (req: Request, res: Response) => {
     return res.json({ message: "用户不存在", data: [], success: false });
   // 需要优化，目前是全量查询
   const currentOrders = await Order.find({ user: user._id }).sort({
-    createdAt:-1,
+    createdAt: -1,
   });
   const expiredOrders = await ExpiredOrder.find({ user: user._id }).sort({
     createdAt: -1,

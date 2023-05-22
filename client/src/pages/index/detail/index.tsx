@@ -17,6 +17,7 @@ import styles from "./index.module.scss";
 import Card from "../components/Card";
 import pddLogo from "../../../assets/pdd-logo.svg";
 import copySvg from "../../../assets/copy.svg";
+import { OrderData } from "../../../api/types";
 
 const OrderDetail = () => {
   const order = useOrderDataStore((state) => state.orderData);
@@ -32,6 +33,8 @@ const OrderDetail = () => {
   useEffect(() => {
     if (groupOrderId) {
       showLoading();
+      useOrderDataStore.getState().setOrderData({} as OrderData);
+
       getOrderById(groupOrderId)
         .then((res) => {
           hideLoading();
@@ -62,10 +65,11 @@ const OrderDetail = () => {
       <Card order={order!} shareBtn />
       <div className={styles.info}>
         <div className={styles.text}>
-          拼团到期时间：{formatDate(new Date(order?.expireTime || ""))}
+          拼团到期时间：
+          {order?.expireTime ? formatDate(new Date(order?.expireTime)) : ""}
         </div>
         <div className={styles.text}>
-          目前还差：{order?.groupRemainCount} 人
+          目前还差：{order?.groupRemainCount} {order?.groupRemainCount && "人"}
         </div>
         {order?.groupUserList?.length && (
           <div className={styles.userList}>
