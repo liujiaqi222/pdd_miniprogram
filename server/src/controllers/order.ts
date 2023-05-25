@@ -92,16 +92,18 @@ export const createNewGroupByOrderId = async (req: Request, res: Response) => {
   res.json(saveResult);
 };
 
+// 没有做鉴权，危险操作，注释掉
 export const deleteGroup = async (req: Request, res: Response) => {
-  const { groupOrderId } = req.body;
-  if (!groupOrderId)
-    return res.json({ message: "groupOrderId不存在", success: false });
+  return res.json({ success: false, message: "暂时不支持删除" });
+  // const { groupOrderId } = req.body;
+  // if (!groupOrderId)
+  //   return res.json({ message: "groupOrderId不存在", success: false });
 
-  const result = await Order.deleteOne({ groupOrderId }).exec();
-  res.json({
-    success: true,
-    data: result,
-  });
+  // const result = await Order.deleteOne({ groupOrderId }).exec();
+  // res.json({
+  //   success: true,
+  //   data: result,
+  // });
 };
 
 export const getOrderById = async (req: Request, res: Response) => {
