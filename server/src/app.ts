@@ -7,7 +7,6 @@ import { errorHandlerMiddleWare } from "./errors/error-handler.js";
 import orderRoute from "./routes/order.js";
 import userRoute from "./routes/user.js";
 import pddRoute from "./routes/pdd.js";
-import "./cron/index.js";
 
 dotenv.config();
 
@@ -23,6 +22,7 @@ app.use(errorHandlerMiddleWare);
 connectDB(process.env.MONGO_URI!)
   .then(async () => {
     app.listen(process.env.PORT || 4000, () => {
+      import('./cron/index.js')
       console.log(`running at http://localhost:${process.env.PORT || 4000}`);
     });
   })

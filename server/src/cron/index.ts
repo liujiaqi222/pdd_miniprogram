@@ -12,6 +12,7 @@ import {
 } from "./../db/traverseOrders.js";
 import { uploadOrderData1 } from "../upload/getDataFromOther1.js";
 import { uploadOrderData2 } from "../upload/getDataFromOther2.js";
+import { uploadOrderData3 } from "../upload/getDataFromOther3.js";
 
 // 每5min执行一次
 nodeSchedule.scheduleJob("*/5 * * * *", () => {
@@ -30,7 +31,10 @@ nodeSchedule.scheduleJob("*/30 * * * *", () => {
   console.log("定时任务：获取拼单信息");
   uploadOrderData1();
   uploadOrderData2();
+  uploadOrderData3()
 });
+
+
 
 // 每天执行一次
 nodeSchedule.scheduleJob("0 0 * * *", () => {

@@ -1,7 +1,6 @@
 import { timeOut } from "../util/index.js";
 
-const url =
-  "https://pdd.mkstone.club/index.php/pdd/index/get_group?current_page=";
+const url = process.env.URL_PREFIX_OTHER1 || "";
 
 const options = {
   method: "GET",
@@ -11,6 +10,7 @@ const options = {
   },
 };
 export const uploadOrderData1 = async () => {
+
   let page = 1;
   while (true) {
     try {
@@ -23,7 +23,7 @@ export const uploadOrderData1 = async () => {
       }
       for (const { url } of data) {
         if (!url) continue;
-        await timeOut(Math.random() * 2000);
+        await timeOut(Math.random() * 3000);
         const res = await fetch("http://localhost:4000/api/v1/orders/", {
           method: "POST",
           headers: {
