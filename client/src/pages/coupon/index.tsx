@@ -52,7 +52,7 @@ const Coupon = () => {
     setCurrentPage(0);
   }, [searchKey]);
   return (
-    <div className="bg-primary px-4 h-screen flex flex-col gap-4">
+    <div className="bg-primary px-2 h-screen flex flex-col gap-4">
       <SearchInput
         onClear={() => setSearchKey("")}
         onSearch={(key) => setSearchKey(key)}

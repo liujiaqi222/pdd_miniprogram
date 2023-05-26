@@ -69,14 +69,15 @@ const User = () => {
         <img src={arrowIcon} alt="arrow-icon" className={styles.arrowIcon} />
       </div>
       <div
-        className="flex text-sm"
+        className="flex text-sm py-2"
         onClick={() => {
           setClipboardData({
             data: "https://github.com/liujiaqi222/pdd_miniprogram",
           });
         }}
       >
-        注：本小程序完全免费且已在<span className="text-primary font-bold">GitHub</span>
+        注：本小程序完全免费且已在
+        <span className="text-primary font-bold underline ">GitHub</span>
         开源，欢迎Star
       </div>
     </div>
@@ -84,4 +85,3 @@ const User = () => {
 };
 
 export default User;
-
