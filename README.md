@@ -32,7 +32,7 @@
 <img src="https://raw.githubusercontent.com/liujiaqi222/warehouse/main/20230522222705.png" alt="image-20230503233003395" style="width: 33%;" />
 
 
-优惠券（调多多客的api）：
+优惠券页面（调多多客的api）：
 
 <img src="https://raw.githubusercontent.com/liujiaqi222/warehouse/main/20230522223141.png" alt="image-20230503233003395" style="width: 32%;" />
 
@@ -74,7 +74,15 @@ react + taro.js + ts + scss +tailwindcss
 
 node + express + ts + mongodb + mongoose
 
-后端的部署真的是第一次体验
+建议node版本大于等于18，因为项目使用了node原生的fetch功能。如果你的node小于18，则可以用`node-fetch`这个开源npm包平替。
+
+### 环境变量
+
+项目在前端和后端都使用了一些环境变量，如果想要运行本项目，请去掉`.example`后缀。
+
+如`.env.example` -> `.env`
+如`.env.production.example` -> `.env.production`
+
 
 ## 未来优化
 
@@ -82,4 +90,6 @@ node + express + ts + mongodb + mongoose
 1. 支持docker部署
 2. 将express.js 换成nest.js，这个可能懒得做，已经能跑的项目为啥要换一个框架
 3. 后端完善防重放校验
+4. 前端页面风格统一，感觉现在的页面风格很不统一，而且有点丑，我的审美设计能力有待提高。
+5. 使用github actions 自动更新部署后端到服务器
 

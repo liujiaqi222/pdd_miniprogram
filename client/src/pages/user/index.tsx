@@ -1,4 +1,4 @@
-import { navigateTo, useShareAppMessage } from "@tarojs/taro";
+import { navigateTo, useShareAppMessage, setClipboardData } from "@tarojs/taro";
 import avatar from "../../assets/user-avatar.svg";
 import shareIcon from "../../assets/share.svg";
 import arrowIcon from "../../assets/arrow.svg";
@@ -8,11 +8,12 @@ import trumpetIcon from "../../assets/trumpet.svg";
 import styles from "./index.module.scss";
 
 const User = () => {
-
   useShareAppMessage(() => {
     return {
-      title: "百亿多人团 | 一键参团 快速成团",
+      title: "百亿拼团GO | 一键参团 快速成团",
       path: "pages/index/index",
+      imageUrl:
+        "https://files.mdnice.com/user/7989/36b4764f-d777-4a6d-9b73-18b94baaf285.png",
     };
   });
   return (
@@ -67,8 +68,20 @@ const User = () => {
         </div>
         <img src={arrowIcon} alt="arrow-icon" className={styles.arrowIcon} />
       </div>
+      <div
+        className="flex text-sm"
+        onClick={() => {
+          setClipboardData({
+            data: "https://github.com/liujiaqi222/pdd_miniprogram",
+          });
+        }}
+      >
+        注：本小程序完全免费且已在<span className="text-primary font-bold">GitHub</span>
+        开源，欢迎Star
+      </div>
     </div>
   );
 };
 
 export default User;
+

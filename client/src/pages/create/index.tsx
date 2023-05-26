@@ -24,7 +24,7 @@ export default function User() {
   const setRefresh = useRefreshStore((state) => state.setRefresh);
   useShareAppMessage(() => {
     return {
-      title: "百亿多人团 | 发布拼团",
+      title: "百亿拼团GO | 发布拼团", 
     };
   });
   const handleUpload = () => {

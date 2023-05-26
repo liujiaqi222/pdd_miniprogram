@@ -1,7 +1,7 @@
 export default definePageConfig({
   navigationBarTitleText: "优惠券",
   enableShareAppMessage: true,
-  navigationBarBackgroundColor: "#ff1a1a",
+  navigationBarBackgroundColor: "#3b82f6",
   navigationBarTextStyle: "white",
-  backgroundColor: "#ff1a1a",
+  backgroundColor: "#3b82f6",
 });
