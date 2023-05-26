@@ -35,7 +35,6 @@ export const getAllOrders = async (req: Request, res: Response) => {
       $eq: 1,
     };
   }
-  console.log(req.query);
   const result = await Order.find(queryObject)
     .limit(pageSize)
     .skip(pageSize * Number(currentPage) || 0)
@@ -92,7 +91,7 @@ export const createNewGroupByOrderId = async (req: Request, res: Response) => {
   res.json(saveResult);
 };
 
-// 没有做鉴权，危险操作，注释掉
+// 目前没有做鉴权，危险操作，注释掉
 export const deleteGroup = async (req: Request, res: Response) => {
   return res.json({ success: false, message: "暂时不支持删除" });
   // const { groupOrderId } = req.body;

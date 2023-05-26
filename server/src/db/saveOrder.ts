@@ -26,8 +26,8 @@ export const saveOrderData = async (
 
   if (!groupRemainCount || groupStatus !== 0)
     return {
-      success: false,
       message: "该拼单已经结束",
+      success: false,
     };
 
   // 多人团，但是商品任选
