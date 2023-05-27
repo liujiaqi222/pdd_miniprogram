@@ -40,6 +40,7 @@ const Coupon = () => {
   }
   const handleCardClick = (item: CouponData) => {
     generatePromotionUrl(item.goods_id, item.goods_sign).then((res) => {
+      console.log(res);
       navigateToMiniProgram({
         appId: res.we_app_info.app_id,
         path: res.we_app_info.page_path,
@@ -82,7 +83,7 @@ const Card = ({ item, onClick }: { item: CouponData; onClick: () => void }) => {
       onClick={() => onClick()}
     >
       {/* 左边图片 */}
-      <div className="flex relative mt-1">
+      <div className="relative mt-1">
         <img
           src={item.goods_image_url}
           alt={item.goods_name}
@@ -93,12 +94,12 @@ const Card = ({ item, onClick }: { item: CouponData; onClick: () => void }) => {
         </span>
       </div>
       {/* 右边文字描述 */}
-      <div className="flex-1">
+      <div>
         <div className="text-overflow-2 text-sm h-10">{item.goods_name}</div>
         <div className=" text-sm text-red border border-red border-solid w-fit px-2  rounded-full mt-2 mb-2">
           {item.coupon_discount / 100}元优惠券
         </div>
-        <div className="flex justify-between items-end ">
+        <div className="flex justify-between items-end">
           <div className="flex  gap-4">
             <div className="text-primary ">
               <span className="flex items-baseline ">
@@ -117,7 +118,7 @@ const Card = ({ item, onClick }: { item: CouponData; onClick: () => void }) => {
             </div>
           </div>
           {/* 按钮 */}
-          <div className="px-2 py-1 mb-2 bg-primary-darker rounded text-white ">
+          <div className="px-2 py-1 mb-2 bg-primary-darker rounded text-white">
             领券下单
           </div>
         </div>
