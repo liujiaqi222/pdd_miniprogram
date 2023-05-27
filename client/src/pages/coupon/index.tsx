@@ -94,7 +94,7 @@ const Card = ({ item, onClick }: { item: CouponData; onClick: () => void }) => {
         </span>
       </div>
       {/* 右边文字描述 */}
-      <div>
+      <div className="flex-1">
         <div className="text-overflow-2 text-sm h-10">{item.goods_name}</div>
         <div className=" text-sm text-red border border-red border-solid w-fit px-2  rounded-full mt-2 mb-2">
           {item.coupon_discount / 100}元优惠券
