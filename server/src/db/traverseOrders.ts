@@ -53,7 +53,7 @@ export const traverseOrders = async () => {
   for (const order of orders) {
     const { groupOrderId, _id } = order;
     getOrderData(groupOrderId!).then((res) => {
-      if (!res) {
+      if (!res || !res.groupInfo) {
         return deleteOrderById(_id);
       }
       const { groupStatus, groupRemainCount } = res.groupInfo;

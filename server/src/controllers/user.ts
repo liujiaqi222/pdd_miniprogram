@@ -16,10 +16,16 @@ export const wxLogin = async (req: Request, res: Response) => {
   // 根据openid用户是否存在，不存在则创建用户
   User.findOneAndUpdate(
     { openId: openid },
+
     {
+      $set: {
+        sessionKey: session_key,
+        code: code,
+      },
       $setOnInsert: {
         openId: openid,
         sessionKey: session_key,
+        code: code,
       },
     },
     { upsert: true }

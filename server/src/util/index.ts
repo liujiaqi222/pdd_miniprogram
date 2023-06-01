@@ -70,7 +70,10 @@ export const getOrderData = async (orderId: string) => {
       "accept-encoding": "gzip, deflate, br",
       cookie: process.env.COOKIE!,
     },
+  }).catch(err=>{
+    console.log(err)
   });
+  if (!response) return {} as any;
   const data = await response.text();
   const matchedResult = data.match(/(?<=window.rawData=).+(?=;<\/script>)/);
 
