@@ -24,8 +24,6 @@ export const wxLogin = async (req: Request, res: Response) => {
       },
       $setOnInsert: {
         openId: openid,
-        sessionKey: session_key,
-        code: code,
       },
     },
     { upsert: true }
