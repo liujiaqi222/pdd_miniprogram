@@ -37,51 +37,53 @@ function Index() {
   });
   return (
     <View className={styles.container}>
-      <View className={styles["util-container"]}>
-        <SearchInput
-          onClear={() => setSearchKey("")}
-          onSearch={(data) => setSearchKey(data)}
-        />
+      <View className="fixed top-0 z-50 bg-primary">
+        <View className={styles["util-container"]}>
+          <SearchInput
+            onClear={() => setSearchKey("")}
+            onSearch={(data) => setSearchKey(data)}
+          />
 
-        <View
-          className={styles["create-btn"]}
-          onClick={() => switchTab({ url: "/pages/create/index" })}
-        >
-          <Image
-            src={createSvg}
-            style={{ width: "2rem", height: "2rem", display: "block" }}
-          ></Image>
+          <View
+            className={styles["create-btn"]}
+            onClick={() => switchTab({ url: "/pages/create/index" })}
+          >
+            <Image
+              src={createSvg}
+              style={{ width: "2rem", height: "2rem", display: "block" }}
+            ></Image>
+          </View>
+        </View>
+        <View className={styles["list-type"]}>
+          <Text
+            className={
+              listType === "newGroup"
+                ? `${styles.active} ${styles.list}`
+                : styles.list
+            }
+            onClick={() => {
+              setListType("newGroup");
+              setRefreshKey((prev) => prev + 1);
+            }}
+          >
+            最新
+          </Text>
+          <Text
+            className={
+              listType === "shortOne"
+                ? `${styles.active} ${styles.list}`
+                : styles.list
+            }
+            onClick={() => {
+              setListType("shortOne");
+              setRefreshKey((prev) => prev + 1);
+            }}
+          >
+            只差一人
+          </Text>
         </View>
       </View>
-      <View className={styles["list-type"]}>
-        <Text
-          className={
-            listType === "newGroup"
-              ? `${styles.active} ${styles.list}`
-              : styles.list
-          }
-          onClick={() => {
-            setListType("newGroup");
-            setRefreshKey((prev) => prev + 1);
-          }}
-        >
-          最新
-        </Text>
-        <Text
-          className={
-            listType === "shortOne"
-              ? `${styles.active} ${styles.list}`
-              : styles.list
-          }
-          onClick={() => {
-            setListType("shortOne");
-            setRefreshKey((prev) => prev + 1);
-          }}
-        >
-          只差一人
-        </Text>
-      </View>
-      <CardList searchKey={searchKey} listType={listType} key={refreshKey} />
+        <CardList searchKey={searchKey} listType={listType} key={refreshKey} />
     </View>
   );
 }

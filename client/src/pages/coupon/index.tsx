@@ -22,7 +22,6 @@ const Coupon = () => {
   const [searchKey, setSearchKey] = useState("");
   const [currentPage, setCurrentPage] = useState(0);
   const { data, loading, hasMore } = useCouponFetch(currentPage, searchKey);
-  console.log(data);
   if (loading) {
     showLoading({ title: "加载中" });
   } else {
@@ -40,7 +39,6 @@ const Coupon = () => {
   }
   const handleCardClick = (item: CouponData) => {
     generatePromotionUrl(item.goods_id, item.goods_sign).then((res) => {
-      console.log(res);
       navigateToMiniProgram({
         appId: res.we_app_info.app_id,
         path: res.we_app_info.page_path,

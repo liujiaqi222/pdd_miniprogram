@@ -1,8 +1,8 @@
 export default defineAppConfig({
   pages: [
     "pages/index/index",
-    "pages/index/detail/index",
     "pages/coupon/index", // 这是拼多多优惠券页面，如果不需要可以注释
+    "pages/index/detail/index",
     "pages/user/index",
     "pages/create/index",
     "pages/user/pages/orders/index",

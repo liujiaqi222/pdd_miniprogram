@@ -45,7 +45,6 @@ export const getOrderById = (
 
 // 创建新拼单
 export const createNewGroup = (url: string, openId: string) => {
-  console.log(urlPrefix);
   return request({
     url: `${urlPrefix}/orders/`,
     method: "POST",
@@ -81,7 +80,6 @@ export const getMyOrders = (
     }),
   });
 };
-console.log(process.env.CLIENT_ID, process.env.CLIENT_SECRET);
 
 /**
  * @description 获取拼多多优惠商品信息

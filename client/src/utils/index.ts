@@ -16,7 +16,7 @@ export const formatDate = (date: Date) => {
   const year = date.getFullYear();
   const month = date.getMonth() + 1;
   const day = date.getDate();
-  const hour = date.getHours();
+  const hour = date.getHours() < 10 ? `0${date.getHours()}` : date.getHours();
   const minute =
     date.getMinutes() < 10 ? `0${date.getMinutes()}` : date.getMinutes();
   const second =
@@ -49,7 +49,6 @@ export const checkLogin = async () => {
       const res = await checkSession().catch();
       if (!res) return loginUser();
     } catch (err) {
-      console.log(err);
       return loginUser();
     }
   }
@@ -63,7 +62,6 @@ export const createSign = (
     .map((key) => `${key}${params[key]}`)
     .join("")}${process.env.CLIENT_SECRET}`;
 
-  console.log(str);
   return md5(str).toUpperCase();
 };
 
@@ -75,7 +73,6 @@ export const pddRequest = (
     timestamp: Math.floor(Date.now() / 1000),
   });
   const sign = createSign(params);
-  console.log(sign);
   return request({
     url: "https://gw-api.pinduoduo.com/api/router",
     method: "POST",
@@ -86,9 +83,7 @@ export const pddRequest = (
   });
 };
 
-export const createSignObject = <
-  T extends Record<string, any>
->(
+export const createSignObject = <T extends Record<string, any>>(
   origin: T
 ): T & { timestamp: number; sign: string } => {
   const sign = createSign(origin);

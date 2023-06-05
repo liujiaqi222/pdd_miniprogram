@@ -1,19 +1,7 @@
 $text-active: #3b82f6;
 $text-darker: #2563eb;
 
-.list {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  overflow-y: scroll;
-  height: calc(100vh - 6rem);
 
-  .tipText {
-    text-align: center;
-    font-size: small;
-    padding-bottom: 0.2rem;
-  }
-}
 
 .card-container {
   background: #fff;
