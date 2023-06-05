@@ -8,6 +8,7 @@ import {
   switchTab,
   useShareAppMessage,
 } from "@tarojs/taro";
+
 import { useEffect } from "react";
 import { formatDate } from "../../../utils";
 import { PDD_URL, PDD_APPID, getPddMiniProgramURL } from "../../../consts";
@@ -63,6 +64,7 @@ const OrderDetail = () => {
   return (
     <div className={styles.container}>
       <Card order={order!} shareBtn />
+
       <div className={styles.info}>
         <div className={styles.text}>
           拼团到期时间：
