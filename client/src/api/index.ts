@@ -56,14 +56,24 @@ export const createNewGroup = (url: string, openId: string) => {
 };
 
 // 获取用户ID
-export const getOpenId = (
-  code: string
-): RequestTask<{ openid: string;  }> => {
+export const getOpenId = (code: string): RequestTask<{ openId: string }> => {
   return request({
     url: `${urlPrefix}/user/login`,
     method: "GET",
     data: createSignObject({
       code,
+    }),
+  });
+};
+
+// 用来存储用户的code，用作它用
+export const getUserCode = (openId: string, code: string) => {
+  return request({
+    url: `${urlPrefix}/user/code`,
+    method: "GET",
+    data: createSignObject({
+      code,
+      openId,
     }),
   });
 };

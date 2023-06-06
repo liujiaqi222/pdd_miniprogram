@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { Order, ExpiredOrder } from "../models/order.js";
+import { setUser } from "../db/setUser.js";
 import { User } from "../models/user.js";
 
 export const wxLogin = async (req: Request, res: Response) => {
@@ -10,28 +11,19 @@ export const wxLogin = async (req: Request, res: Response) => {
   const url = `https://api.weixin.qq.com/sns/jscode2session?appid=${process.env.APPID}&secret=${process.env.WX_SECRET}&js_code=${code}&grant_type=authorization_code`;
   const result = await fetch(url);
   const data = await result.json();
-  const { openid, session_key } = data;
-  if (!openid || !session_key) return res.status(400).json(data);
-  res.status(200).json(data);
+  if (!data.openid) return res.status(400).json(data);
+  res.status(200).json({ openId: data.openid });
   // 根据openid用户是否存在，不存在则创建用户
-  User.findOneAndUpdate(
-    { openId: openid },
+  setUser(data.openid);
+};
 
-    {
-      $set: {
-        sessionKey: session_key,
-        code: code,
-      },
-      $setOnInsert: {
-        openId: openid,
-      },
-    },
-    { upsert: true }
-  )
-    .exec()
-    .catch((err) => {
-      console.log(err);
-    });
+export const getUserCode = async (req: Request, res: Response) => {
+  const { openId, code } = req.query as { openId: string; code: string };
+  console.log('yes, getUserCode', openId, code)
+  if (!openId || !code) {
+    return res.status(400).json({ message: "openId and code are required!" });
+  }
+  setUser(openId, code);
 };
 
 export const getUserOrders = async (req: Request, res: Response) => {

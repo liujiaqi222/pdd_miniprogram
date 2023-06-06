@@ -7,7 +7,7 @@ import {
   getStorageSync,
   login,
 } from "@tarojs/taro";
-import { getOpenId } from "../api";
+import { getOpenId, getUserCode } from "../api";
 
 // 小程序不支持toLocaleString
 // 转换日期为 年/月/日 时:分:秒
@@ -28,7 +28,14 @@ export const formatDate = (date: Date) => {
 export const loginUser = async () => {
   const { code } = await login();
   const { data } = await getOpenId(code);
-  setStorageSync("openId", data.openid);
+  setStorageSync("openId", data.openId);
+  setStorageSync("loginTime", Date.now());
+};
+
+/** @description 存储用户code */
+const saveUserCode = async () => {
+  const { code } = await login();
+  getUserCode(getStorageSync("openId"), code);
   setStorageSync("loginTime", Date.now());
 };
 
@@ -37,14 +44,15 @@ export const checkLogin = async () => {
   const loginTime = getStorageSync("loginTime");
   const openId = getStorageSync("openId");
   // 如果没有openId,则登录
-  if ( !openId) {
+  if (!openId) {
     return loginUser();
   }
   // 如果openId,则判断是否超过一天，超过一天则检查登录状态
   if (Date.now() - loginTime > 24 * 60 * 60 * 1000) {
     try {
-      const res = await checkSession().catch((err)=>console.log(err));
+      const res = await checkSession().catch((err) => console.log(err));
       if (!res) return loginUser();
+      return saveUserCode(); // 并不是登录，只是把code传给后端
     } catch (err) {
       return loginUser();
     }
