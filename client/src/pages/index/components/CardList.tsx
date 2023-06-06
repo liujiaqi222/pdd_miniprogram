@@ -66,7 +66,7 @@ const CardList = ({ searchKey, listType }: Required<OrderParams>) => {
               key={order.groupOrderId}
               onClick={() => handleClick(order)}
             />
-            {index !== 0 && index % 22 === 0 && index !== orders.length - 1 && (
+            {index !== 0 && index % 30 === 0 && index !== orders.length - 1 && (
               <div className="mb-4 rounded-lg overflow-hidden">
                 <AdCustom unitId="adunit-969c008b29c955e2"></AdCustom>
               </div>

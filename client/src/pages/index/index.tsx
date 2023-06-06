@@ -37,7 +37,7 @@ function Index() {
   });
   return (
     <View className={styles.container}>
-      <View className="fixed top-0 z-50 bg-primary">
+      <View className="fixed top-0 z-[999] bg-primary">
         <View className={styles["util-container"]}>
           <SearchInput
             onClear={() => setSearchKey("")}

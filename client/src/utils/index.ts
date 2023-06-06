@@ -28,25 +28,22 @@ export const formatDate = (date: Date) => {
 export const loginUser = async () => {
   const { code } = await login();
   const { data } = await getOpenId(code);
-  const { openid, session_key } = data;
-  setStorageSync("openId", openid);
-  setStorageSync("sessionKey", session_key);
+  setStorageSync("openId", data.openid);
   setStorageSync("loginTime", Date.now());
 };
 
 /**@description 检查登录状态  */
 export const checkLogin = async () => {
   const loginTime = getStorageSync("loginTime");
-  const sessionKey = getStorageSync("sessionKey");
   const openId = getStorageSync("openId");
-  // 如果没有sessionKey或者openId,则登录
-  if (!sessionKey || !openId) {
+  // 如果没有openId,则登录
+  if ( !openId) {
     return loginUser();
   }
-  // 如果有sessionKey和openId,则判断是否超过一天，超过一天则检查登录状态
+  // 如果openId,则判断是否超过一天，超过一天则检查登录状态
   if (Date.now() - loginTime > 24 * 60 * 60 * 1000) {
     try {
-      const res = await checkSession().catch();
+      const res = await checkSession().catch((err)=>console.log(err));
       if (!res) return loginUser();
     } catch (err) {
       return loginUser();

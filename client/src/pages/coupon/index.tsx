@@ -48,14 +48,14 @@ const Coupon = () => {
     setCurrentPage(0);
   }, [searchKey]);
   return (
-    <div className="bg-primary relative  flex flex-col gap-4">
-      <div className="bg-primary px-2 py-3 z-50 fixed top-0 w-[calc(100vw_-_1.2rem)]">
+    <div className="bg-primary relative  flex flex-col gap-4 min-h-screen">
+      <div className="bg-primary  px-2 py-3 z-50 fixed top-0 w-[calc(100vw_-_1.2rem)]">
         <SearchInput
           onClear={() => setSearchKey("")}
           onSearch={(key) => setSearchKey(key)}
         />
       </div>
-      <div className="mt-14 px-2  ">
+      <div className="mt-14 px-2   ">
         {data?.map((item) => (
           <Card
             item={item}

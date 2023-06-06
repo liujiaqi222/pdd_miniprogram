@@ -58,7 +58,7 @@ export const createNewGroup = (url: string, openId: string) => {
 // 获取用户ID
 export const getOpenId = (
   code: string
-): RequestTask<{ openid: string; session_key: string }> => {
+): RequestTask<{ openid: string;  }> => {
   return request({
     url: `${urlPrefix}/user/login`,
     method: "GET",
