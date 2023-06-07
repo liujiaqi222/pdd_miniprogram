@@ -1,17 +1,21 @@
 import { useEffect, useState } from "react";
 import {
+  ScrollView,
+  type BaseEventOrig,
+  type ScrollViewProps,
+} from "@tarojs/components";
+import {
   getSystemInfoSync,
   showLoading,
   hideLoading,
   stopPullDownRefresh,
   navigateToMiniProgram,
-  usePageScroll,
 } from "@tarojs/taro";
-import Loading from "../../components/Loading";
 import SearchInput from "../../components/SearchInput";
 import type { CouponData } from "../../api/types";
 import { useCouponFetch } from "./hooks/useCouponList";
 import { generatePromotionUrl } from "../../api";
+import Loading from "../../components/Loading";
 
 const phoneInfo = getSystemInfoSync();
 const remWidth = phoneInfo.windowWidth / 20;
@@ -19,14 +23,21 @@ const Coupon = () => {
   const [searchKey, setSearchKey] = useState("");
   const [currentPage, setCurrentPage] = useState(0);
   const { data, loading, hasMore } = useCouponFetch(currentPage, searchKey);
-  if (loading && currentPage === 0) {
-    showLoading({ title: "加载中" });
+ if (loading && currentPage === 0) {
+   showLoading({ title: "加载中" });
+ } else {
+   hideLoading();
+   stopPullDownRefresh();
+ }
+  function handleScroll(e: BaseEventOrig<ScrollViewProps.onScrollDetail>) {
+    if (loading || !hasMore) return;
+    if (
+      e.detail.scrollTop + (phoneInfo.windowHeight - 3.5 * remWidth) >=
+      e.detail.scrollHeight - 8 * remWidth
+    ) {
+      setCurrentPage(currentPage + 1);
+    }
   }
-  if (!loading) {
-    hideLoading();
-    stopPullDownRefresh();
-  }
-
   const handleCardClick = (item: CouponData) => {
     generatePromotionUrl(item.goods_id, item.goods_sign).then((res) => {
       navigateToMiniProgram({
@@ -35,27 +46,23 @@ const Coupon = () => {
       });
     });
   };
-  usePageScroll(({ scrollTop }) => {
-    if (loading || !hasMore) return;
-    if (
-      scrollTop + phoneInfo.windowHeight - 3 * remWidth >
-      7 * remWidth * 20 * currentPage
-    ) {
-      setCurrentPage(currentPage + 1);
-    }
-  });
+
   useEffect(() => {
     setCurrentPage(0);
   }, [searchKey]);
   return (
-    <div className="bg-primary relative  flex flex-col gap-4 min-h-screen">
-      <div className="bg-primary  px-2 py-3 z-50 fixed top-0 w-[calc(100vw_-_1.2rem)]">
-        <SearchInput
-          onClear={() => setSearchKey("")}
-          onSearch={(key) => setSearchKey(key)}
-        />
-      </div>
-      <div className="mt-14 px-2   ">
+    <div className="bg-primary px-2 h-screen flex flex-col gap-4">
+      <SearchInput
+        onClear={() => setSearchKey("")}
+        onSearch={(key) => setSearchKey(key)}
+      />
+      <ScrollView
+        scrollY
+        enableFlex
+        scrollWithAnimation
+        className="h-[calc(100vh_-_3.5rem)] "
+        onScroll={(e) => handleScroll(e)}
+      >
         {data?.map((item) => (
           <Card
             item={item}
@@ -63,8 +70,12 @@ const Coupon = () => {
             onClick={() => handleCardClick(item)}
           />
         ))}
-        {loading && currentPage !== 0 && <Loading />}
-      </div>
+        {loading && currentPage !== 0 && (
+          <div className="pb-2">
+            <Loading />
+          </div>
+        )}
+      </ScrollView>
     </div>
   );
 };
