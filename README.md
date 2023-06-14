@@ -88,8 +88,7 @@ node + express + ts + mongodb + mongoose
 
 
 1. 支持docker部署
-2. 将express.js 换成nest.js，这个可能懒得做，已经能跑的项目为啥要换一个框架
+2. 列表虚拟滚动
 3. 后端完善防重放校验
-4. 前端页面风格统一，感觉现在的页面风格很不统一，而且有点丑，我的审美设计能力有待提高。
-5. 使用github actions 自动更新部署后端到服务器
+4. 使用github actions 自动更新部署后端到服务器
 

@@ -57,9 +57,14 @@ export const traverseOrders = async () => {
         return deleteOrderById(_id);
       }
       const { groupStatus, groupRemainCount } = res.groupInfo;
-      if (groupStatus !== 0 || !groupRemainCount ) {
-        console.log(_id, "订单已经拼满，移动到过期订单集合中")
-        return moveOrderById(_id);
+      if (groupStatus !== 0 || !groupRemainCount) {
+        console.log(_id, "订单已经拼满，移动到过期订单集合中");
+        order.groupRemainCount = groupRemainCount;
+        order.groupStatus = groupStatus;
+        order.save().then(() => {
+          moveOrderById(_id);
+        });
+        return;
       }
       if (order.groupRemainCount !== groupRemainCount) {
         order.groupRemainCount = groupRemainCount;

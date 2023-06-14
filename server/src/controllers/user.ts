@@ -19,11 +19,11 @@ export const wxLogin = async (req: Request, res: Response) => {
 
 export const getUserCode = async (req: Request, res: Response) => {
   const { openId, code } = req.query as { openId: string; code: string };
-  console.log('yes, getUserCode', openId, code)
   if (!openId || !code) {
     return res.status(400).json({ message: "openId and code are required!" });
   }
   setUser(openId, code);
+  return res.status(200).json({ message: "code saved!" });
 };
 
 export const getUserOrders = async (req: Request, res: Response) => {
