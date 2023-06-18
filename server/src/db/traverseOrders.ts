@@ -51,16 +51,17 @@ export const traverseOrders = async () => {
   const orders = await Order.find({ expireTime: { $gt: Date.now() } });
 
   for (const order of orders) {
-    const { groupOrderId, _id } = order;
+    const { groupOrderId, _id, groupUserList } = order;
     getOrderData(groupOrderId!).then((res) => {
       if (!res || !res.groupInfo) {
         return deleteOrderById(_id);
       }
       const { groupStatus, groupRemainCount } = res.groupInfo;
       if (groupStatus !== 0 || !groupRemainCount) {
-        console.log(_id, "订单已经拼满，移动到过期订单集合中");
-        order.groupRemainCount = groupRemainCount;
+        order.groupRemainCount = groupRemainCount||0;
+        order.groupUserList = groupUserList;
         order.groupStatus = groupStatus;
+        console.log(_id, "订单已经拼满或过期，移动到过期订单集合中");
         order.save().then(() => {
           moveOrderById(_id);
         });
@@ -68,6 +69,7 @@ export const traverseOrders = async () => {
       }
       if (order.groupRemainCount !== groupRemainCount) {
         order.groupRemainCount = groupRemainCount;
+        order.groupUserList = groupUserList;
         order.save().catch((err) => {
           console.log(err, "更新失败");
         });
