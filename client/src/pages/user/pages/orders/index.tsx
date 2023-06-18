@@ -60,10 +60,8 @@ const MyOrders = () => {
         <div className={styles.noData}>暂无拼单数据</div>
       ) : (
         <div>
-          <div className="flex flex-wrap text-sm px-2 mb-2">
-            如需关闭某个正在进行中的拼团，
-            <span className="text-red">请您前往拼多多取消拼团，</span>
-            取消后本小程序的用户将无法参与您发布的拼团。
+          <div className="text-sm p-2  font-bold">
+            如需关闭某个正在进行中的拼团，请您前往拼多多取消拼团,取消后本小程序的用户将无法参与您发布的拼团。
           </div>
           <div className={styles.orderContainer}>
             {orders.map((order) => (
