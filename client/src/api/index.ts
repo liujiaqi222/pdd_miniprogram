@@ -66,17 +66,6 @@ export const getOpenId = (code: string): RequestTask<{ openId: string }> => {
   });
 };
 
-// 用来存储用户的code，用作它用
-export const getUserCode = (openId: string, code: string) => {
-  return request({
-    url: `${urlPrefix}/user/code`,
-    method: "GET",
-    data: createSignObject({
-      code,
-      openId,
-    }),
-  });
-};
 
 // 获取用户名下的拼单
 export const getMyOrders = (

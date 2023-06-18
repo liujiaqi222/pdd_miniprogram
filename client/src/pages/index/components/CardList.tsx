@@ -6,6 +6,7 @@ import {
   stopPullDownRefresh,
   navigateTo,
   usePageScroll,
+  switchTab,
 } from "@tarojs/taro";
 import { AdCustom } from "@tarojs/components";
 import { useOrderDataStore } from "../../../store";
@@ -66,7 +67,7 @@ const CardList = ({ searchKey, listType }: Required<OrderParams>) => {
               key={order.groupOrderId}
               onClick={() => handleClick(order)}
             />
-            {index !== 0 && index % 30 === 0 && index !== orders.length - 1 && (
+            {index !== 0 && index % 20 === 0 && index !== orders.length - 1 && (
               <div className="mb-4 rounded-lg overflow-hidden">
                 <AdCustom unitId="adunit-969c008b29c955e2"></AdCustom>
               </div>
@@ -75,9 +76,22 @@ const CardList = ({ searchKey, listType }: Required<OrderParams>) => {
         );
       })}
       {loading && pageNumber !== 0 && <Loading />}
-      {!hasMore && (
-        <div className="text-center text-sm pb-4 ">==无更多拼单信息==</div>
-      )}
+      {!hasMore &&
+        (searchKey ? (
+          <div className="flex items-center justify-center text-sm pb-4 ">
+            {orders.length
+              ? "没有找到您想要的拼团？"
+              : "无相关拼团，试试切换关键词或"}
+            <span
+              className="underline underline-offset-4 text-base"
+              onClick={() => switchTab({ url: "/pages/create/index" })}
+            >
+              去发布
+            </span>
+          </div>
+        ) : (
+          <div className="text-center text-sm pb-4 ">==无更多拼单信息==</div>
+        ))}
     </div>
   );
 };

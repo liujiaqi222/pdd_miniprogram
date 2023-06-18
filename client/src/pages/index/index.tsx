@@ -1,14 +1,12 @@
 import { useState } from "react";
 import {
-  switchTab,
   usePullDownRefresh,
   useShareAppMessage,
 } from "@tarojs/taro";
-import { View, Text, Image } from "@tarojs/components";
+import { View, Text,  } from "@tarojs/components";
 import { useRefreshStore } from "../../store";
 import SearchInput from "../../components/SearchInput";
 import CardList from "./components/CardList";
-import createSvg from "../../assets/create.svg";
 import styles from "./index.module.scss";
 
 function Index() {
@@ -44,15 +42,6 @@ function Index() {
             onSearch={(data) => setSearchKey(data)}
           />
 
-          <View
-            className={styles["create-btn"]}
-            onClick={() => switchTab({ url: "/pages/create/index" })}
-          >
-            <Image
-              src={createSvg}
-              style={{ width: "2rem", height: "2rem", display: "block" }}
-            ></Image>
-          </View>
         </View>
         <View className={styles["list-type"]}>
           <Text

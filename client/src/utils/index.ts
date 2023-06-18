@@ -7,7 +7,7 @@ import {
   getStorageSync,
   login,
 } from "@tarojs/taro";
-import { getOpenId, getUserCode } from "../api";
+import { getOpenId } from "../api";
 
 // 小程序不支持toLocaleString
 // 转换日期为 年/月/日 时:分:秒
@@ -32,13 +32,6 @@ export const loginUser = async () => {
   setStorageSync("loginTime", Date.now());
 };
 
-/** @description 存储用户code */
-const saveUserCode = async () => {
-  const { code } = await login();
-  getUserCode(getStorageSync("openId"), code);
-  setStorageSync("loginTime", Date.now());
-};
-
 /**@description 检查登录状态  */
 export const checkLogin = async () => {
   const loginTime = getStorageSync("loginTime");
@@ -52,7 +45,7 @@ export const checkLogin = async () => {
     try {
       const res = await checkSession().catch((err) => console.log(err));
       if (!res) return loginUser();
-      return saveUserCode(); // 并不是登录，只是把code传给后端
+      setStorageSync("loginTime", Date.now());
     } catch (err) {
       return loginUser();
     }
