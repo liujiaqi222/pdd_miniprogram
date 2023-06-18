@@ -1,9 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import {
-  showLoading,
-  hideLoading,
-  navigateTo,
-} from "@tarojs/taro";
+import { showLoading, hideLoading, navigateTo } from "@tarojs/taro";
 import { OrderData } from "../../../../api/types";
 import { OpenIdContext } from "../../../../context/index";
 import { getMyOrders } from "../../../../api/index";
@@ -63,19 +59,26 @@ const MyOrders = () => {
       {!orders.length ? (
         <div className={styles.noData}>暂无拼单数据</div>
       ) : (
-        <div className={styles.orderContainer}>
-          {orders.map((order) => (
-            <OrderCard
-              key={order.groupOrderId}
-              orderData={order}
-              onClick={() => handleCardClick(order)}
-            />
-          ))}
-          {orderState.visible && orderState.state && (
-            <div className="fade-out fixed top-1/2 left-1/2 translate-x-y bg-black/75 text-white shadow px-4 py-2 rounded">
-              拼单已{orderState.state === "fulfilled" ? "拼满" : "过期"}
-            </div>
-          )}
+        <div>
+          <div className="flex flex-wrap text-sm px-2 mb-2">
+            如需关闭某个正在进行中的拼团，
+            <span className="text-red">请您前往拼多多取消拼团，</span>
+            取消后本小程序的用户将无法参与您发布的拼团。
+          </div>
+          <div className={styles.orderContainer}>
+            {orders.map((order) => (
+              <OrderCard
+                key={order.groupOrderId}
+                orderData={order}
+                onClick={() => handleCardClick(order)}
+              />
+            ))}
+            {orderState.visible && orderState.state && (
+              <div className="fade-out fixed top-1/2 left-1/2 translate-x-y bg-black/75 text-white shadow px-4 py-2 rounded">
+                拼单已{orderState.state === "fulfilled" ? "拼满" : "过期"}
+              </div>
+            )}
+          </div>
         </div>
       )}
     </>
