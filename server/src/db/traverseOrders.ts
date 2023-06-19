@@ -1,6 +1,7 @@
 import type { Types } from "mongoose";
 import { Order } from "../models/order.js";
 import { getOrderData } from "../util/index.js";
+import { timeOut } from "../util/index.js";
 
 /*
   - 根据expireTime，可以无脑使用管道聚合删除然后移动订单到存放过期的集合中，可以5min定时运行一次
@@ -52,13 +53,15 @@ export const traverseOrders = async () => {
 
   for (const order of orders) {
     const { groupOrderId, _id } = order;
+    await timeOut(Math.random() * 1200);
     getOrderData(groupOrderId!).then((res) => {
       if (!res || !res.groupInfo) {
         return deleteOrderById(_id);
       }
       const { groupStatus, groupRemainCount, groupUserList } = res.groupInfo;
       if (groupStatus !== 0 || !groupRemainCount) {
-        order.groupRemainCount = groupRemainCount||0;
+        // 等于1代表拼单成功，等于2拼单失败，但只要不是0，就代表拼单结束，pdd会将groupRemainCount设置为undefined
+        order.groupRemainCount = groupStatus === 1 ? 0 : order.groupRemainCount;
         order.groupUserList = groupUserList;
         order.groupStatus = groupStatus;
         console.log(_id, "订单已经拼满或过期，移动到过期订单集合中");

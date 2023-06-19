@@ -61,7 +61,7 @@ export const isValidUrl = (url: string) => {
 
 const PDD_URL =
   "https://mobile.yangkeduo.com/pincard_ask.html?__rp_name=brand_amazing_price_group&_pdd_tc=ffffff&_pdd_sbs=1&group_order_id=";
-export const getOrderData = async (orderId: string) => {
+export const getOrderData = async (orderId: string): Promise<PddData["store"]|false> => {
   // 如果fetch不存在，使用node-fetch
   const fetch = globalThis.fetch || nodeFetch;
   const url = (process.env.PDD_URL || PDD_URL) + orderId;
@@ -70,10 +70,10 @@ export const getOrderData = async (orderId: string) => {
       "accept-encoding": "gzip, deflate, br",
       cookie: process.env.COOKIE!,
     },
-  }).catch(err=>{
-    console.log(err)
+  }).catch((err) => {
+    console.log(err);
   });
-  if (!response) return {} as any;
+  if (!response) return false;
   const data = await response.text();
   const matchedResult = data.match(/(?<=window.rawData=).+(?=;<\/script>)/);
 
