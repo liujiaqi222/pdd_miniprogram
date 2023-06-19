@@ -51,12 +51,12 @@ export const traverseOrders = async () => {
   const orders = await Order.find({ expireTime: { $gt: Date.now() } });
 
   for (const order of orders) {
-    const { groupOrderId, _id, groupUserList } = order;
+    const { groupOrderId, _id } = order;
     getOrderData(groupOrderId!).then((res) => {
       if (!res || !res.groupInfo) {
         return deleteOrderById(_id);
       }
-      const { groupStatus, groupRemainCount } = res.groupInfo;
+      const { groupStatus, groupRemainCount, groupUserList } = res.groupInfo;
       if (groupStatus !== 0 || !groupRemainCount) {
         order.groupRemainCount = groupRemainCount||0;
         order.groupUserList = groupUserList;
