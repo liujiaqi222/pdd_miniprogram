@@ -56,7 +56,7 @@ export const traverseOrders = async () => {
     await timeOut(Math.random() * 1200);
     getOrderData(groupOrderId!).then((res) => {
       if (!res || !res.groupInfo) {
-        return deleteOrderById(_id);
+        return 
       }
       const { groupStatus, groupRemainCount, groupUserList } = res.groupInfo;
       if (groupStatus !== 0 || !groupRemainCount) {
