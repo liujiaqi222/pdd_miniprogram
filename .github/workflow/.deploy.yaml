@@ -1,0 +1,33 @@
+
+name: Deploy to Server
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+      - name: Add SSH known hosts
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan -H ${{ secrets.MY_SERVER_IP }} >> ~/.ssh/known_hosts
+      - name: SSH connection to server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.MY_SERVER_IP }}
+          username: ubuntu
+          key: ${{ secrets.SERVER_SSH_PRIVATE_KEY }}
+          script: |
+            cd code/pdd_miniprogram/server
+            source ~/.nvm/nvm.sh
+            nvm use v18.15.0
+            git pull
+            npm i
+            npm run build
+            pm2 reload 0
