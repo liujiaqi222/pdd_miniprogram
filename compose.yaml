@@ -1,0 +1,26 @@
+services:
+  backend:
+    restart: always
+    build:
+      context: ./server
+      dockerfile: ./Dockerfile
+    environment:
+      - MONGO_URI=mongodb://mongo:27017
+    ports:
+      - 4001:4000
+    depends_on:
+      - mongo
+    stdin_open: true
+    networks:
+      - mongo
+  mongo:
+    image: mongo
+    networks:
+      - mongo
+    expose:
+      - 27017
+    ports:
+      - 27017:27017
+
+networks:
+  mongo:
