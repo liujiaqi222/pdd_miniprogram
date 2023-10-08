@@ -31,7 +31,7 @@ const Tutorial = () => {
       <div className={styles.tip}>
         <div className={styles.question}>意见反馈</div>
         <div className={styles.answer}>
-          使用过程中，如果遇到程序功能问题，或者想要分享建议，可以联系微信z473487465
+          使用过程中，如果遇到程序功能问题，或者想要分享建议，可以联系微信hahazfb
         </div>
       </div>
     </div>

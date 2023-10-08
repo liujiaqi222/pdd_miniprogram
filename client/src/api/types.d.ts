@@ -5,6 +5,7 @@ export type OrderData = {
   goodsImg: string;
   activityPrice: string; // 活动价格
   originPrice: string; // 原价
+  marketPrice:string// 行情价
   linkUrl: string; // 商品链接
   groupSize: string;
   groupStatus: number; // 0: 拼团中, 1: 拼团成功

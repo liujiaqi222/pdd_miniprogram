@@ -16,10 +16,10 @@ const Card = ({
     hdThumbUrl,
     customerNum,
     activityPrice,
-    originPrice,
+    marketPrice,
     groupRemainCount,
   } = order;
-
+  const marketPriceTemp = activityPrice ? Math.floor(Number(activityPrice) + 10) : "";
   return (
     <div className={styles["card-container"]} onClick={onClick}>
       <div className={styles["img-container"]}>
@@ -38,12 +38,17 @@ const Card = ({
                 <span className={styles["price-type"]}>拼团价</span>
               </div>
             )}
-            {originPrice && (
+            {marketPriceTemp && (
               <div className={styles["goods-price"]}>
                 <span className={styles.wrapper}>
-                  ￥<span className={styles.number}>{originPrice}</span>
+                  ￥<span className={styles.number}>{marketPriceTemp}</span>
                 </span>
-                <span className={styles["price-type"]}>单买价</span>
+                <span className={styles["price-type"]}>行情价</span>
+              </div>
+            )}
+            {marketPriceTemp && !shareBtn&& (
+              <div className="bg-red text-white px-2 py-1 rounded-2xl">
+                利润: {Math.floor(marketPriceTemp - Number(activityPrice))}+
               </div>
             )}
           </div>
@@ -55,7 +60,7 @@ const Card = ({
               <img className="w-4" alt="share-icon" src={shareIcon}></img> 分享
             </button>
           ) : (
-            <div className={styles["btn"]}>还差{groupRemainCount}人</div>
+            <div className={styles["btn"]}>差{groupRemainCount}人</div>
           )}
         </div>
       </div>

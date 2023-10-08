@@ -20,6 +20,7 @@ const OrderSchema = new Schema(
     groupSize: String,
     groupStatus: Number, // 0: 拼团中, 1: 拼团成功
     customerNum: String, // 几人团
+    marketPrice:Number,
     expireTime: Date,
     groupUserList: [{ avatar: String }], //拼单的用户头像
     groupRemainCount: Number, // 还差几个人成团

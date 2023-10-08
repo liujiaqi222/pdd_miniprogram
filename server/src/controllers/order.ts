@@ -45,7 +45,7 @@ export const getAllOrders = async (req: Request, res: Response) => {
 
 // 可以根据拼多多拼团二维码识别后的短url创建新的拼单,这个接口给前端调用
 export const createNewGroup = async (req: Request, res: Response) => {
-  const { url, openId } = req.body;
+  const { url, openId, marketPrice } = req.body;
   let longUrl = "";
   if (!url) return res.json({ message: "URL不存在！", success: false });
 
@@ -67,7 +67,11 @@ export const createNewGroup = async (req: Request, res: Response) => {
   if (isExist) return res.json({ message: "该拼单已存在", success: false });
   const fetchResult = await getOrderData(validateUrlResult.orderId);
   if (!fetchResult) return res.json({ message: "URL错误", success: false });
-  const saveResult = await saveOrderData(fetchResult, openId).catch(() => {
+  const saveResult = await saveOrderData(
+    fetchResult,
+    openId,
+    marketPrice
+  ).catch(() => {
     res.json({ success: false, message: "上传失败！" });
   });
   res.json(saveResult);
@@ -75,7 +79,7 @@ export const createNewGroup = async (req: Request, res: Response) => {
 
 // 根据groupOrderId这个接口方便我上传新的拼单
 export const createNewGroupByOrderId = async (req: Request, res: Response) => {
-  let { groupOrderId, openId } = req.body;
+  let { groupOrderId, openId, marketPrice = 0 } = req.body;
   if (!groupOrderId) {
     return res.json({ message: "groupOrderId不存在", success: false });
   }
@@ -85,7 +89,11 @@ export const createNewGroupByOrderId = async (req: Request, res: Response) => {
     return res.json({ message: "groupOrderId已存在", success: false });
   const fetchResult = await getOrderData(groupOrderId);
   if (!fetchResult) return res.json({ message: "URL错误", success: false });
-  const saveResult = await saveOrderData(fetchResult, openId).catch(() => {
+  const saveResult = await saveOrderData(
+    fetchResult,
+    openId,
+    marketPrice
+  ).catch(() => {
     res.json({ success: false, message: "上传失败！" });
   });
   res.json(saveResult);

@@ -1,8 +1,6 @@
 $text-active: #3b82f6;
 $text-darker: #2563eb;
 
-
-
 .card-container {
   background: #fff;
   border-radius: 0.5rem;
@@ -49,7 +47,8 @@ $text-darker: #2563eb;
       margin-top: 1rem;
       .price {
         display: flex;
-        gap: 1rem;
+        gap: 0.5rem;
+        align-items: center;
         .goods-price {
           &.current {
             color: $text-active;

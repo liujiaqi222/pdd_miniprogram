@@ -1,7 +1,8 @@
-import { navigateTo, useShareAppMessage, setClipboardData } from "@tarojs/taro";
+import { navigateTo, useShareAppMessage } from "@tarojs/taro";
 import avatar from "../../assets/user-avatar.svg";
 import shareIcon from "../../assets/share.svg";
 import arrowIcon from "../../assets/arrow.svg";
+import messageSvg from "../../assets/message.svg";
 import groupBuyIcon from "../../assets/group-buy.svg";
 import infoIcon from "../../assets/info.svg";
 import trumpetIcon from "../../assets/trumpet.svg";
@@ -10,10 +11,10 @@ import styles from "./index.module.scss";
 const User = () => {
   useShareAppMessage(() => {
     return {
-      title: "百亿拼团GO | 一键参团 快速成团",
+      title: "百亿活动报名 | 一键参团 快速成团",
       path: "pages/index/index",
       imageUrl:
-        "https://files.mdnice.com/user/7989/36b4764f-d777-4a6d-9b73-18b94baaf285.png",
+        "https://files.mdnice.com/user/7989/4cf225cc-5870-48f4-a927-0c3d033ced5a.jpg",
     };
   });
   return (
@@ -68,17 +69,14 @@ const User = () => {
         </div>
         <img src={arrowIcon} alt="arrow-icon" className={styles.arrowIcon} />
       </div>
-      <div
-        className="flex text-sm py-2"
-        onClick={() => {
-          setClipboardData({
-            data: "https://github.com/liujiaqi222/pdd_miniprogram",
-          });
-        }}
-      >
-        注：本小程序完全免费且已在
-        <span className="text-primary font-bold underline ">GitHub</span>
-        开源，欢迎Star
+      <div className="flex justify-end">
+        <button
+          open-type="contact"
+          className="ml-0 border outline-none flex items-center  bg-white"
+        >
+          <img src={messageSvg} alt="" className="w-6 h-6 mr-2 " />
+          联系客服
+        </button>
       </div>
     </div>
   );

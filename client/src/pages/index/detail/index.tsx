@@ -8,7 +8,6 @@ import {
   switchTab,
   useShareAppMessage,
 } from "@tarojs/taro";
-import { AdCustom } from "@tarojs/components";
 import { useEffect } from "react";
 import { formatDate } from "../../../utils";
 import { PDD_URL, PDD_APPID, getPddMiniProgramURL } from "../../../consts";
@@ -22,6 +21,7 @@ import Hourglass from "../../../assets/hourglass.svg";
 import RemainAmount from "../../../assets/remainingAmount.svg";
 import User from "../../../assets/user.svg";
 import { OrderData } from "../../../api/types";
+import shareIcon from "../../../assets/share.svg";
 
 const OrderDetail = () => {
   const order = useOrderDataStore((state) => state.orderData);
@@ -29,7 +29,7 @@ const OrderDetail = () => {
 
   useShareAppMessage(() => {
     return {
-      title: `百亿拼团GO | ${order.goodsName}`,
+      title: `百亿活动报名 | ${order.goodsName}`,
       path: `/pages/index/detail/index?groupOrderId=${order.groupOrderId}`,
       imageUrl: order.hdThumbUrl,
     };
@@ -63,12 +63,20 @@ const OrderDetail = () => {
       envVersion: "release",
     });
   };
+  const marketPriceTemp = order.activityPrice
+    ? Math.floor(Number(order.activityPrice) + 10)
+    : "";
 
   return (
     <div className={styles.container}>
       <Card order={order!} shareBtn />
-      <div className="p-2 rounded-lg shadow-lg bg-white border-4 border-primary-darker ">
-        <div className="mb-4 text-lg text-primary-darker font-bold">拼团详情</div>
+      <div className="p-2 rounded-lg shadow-lg bg-white border-4 border-primary-darker relative">
+        <div className="mb-4 text-lg text-primary-darker font-bold">
+          拼团详情
+        </div>
+        <div className="absolute right-1 top-1 bg-red text-white px-3 py-2 rounded-xl font-bold">
+          利润: {marketPriceTemp}+
+        </div>
         <div className={styles.info}>
           <div className={styles.text}>
             <img src={Hourglass} className="w-4 h-4 mr-1" alt="到期时间" />
@@ -102,7 +110,6 @@ const OrderDetail = () => {
             onClick={handleNavigate}
             style={{ backgroundColor: "#f40006" }}
           >
-            {" "}
             <img className={styles.img} src={pddLogo} /> 前往拼多多
           </div>
           <div
@@ -116,11 +123,14 @@ const OrderDetail = () => {
           </div>
         </div>
       </div>
-      <div className="mt-4 flex justify-center ">
-        <div className="rounded-lg shadow overflow-hidden">
-          <AdCustom unitId="adunit-d238eeb612faeabe" />
-        </div>
-      </div>
+
+      <button
+        open-type="share"
+        className="flex justify-center items-center gap-2 w-full bg-white py-0 shadow-lg mt-4 rounded"
+      >
+        <img className="w-4 h-4" alt="share-icon" src={shareIcon}></img>
+        点击这里分享群聊，成团更快哦!
+      </button>
     </div>
   );
 };

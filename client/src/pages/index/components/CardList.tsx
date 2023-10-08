@@ -8,7 +8,6 @@ import {
   usePageScroll,
   switchTab,
 } from "@tarojs/taro";
-import { AdCustom } from "@tarojs/components";
 import { useOrderDataStore } from "../../../store";
 import { useOrderSearch } from "../hooks/useOrderSearch";
 import Card from "./Card";
@@ -59,7 +58,7 @@ const CardList = ({ searchKey, listType }: Required<OrderParams>) => {
   });
   return (
     <div className="mt-20">
-      {orders.map((order, index) => {
+      {orders.map((order) => {
         return (
           <>
             <Card
@@ -67,11 +66,6 @@ const CardList = ({ searchKey, listType }: Required<OrderParams>) => {
               key={order.groupOrderId}
               onClick={() => handleClick(order)}
             />
-            {index !== 0 && index % 20 === 0 && index !== orders.length - 1 && (
-              <div className="mb-4 rounded-lg overflow-hidden">
-                <AdCustom unitId="adunit-969c008b29c955e2"></AdCustom>
-              </div>
-            )}
           </>
         );
       })}

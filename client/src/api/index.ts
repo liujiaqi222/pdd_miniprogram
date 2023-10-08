@@ -44,13 +44,14 @@ export const getOrderById = (
 };
 
 // 创建新拼单
-export const createNewGroup = (url: string, openId: string) => {
+export const createNewGroup = (url: string, openId: string,marketPrice) => {
   return request({
     url: `${urlPrefix}/orders/`,
     method: "POST",
     data: createSignObject({
       url,
       openId,
+      marketPrice
     }),
   });
 };
