@@ -18,8 +18,8 @@ services:
     restart: always
     networks:
       - mongo
-    expose:
-      - 27017
+    volumes:
+      - ./data:/data/db
     ports:
       - 27017:27017
   nginx:
@@ -30,7 +30,6 @@ services:
       - 443:443
     volumes:
       - ./nginx/:/etc/nginx/conf.d/
-      - ./certbot/www:/var/www/certbot/
     depends_on:
       - backend
     networks:

@@ -10,36 +10,36 @@ import {
   traverseOrders,
   deleteIncompleteOrders,
 } from "./../db/traverseOrders.js";
-import { uploadOrderData1 } from "../upload/getDataFromOther1.js";
-import { uploadOrderData2 } from "../upload/getDataFromOther2.js";
-import { uploadOrderData3 } from "../upload/getDataFromOther3.js";
-import { Order } from "../models/order.js";
+// import { uploadOrderData1 } from "../upload/getDataFromOther1.js";
+// import { uploadOrderData2 } from "../upload/getDataFromOther2.js";
+// import { uploadOrderData3 } from "../upload/getDataFromOther3.js";
+// import { Order } from "../models/order.js";
 
-// 每5min执行一次
-nodeSchedule.scheduleJob("*/5 * * * *", () => {
+// 每1min执行一次
+nodeSchedule.scheduleJob("*/1 * * * *", () => {
   console.log("定时任务：移动过期订单");
   moveExpiredOrders();
 });
 
-// 每10min执行一次
-nodeSchedule.scheduleJob("*/10 * * * *", () => {
+// 每1min执行一次
+nodeSchedule.scheduleJob("*/1 * * * *", () => {
   console.log("定时任务：更新订单信息");
   traverseOrders();
 });
 
-// 每30min执行一次
-nodeSchedule.scheduleJob("*/30 * * * *", () => {
-  // 如果此时拼单总数已经超过了520，则不再获取，也没那么多用户，没有必要继续获取
-  Order.countDocuments().then((count) => {
-    console.log(
-      `拼单数为${count}，${count >= 520 ? "不再获取" : "继续获取"}新的拼单信息`
-    );
-    if (count >= 520) return;
-    uploadOrderData1();
-    uploadOrderData2();
-    uploadOrderData3();
-  });
-});
+// // 每30min执行一次
+// nodeSchedule.scheduleJob("*/30 * * * *", () => {
+//   // 如果此时拼单总数已经超过了520，则不再获取，也没那么多用户，没有必要继续获取
+//   Order.countDocuments().then((count) => {
+//     console.log(
+//       `拼单数为${count}，${count >= 520 ? "不再获取" : "继续获取"}新的拼单信息`
+//     );
+//     if (count >= 520) return;
+//     uploadOrderData1();
+//     uploadOrderData2();
+//     uploadOrderData3();
+//   });
+// });
 
 // 每天执行一次
 nodeSchedule.scheduleJob("0 0 * * *", () => {
