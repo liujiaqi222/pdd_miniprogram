@@ -1,7 +1,7 @@
 import express, { Express } from "express";
 import * as dotenv from "dotenv";
 import "express-async-errors";
-import { authMiddleware } from "./middleware/index.js";
+// import { authMiddleware } from "./middleware/index.js";
 import { connectDB } from "./db/connection.js";
 import { notFound } from "./errors/not-found.js";
 import { errorHandlerMiddleWare } from "./errors/error-handler.js";
@@ -16,7 +16,7 @@ app.use(express.json());
 app.use("/api/v1/pdd", pddRoute);
 
 // 对接口进行sign校验
-app.use(authMiddleware);
+// app.use(authMiddleware);
 app.use("/api/v1/orders", orderRoute);
 app.use("/api/v1/user", userRoute);
 
