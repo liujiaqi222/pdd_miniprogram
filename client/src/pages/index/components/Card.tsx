@@ -19,7 +19,8 @@ const Card = ({
     marketPrice,
     groupRemainCount,
   } = order;
-  const marketPriceTemp = activityPrice ? Math.floor(Number(activityPrice) + 10) : "";
+  const profit =
+    Math.floor(Number(marketPrice || 0) - Number(activityPrice || 0)) || 0;
   return (
     <div className={styles["card-container"]} onClick={onClick}>
       <div className={styles["img-container"]}>
@@ -38,17 +39,19 @@ const Card = ({
                 <span className={styles["price-type"]}>拼团价</span>
               </div>
             )}
-            {marketPriceTemp && (
+            {marketPrice && activityPrice ? (
               <div className={styles["goods-price"]}>
                 <span className={styles.wrapper}>
-                  ￥<span className={styles.number}>{marketPriceTemp}</span>
+                  ￥<span className={styles.number}>{marketPrice}</span>
                 </span>
                 <span className={styles["price-type"]}>行情价</span>
               </div>
+            ) : (
+              ""
             )}
-            {marketPriceTemp && !shareBtn&& (
+            {profit >= 0 && activityPrice && !shareBtn && (
               <div className="bg-red text-white px-2 py-1 rounded-2xl">
-                利润: {Math.floor(marketPriceTemp - Number(activityPrice))}+
+                利润: {profit}+
               </div>
             )}
           </div>

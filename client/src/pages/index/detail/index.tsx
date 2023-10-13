@@ -63,9 +63,8 @@ const OrderDetail = () => {
       envVersion: "release",
     });
   };
-  const marketPriceTemp = order.activityPrice
-    ? Math.floor(Number(order.activityPrice) + 10)
-    : "";
+   const profit =
+     Math.floor(Number(order.marketPrice || 0) - Number(order.activityPrice || 0)) || 0;
 
   return (
     <div className={styles.container}>
@@ -74,9 +73,11 @@ const OrderDetail = () => {
         <div className="mb-4 text-lg text-primary-darker font-bold">
           拼团详情
         </div>
-        <div className="absolute right-1 top-1 bg-red text-white px-3 py-2 rounded-xl font-bold">
-          利润: {marketPriceTemp}+
-        </div>
+        {profit >= 0 && order.activityPrice && (
+          <div className="absolute right-1 top-1 bg-red text-white px-3 py-2 rounded-xl font-bold">
+            利润: {profit}+
+          </div>
+        )}
         <div className={styles.info}>
           <div className={styles.text}>
             <img src={Hourglass} className="w-4 h-4 mr-1" alt="到期时间" />

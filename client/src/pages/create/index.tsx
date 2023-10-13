@@ -73,7 +73,6 @@ export default function User() {
     hideLoading();
     setIsLoading(false);
     if (!res || !res.data) {
-      console.log(res);
       return showToast({ title: "发布失败", icon: "error" });
     }
     setUrl("");
