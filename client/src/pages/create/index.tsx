@@ -82,44 +82,48 @@ export default function User() {
       className="px-3 relative h-screen overflow-hidden"
       onClick={() => setShowModal(false)}
     >
-      <div>
-        <AutoNewGroup />
-        <div className="flex gap-1 items-center mt-6 mb-2">
-          <span className="text-sm font-bold text-[#555]">
-            选择拼团分享图片
-          </span>
-          <img
-            src={questionSvg}
-            alt="拼团教程"
-            className="w-3 h-3"
-            onClick={(e) => {
-              e.stopPropagation();
-              setShowModal((pre) => !pre);
-            }}
-          />
-        </div>
-        {/* 上传 */}
-        <div
-          onClick={handleUpload}
-          className="border border-gray h-44 w-full rounded flex flex-col items-center justify-center relative"
-        >
-          <div className="relative">
-            <div className="w-8 h-[2px] bg-gray-200"></div>
-            <div className="absolute l-1/2 -top-4 h-8 w-[2px] bg-gray-200 translate-x-8 "></div>
-          </div>
-          <span className="text-xs text-gray-500 mt-6">选择拼团图片</span>
-        </div>
+      <AutoNewGroup />
+      <div className="flex gap-1 items-center mt-6 mb-2">
+        <span className="text-sm font-bold text-[#555]">选择拼团分享图片</span>
+        <img
+          src={questionSvg}
+          alt="拼团教程"
+          className="w-3 h-3"
+          onClick={(e) => {
+            e.stopPropagation();
+            setShowModal((pre) => !pre);
+          }}
+        />
       </div>
-      <div className="m-2">
-        <div className="flex gap-2">
-          <div className="flex-1 flex justify-center items-center h-10 bg-pink-light text-primary text-sm font-bold rounded">
-            开新团自动分享
+      {/* 上传 */}
+      <div
+        onClick={handleUpload}
+        className="border border-gray h-44 rounded flex flex-col items-center justify-center relative px-4"
+      >
+        <div className="relative">
+          <div className="w-8 h-[2px] bg-gray-200"></div>
+          <div className="absolute l-1/2 -top-4 h-8 w-[2px] bg-gray-200 translate-x-8 "></div>
+        </div>
+        <span className="text-xs text-gray-500 mt-6">选择拼团图片</span>
+        {url && (
+          <span className="text-xs text-gray-500 mt-1 ellipsis-line-2 ">
+            上传链接：{url}
+          </span>
+        )}
+      </div>
+      <div className="flex gap-2 items-end mt-4">
+        <div className="flex-1 flex justify-center items-center h-10 bg-pink-light text-primary text-sm font-bold rounded">
+          开新团自动发布
+        </div>
+        <div className="flex-1">
+          <div className="flex justify-center items-center h-6 text-green-darker bg-green-light font-bold text-xs">
+            发布前 先搜索
           </div>
           <div
             onClick={handlePost}
-            className="flex-1 flex justify-center items-center h-10 bg-green text-white font-bold text-sm rounded"
+            className="flex justify-center items-center h-10 mt-1 bg-green text-white font-bold text-sm rounded"
           >
-            分享
+            发布
           </div>
         </div>
       </div>

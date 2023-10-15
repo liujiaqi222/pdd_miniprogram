@@ -51,7 +51,7 @@ const Coupon = () => {
     setCurrentPage(0);
   }, [searchKey]);
   return (
-    <div className="bg-primary px-2 h-screen flex flex-col gap-4">
+    <div className="px-2 h-screen flex flex-col gap-4">
       <SearchInput
         onClear={() => setSearchKey("")}
         onSearch={(key) => setSearchKey(key)}
@@ -100,12 +100,12 @@ const Card = ({ item, onClick }: { item: CouponData; onClick: () => void }) => {
       {/* 右边文字描述 */}
       <div className="flex-1">
         <div className="text-overflow-2 text-sm h-10">{item.goods_name}</div>
-        <div className=" text-sm text-red border border-red border-solid w-fit px-2  rounded-full mt-2 mb-2">
+        <div className=" text-sm text-primary border border-primary w-fit px-2 rounded-full mt-2 mb-2">
           {item.coupon_discount / 100}元优惠券
         </div>
         <div className="flex justify-between items-end">
           <div className="flex  gap-4">
-            <div className="text-primary ">
+            <div className="text-primary">
               <span className="flex items-baseline ">
                 ￥
                 <span>
