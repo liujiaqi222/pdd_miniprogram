@@ -26,7 +26,7 @@ app.use(errorHandlerMiddleWare);
 connectDB(process.env.MONGO_URI!)
   .then(async () => {
     app.listen(process.env.PORT || 4000, () => {
-      import("./cron/index.js");
+      // import("./cron/index.js");
       console.log(`running at http://localhost:${process.env.PORT || 4000}`);
     });
   })

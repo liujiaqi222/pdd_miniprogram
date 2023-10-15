@@ -8,7 +8,6 @@
   -webkit-box-orient: vertical;
 }
 
-
 .translate-x-y {
   transform: translateX(-50%) translateY(-50%);
 }
@@ -30,16 +29,37 @@
   }
 }
 
-
-.rotate-animation{
+.rotate-animation {
   animation: rotate 1s linear infinite;
 }
 
 @keyframes rotate {
-  0%{
+  0% {
     transform: rotate(0deg);
   }
-  100%{
+  100% {
     transform: rotate(360deg);
   }
 }
+
+.border {
+  border: 1px solid;
+}
+
+.border-gray {
+  border-color: #ccc;
+}
+
+.ellipsis-line-2 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+
+.translate-x-8{
+  transform: translateX(32px);
+}
+

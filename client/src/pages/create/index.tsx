@@ -12,9 +12,8 @@ import TipModal from "./components/TipModal";
 import { createNewGroup } from "../../api";
 import { OpenIdContext } from "../../context";
 import styles from "./index.module.scss";
-import warningSvg from "../../assets/warning.svg";
-import postSvg from "../../assets/post.svg";
 import questionSvg from "../../assets/question.svg";
+import AutoNewGroup from "../index/components/AutoNewGroup";
 
 export default function User() {
   const [url, setUrl] = useState("");
@@ -24,7 +23,7 @@ export default function User() {
   const setRefresh = useRefreshStore((state) => state.setRefresh);
   useShareAppMessage(() => {
     return {
-      title: "百亿拼团GO | 发布拼团", 
+      title: "百亿拼团GO | 发布拼团",
     };
   });
   const handleUpload = () => {
@@ -79,45 +78,52 @@ export default function User() {
     }
   };
   return (
-    <div className={styles.container} onClick={() => setShowModal(false)}>
+    <div
+      className="px-3 relative h-screen overflow-hidden"
+      onClick={() => setShowModal(false)}
+    >
       <div>
-        <div className={styles.tips}>
-          <header className={styles.header}>
-            <img src={warningSvg} className={styles.svg} alt="" />
-            <span className={styles.text}>温馨提示:</span>
-          </header>
-          <p className={styles.text}>
-            请先搜索已经开团的商品，如果有您想要的商品，直接参与拼团，不必发布新的拼团！
-          </p>
+        <AutoNewGroup />
+        <div className="flex gap-1 items-center mt-6 mb-2">
+          <span className="text-sm font-bold text-[#555]">
+            选择拼团分享图片
+          </span>
+          <img
+            src={questionSvg}
+            alt="拼团教程"
+            className="w-3 h-3"
+            onClick={(e) => {
+              e.stopPropagation();
+              setShowModal((pre) => !pre);
+            }}
+          />
         </div>
-        <div className={styles.upload}>
-          <div className={styles.uploadTip}>
-            <span className={styles.text}>上传拼团分享图片</span>
-            <img
-              src={questionSvg}
-              alt=""
-              className={styles.svg}
-              onClick={(e) => {
-                e.stopPropagation();
-                setShowModal((pre) => !pre);
-              }}
-            />
+        {/* 上传 */}
+        <div
+          onClick={handleUpload}
+          className="border border-gray h-44 w-full rounded flex flex-col items-center justify-center relative"
+        >
+          <div className="relative">
+            <div className="w-8 h-[2px] bg-gray-200"></div>
+            <div className="absolute l-1/2 -top-4 h-8 w-[2px] bg-gray-200 translate-x-8 "></div>
           </div>
-          <div className={styles.uploadBtn} onClick={handleUpload}>
-            点击上传
+          <span className="text-xs text-gray-500 mt-6">选择拼团图片</span>
+        </div>
+      </div>
+      <div className="m-2">
+        <div className="flex gap-2">
+          <div className="flex-1 flex justify-center items-center h-10 bg-pink-light text-primary text-sm font-bold rounded">
+            开新团自动分享
           </div>
-          <div>
-            <span className={styles.text}>拼团连接：{url}</span>
+          <div
+            onClick={handlePost}
+            className="flex-1 flex justify-center items-center h-10 bg-green text-white font-bold text-sm rounded"
+          >
+            分享
           </div>
         </div>
       </div>
-      <div
-        className={`${styles.uploadBtn} ${styles.postBtn}`}
-        onClick={handlePost}
-      >
-        <img src={postSvg} alt="发布拼团" className={styles.svg} />
-        发布拼团
-      </div>
+
       {showModal && <div className={styles.mask}></div>}
       <TipModal showModal={showModal} setShowModal={setShowModal} />
     </div>

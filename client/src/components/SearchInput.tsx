@@ -39,7 +39,7 @@ const SearchInput = ({
         </div>
       )}
       <div
-        className="bg-primary-darker text-white  py-1 px-2 rounded-lg shadow"
+        className="border border-gray py-1 px-2 rounded-lg shadow"
         onClick={() => onSearch(searchKey)}
       >
         搜索

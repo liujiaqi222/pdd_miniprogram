@@ -16,8 +16,8 @@ import { useOrderDataStore } from "../../../store";
 import { getOrderById } from "../../../api/index";
 import styles from "./index.module.scss";
 import Card from "../components/Card";
-import pddLogo from "../../../assets/pdd-logo.svg";
-import copySvg from "../../../assets/copy.svg";
+import pddLogoWhite from "../../../assets/pdd-logo-white.svg";
+import pddLogoRed from "../../../assets/pdd-logo-red.svg";
 import Hourglass from "../../../assets/hourglass.svg";
 import RemainAmount from "../../../assets/remainingAmount.svg";
 import User from "../../../assets/user.svg";
@@ -68,7 +68,9 @@ const OrderDetail = () => {
     <div className={styles.container}>
       <Card order={order!} shareBtn />
       <div className="p-2 rounded-lg shadow-lg bg-white border-4 border-primary-darker ">
-        <div className="mb-4 text-lg text-primary-darker font-bold">拼团详情</div>
+        <div className="mb-4 text-lg text-primary-darker font-bold">
+          拼团详情
+        </div>
         <div className={styles.info}>
           <div className={styles.text}>
             <img src={Hourglass} className="w-4 h-4 mr-1" alt="到期时间" />
@@ -98,21 +100,18 @@ const OrderDetail = () => {
         </div>
         <div className={styles.operationContainer}>
           <div
-            className={styles.button}
+            className={`${styles.button} ${styles.goto}`}
             onClick={handleNavigate}
-            style={{ backgroundColor: "#f40006" }}
           >
-            {" "}
-            <img className={styles.img} src={pddLogo} /> 前往拼多多
+            <img className={styles.img} src={pddLogoWhite} /> 前往拼多多
           </div>
           <div
-            className={styles.button}
+            className={`${styles.button} ${styles.newGroup}`}
             onClick={() =>
               setClipboardData({ data: `${PDD_URL}${order?.groupOrderId}` })
             }
           >
-            <img className={styles.img} src={copySvg} alt="" />
-            复制拼团链接
+            <img className={styles.img} src={pddLogoRed} /> 我要开新团
           </div>
         </div>
       </div>
@@ -124,5 +123,7 @@ const OrderDetail = () => {
     </div>
   );
 };
+
+
 
 export default OrderDetail;

@@ -8,7 +8,7 @@ import {
   usePageScroll,
   switchTab,
 } from "@tarojs/taro";
-import { AdCustom } from "@tarojs/components";
+import { AdCustom, View } from "@tarojs/components";
 import { useOrderDataStore } from "../../../store";
 import { useOrderSearch } from "../hooks/useOrderSearch";
 import Card from "./Card";
@@ -58,7 +58,7 @@ const CardList = ({ searchKey, listType }: Required<OrderParams>) => {
     }
   });
   return (
-    <div className="mt-20">
+    <View >
       {orders.map((order, index) => {
         return (
           <>
@@ -68,9 +68,9 @@ const CardList = ({ searchKey, listType }: Required<OrderParams>) => {
               onClick={() => handleClick(order)}
             />
             {index !== 0 && index % 20 === 0 && index !== orders.length - 1 && (
-              <div className="mb-4 rounded-lg overflow-hidden">
+              <View className="mb-4 rounded-lg overflow-hidden">
                 <AdCustom unitId="adunit-969c008b29c955e2"></AdCustom>
-              </div>
+              </View>
             )}
           </>
         );
@@ -78,7 +78,7 @@ const CardList = ({ searchKey, listType }: Required<OrderParams>) => {
       {loading && pageNumber !== 0 && <Loading />}
       {!hasMore &&
         (searchKey ? (
-          <div className="flex items-center justify-center text-sm pb-4 ">
+          <View className="flex items-center justify-center text-sm pb-4 ">
             {orders.length
               ? "没有找到您想要的拼团？"
               : "无相关拼团，试试切换关键词或"}
@@ -88,11 +88,11 @@ const CardList = ({ searchKey, listType }: Required<OrderParams>) => {
             >
               去发布
             </span>
-          </div>
+          </View>
         ) : (
-          <div className="text-center text-sm pb-4 ">==无更多拼单信息==</div>
+          <View className="text-center text-sm pb-4 ">==无更多拼单信息==</View>
         ))}
-    </div>
+    </View>
   );
 };
 
