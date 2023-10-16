@@ -1,0 +1,69 @@
+import { useState } from "react";
+import officialQr from "../assets/qrcode-official-account.png";
+import officialAccountSvg from "../assets/official-account.svg";
+import weChat from "../assets/weChat.svg";
+import arrow from "../assets/arrow.svg";
+import SlideModal from "./SlideModal";
+
+const Follow = () => {
+  return (
+    <div className="flex gap-4">
+      <FollowOfficialAccount />
+      <JoinWeChatGroup />
+    </div>
+  );
+};
+
+export default Follow;
+
+// 公众号
+const FollowOfficialAccount = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <>
+      <div
+        className="flex-1 flex flex-col justify-center gap-1 bg-gray-light rounded-xl py-4 px-4"
+        onClick={() => setIsOpen(true)}
+      >
+        <div>
+          <img
+            className="w-5 h-5"
+            src={officialAccountSvg}
+            alt="weChat-official-account"
+          />
+        </div>
+        <div className="flex items-center gap-1 font-bold text-sm">
+          关注公众号
+          <img src={arrow} alt="arrow" className="w-4 h-4" />
+        </div>
+      </div>
+      <SlideModal isOpen={isOpen} onClose={()=>setIsOpen(false)}>
+        <div className="flex flex-col gap-2 items-center pt-2 pb-4">
+          <div className="font-bold text-gray-800">关注【百亿拼Go】公众号</div>
+          <div className="text-gray-600">
+            关注公众号，获取最新拼团信息
+          </div>
+          <img src={officialQr} alt="公众号二维码" className="w-48 h-48" />
+          <div className="text-gray-600">
+            长按二维码关注
+          </div>
+        </div>
+      </SlideModal>
+    </>
+  );
+};
+
+// 加群
+const JoinWeChatGroup = () => {
+  return (
+    <div className="flex-1 flex flex-col justify-center gap-1 bg-gray-light rounded-xl py-4 px-4">
+      <div>
+        <img className="w-5 h-5" src={weChat} alt="wechat" />
+      </div>
+      <div className="flex items-center gap-1 font-bold text-sm">
+        加微信群 <img src={arrow} alt="arrow" className="w-4 h-4" />
+      </div>
+    </div>
+  );
+};
