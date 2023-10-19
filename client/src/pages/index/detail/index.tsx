@@ -22,6 +22,7 @@ import Hourglass from "../../../assets/hourglass.svg";
 import RemainAmount from "../../../assets/remainingAmount.svg";
 import User from "../../../assets/user.svg";
 import { OrderData } from "../../../api/types";
+import Follow from "../../../components/Follow";
 
 const OrderDetail = () => {
   const order = useOrderDataStore((state) => state.orderData);
@@ -67,7 +68,7 @@ const OrderDetail = () => {
   return (
     <div className={styles.container}>
       <Card order={order!} shareBtn />
-      <div className="p-2 rounded-lg shadow-lg bg-white border-4 border-primary-darker ">
+      <div className="p-2 rounded-lg shadow-lg bg-white border-4 border-primary-darker mb-4">
         <div className="mb-4 text-lg text-primary-darker font-bold">
           拼团详情
         </div>
@@ -115,6 +116,7 @@ const OrderDetail = () => {
           </div>
         </div>
       </div>
+      <Follow bgWhite />
       <div className="mt-4 flex justify-center ">
         <div className="rounded-lg shadow overflow-hidden">
           <AdCustom unitId="adunit-d238eeb612faeabe" />
@@ -123,7 +125,5 @@ const OrderDetail = () => {
     </div>
   );
 };
-
-
 
 export default OrderDetail;

@@ -5,11 +5,15 @@ import weChat from "../assets/weChat.svg";
 import arrow from "../assets/arrow.svg";
 import SlideModal from "./SlideModal";
 
-const Follow = () => {
+const Follow = ({bgWhite=false}) => {
+
+  const containerClassNames = `flex-1 flex flex-col justify-center gap-1 rounded-xl py-4 px-4 ${
+    bgWhite ? "bg-white shadow-lg" : "bg-gray-light"
+  }`;
   return (
     <div className="flex gap-4">
-      <FollowOfficialAccount />
-      <JoinWeChatGroup />
+      <FollowOfficialAccount containerClassNames={containerClassNames} />
+      <JoinWeChatGroup containerClassNames={containerClassNames} />
     </div>
   );
 };
@@ -17,15 +21,12 @@ const Follow = () => {
 export default Follow;
 
 // 公众号
-const FollowOfficialAccount = () => {
+const FollowOfficialAccount = ({containerClassNames}:{containerClassNames:string}) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
     <>
-      <div
-        className="flex-1 flex flex-col justify-center gap-1 bg-gray-light rounded-xl py-4 px-4"
-        onClick={() => setIsOpen(true)}
-      >
+      <div className={containerClassNames} onClick={() => setIsOpen(true)}>
         <div>
           <img
             className="w-5 h-5"
@@ -38,16 +39,12 @@ const FollowOfficialAccount = () => {
           <img src={arrow} alt="arrow" className="w-4 h-4" />
         </div>
       </div>
-      <SlideModal isOpen={isOpen} onClose={()=>setIsOpen(false)}>
+      <SlideModal isOpen={isOpen} onClose={() => setIsOpen(false)}>
         <div className="flex flex-col gap-2 items-center pt-2 pb-4">
           <div className="font-bold text-gray-800">关注【百亿拼Go】公众号</div>
-          <div className="text-gray-600">
-            关注公众号，获取最新拼团信息
-          </div>
+          <div className="text-gray-600">关注公众号，获取最新拼团信息</div>
           <img src={officialQr} alt="公众号二维码" className="w-48 h-48" />
-          <div className="text-gray-600">
-            长按二维码关注
-          </div>
+          <div className="text-gray-600">长按二维码关注</div>
         </div>
       </SlideModal>
     </>
@@ -55,9 +52,13 @@ const FollowOfficialAccount = () => {
 };
 
 // 加群
-const JoinWeChatGroup = () => {
+const JoinWeChatGroup = ({
+  containerClassNames,
+}: {
+  containerClassNames: string;
+}) => {
   return (
-    <div className="flex-1 flex flex-col justify-center gap-1 bg-gray-light rounded-xl py-4 px-4">
+    <div className={containerClassNames}>
       <div>
         <img className="w-5 h-5" src={weChat} alt="wechat" />
       </div>

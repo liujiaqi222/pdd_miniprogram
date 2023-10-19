@@ -22,18 +22,5 @@ services:
       - 27017
     ports:
       - 27017:27017
-  nginx:
-    image: nginx:1.25.2-alpine
-    restart: always
-    ports:
-      - 80:80
-      - 443:443
-    volumes:
-      - ./nginx/:/etc/nginx/conf.d/
-      - ./certbot/www:/var/www/certbot/
-    depends_on:
-      - backend
-    networks:
-      - mongo
 networks:
   mongo:
