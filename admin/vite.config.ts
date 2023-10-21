@@ -12,6 +12,12 @@ export default defineConfig({
   },
   server:{
     open: true,
+    proxy: {
+      "/api/v1": {
+        target: "http://localhost:4000/",
+        changeOrigin: true,
+      },
+    },
   }
 
 });
