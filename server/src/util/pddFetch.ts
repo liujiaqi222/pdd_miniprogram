@@ -11,7 +11,6 @@ export const pddFetch = async (params: Params) => {
   });
 
   const sign = createSign(params);
-  console.log(sign, params);
   const result = await fetch("http://gw-api.pinduoduo.com/api/router", {
     method: "POST",
     headers: {

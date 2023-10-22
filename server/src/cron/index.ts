@@ -14,6 +14,14 @@ import { uploadOrderData1 } from "../upload/getDataFromOther1.js";
 import { uploadOrderData2 } from "../upload/getDataFromOther2.js";
 import { uploadOrderData3 } from "../upload/getDataFromOther3.js";
 import { Order } from "../models/order.js";
+import { autoInsertGroup } from "../util/autoInsertGroup.js";
+
+// 每分钟执行一次
+nodeSchedule.scheduleJob("*/1 * * * *", () => {
+  console.log("定时任务：自动开团");
+  autoInsertGroup();
+});
+
 
 // 每5min执行一次
 nodeSchedule.scheduleJob("*/5 * * * *", () => {

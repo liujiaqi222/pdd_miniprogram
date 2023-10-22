@@ -5,6 +5,6 @@ import { changeGroupUrl, getGroupeUrl } from "../controllers/config.js";
 const router = express.Router();
 
 router.post("/changeGroupUrl", authenticationMiddleWare, changeGroupUrl);
-router.get("/getGroupUrl", authenticationMiddleWare, getGroupeUrl);
+router.get("/getGroupUrl", getGroupeUrl);
 
 export default router;
