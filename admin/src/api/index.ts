@@ -19,9 +19,12 @@ export const login = (user: { name: string; password: string }) => {
   return service.post("/api/v1/auth/login", user);
 };
 
-export const changeGroupUrl = (url: string) => {
-  return service.post("/api/v1/config/changeGroupUrl", { groupUrl: url });
+export const changeGroupUrl = (
+  type: "groupUrl" | "officialQrCodeURL" | "autoNewGroupURL",
+  data: string
+) => {
+  return service.post("/api/v1/config/changeGroupUrl", { type, data });
 };
-export const getGroupUrl = () => {
-  return service.get("/api/v1/config/getGroupUrl");
+export const getConfig = () => {
+  return service.get("/api/v1/config");
 };

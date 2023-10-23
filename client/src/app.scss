@@ -17,6 +17,10 @@
   animation: fade-out 2s linear forwards;
 }
 
+.h-auto{
+  height: auto !important;
+}
+
 @keyframes fade-out {
   from {
     opacity: 1;

@@ -11,6 +11,7 @@ import {
 import { AdCustom } from "@tarojs/components";
 import { useEffect } from "react";
 import { formatDate } from "../../../utils";
+import { useRedirectToAutoNewGroup } from "../../../hooks/redirect";
 import { PDD_URL, PDD_APPID, getPddMiniProgramURL } from "../../../consts";
 import { useOrderDataStore } from "../../../store";
 import { getOrderById } from "../../../api/index";
@@ -27,7 +28,7 @@ import Follow from "../../../components/Follow";
 const OrderDetail = () => {
   const order = useOrderDataStore((state) => state.orderData);
   const groupOrderId = getCurrentPages().at(-1)?.options?.groupOrderId;
-
+  const { handleNavigateToOpenNewGroup } = useRedirectToAutoNewGroup();
   useShareAppMessage(() => {
     return {
       title: `百亿拼团GO | ${order.goodsName}`,
@@ -108,9 +109,7 @@ const OrderDetail = () => {
           </div>
           <div
             className={`${styles.button} ${styles.newGroup}`}
-            onClick={() =>
-              setClipboardData({ data: `${PDD_URL}${order?.groupOrderId}` })
-            }
+            onClick={handleNavigateToOpenNewGroup}
           >
             <img className={styles.img} src={pddLogoRed} /> 我要开新团
           </div>

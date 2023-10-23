@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { OrderData } from "./../api/types.d";
+import { getConfig } from "./../api/index";
 
 type OrderDataStoreState = {
   orderData: OrderData;
@@ -26,4 +27,32 @@ export const useRefreshStore = create<RefreshStoreState>((set) => {
   };
 });
 
+type Config = {
+  groupUrl: string;
+  promotionArr: Array<{
+    url: string;
+    image: string;
+    name: string;
+    prefix: string;
+  }>;
+  officialQrCodeURL: string;
+  autoNewGroupURL: string;
+};
 
+type ConfigStoreState = {
+  config: Config;
+  fetchConfig: () => void;
+};
+
+export const useConfigStore = create<ConfigStoreState>((set) => {
+  return {
+    config: {} as Config,
+    fetchConfig: async () => {
+      const { data } = await getConfig();
+      console.log(data);
+      if (data.success) {
+        set(() => ({ config: data.data }));
+      }
+    },
+  };
+});

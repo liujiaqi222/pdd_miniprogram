@@ -38,7 +38,7 @@ connectDB(process.env.MONGO_URI!)
   .catch((err) => {
     console.log(err);
   });
-app.get("/admin", (req, res, next) => {
+app.get("/admin", (req, res) => {
   res.sendFile(path.resolve(__dirname, "../../admin/dist/index.html"));
 });
 

@@ -83,7 +83,7 @@ const Coupon = () => {
 const Card = ({ item, onClick }: { item: CouponData; onClick: () => void }) => {
   return (
     <div
-      className="flex gap-2 p-2 bg-white mb-3 rounded-lg shadow "
+      className="flex gap-2 p-2 bg-white mb-3 rounded-lg shadow-lg "
       onClick={() => onClick()}
     >
       {/* 左边图片 */}

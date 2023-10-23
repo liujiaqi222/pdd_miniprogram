@@ -55,6 +55,14 @@ export const createNewGroup = (url: string, openId: string) => {
   });
 };
 
+// 获取群聊二维码
+export const getConfig = () => {
+  return request({
+    url: `${urlPrefix}/config/`,
+    method: "GET",
+  });
+};
+
 // 获取用户ID
 export const getOpenId = (code: string): RequestTask<{ openId: string }> => {
   return request({
@@ -65,7 +73,6 @@ export const getOpenId = (code: string): RequestTask<{ openId: string }> => {
     }),
   });
 };
-
 
 // 获取用户名下的拼单
 export const getMyOrders = (

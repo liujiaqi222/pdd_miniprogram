@@ -8,6 +8,7 @@ import {
 } from "@tarojs/taro";
 import { useState, useContext } from "react";
 import { useRefreshStore } from "../../store/";
+import {useRedirectToAutoNewGroup} from '../../hooks/redirect'
 import TipModal from "./components/TipModal";
 import { createNewGroup } from "../../api";
 import { OpenIdContext } from "../../context";
@@ -18,6 +19,7 @@ import AutoNewGroup from "../index/components/AutoNewGroup";
 export default function User() {
   const [url, setUrl] = useState("");
   const openId = useContext(OpenIdContext);
+  const {handleNavigateToOpenNewGroup} = useRedirectToAutoNewGroup()
   const [isLoading, setIsLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const setRefresh = useRefreshStore((state) => state.setRefresh);
@@ -112,7 +114,10 @@ export default function User() {
         )}
       </div>
       <div className="flex gap-2 items-end mt-4">
-        <div className="flex-1 flex justify-center items-center h-10 bg-pink-light text-primary text-sm font-bold rounded">
+        <div
+          className="flex-1 flex justify-center items-center h-10 bg-pink-light text-primary text-sm font-bold rounded"
+          onClick={handleNavigateToOpenNewGroup}
+        >
           开新团自动发布
         </div>
         <div className="flex-1">

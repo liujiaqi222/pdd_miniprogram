@@ -1,6 +1,7 @@
-import { getStorageSync } from "@tarojs/taro";
+import { getStorageSync, navigateToMiniProgram } from "@tarojs/taro";
 import { useState } from "react";
 import { checkLogin } from "../utils";
+
 
 export const useUserLogin = () => {
   const [openId, setOpenId] = useState("");
@@ -10,3 +11,4 @@ export const useUserLogin = () => {
 
   return { openId };
 };
+
