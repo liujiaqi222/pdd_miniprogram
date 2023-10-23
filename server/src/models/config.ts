@@ -6,6 +6,12 @@ const configSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    promotionArr: {
+      type: [{ url: String, image: String, name: String, prefix: String }],
+      required: true,
+    },
+    officialQrCodeURL: String,
+    autoNewGroupURL: String,
   },
   {
     timestamps: true,

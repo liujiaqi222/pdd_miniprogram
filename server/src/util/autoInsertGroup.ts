@@ -12,8 +12,9 @@ type Order = {
       group_id: string;
       order_sn: string;
       type: number;
-      goods_name:string
+      goods_name: string;
       order_status: number;
+      activity_tags:number[]
     }[];
   };
 };
@@ -28,8 +29,9 @@ export const autoInsertGroup = async () => {
   console.log(res)
   if (res.total_count === 0) return;
 
-  for (let { order_sn, order_status, type, goods_name } of res.order_list) {
-    if (order_status !== 0 || type !== 61) continue;
+  for (let { order_sn, order_status, type, goods_name, activity_tags } of res.order_list) {
+    if (order_status !== 0 || type !== 61 || activity_tags.includes(12955))
+      continue;
     const sn = order_sn.split("-")[1];
     const uploadResult = await fetch(
       "http://localhost:4000/api/v1/orders/byId",
@@ -47,3 +49,4 @@ export const autoInsertGroup = async () => {
     console.log(order_sn, order_status, type, goods_name,uploadJSON);
   }
 };
+

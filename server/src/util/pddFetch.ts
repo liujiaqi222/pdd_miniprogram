@@ -34,6 +34,5 @@ const createSign = (params: Params) => {
     .map((key) => `${key}${params[key]}`)
     .join("")}${process.env.CLIENT_SECRET}`;
 
-  console.log(str);
   return md5.update(str).digest("hex").toUpperCase();
 };
