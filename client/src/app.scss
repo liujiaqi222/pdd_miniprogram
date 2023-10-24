@@ -54,12 +54,23 @@
   border-color: #ccc;
 }
 
-.ellipsis-line-2 {
+// 定义基础类
+.ellipsis-line {
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
-  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+}
+
+// 继承基础类并设置具体行数
+.ellipsis-line-2 {
+  @extend .ellipsis-line;
+  -webkit-line-clamp: 2;
+}
+
+.ellipsis-line-3 {
+  @extend .ellipsis-line;
+  -webkit-line-clamp: 3;
 }
 
 

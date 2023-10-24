@@ -1,5 +1,4 @@
 import {
-  setClipboardData,
   navigateToMiniProgram,
   getCurrentPages,
   showLoading,
@@ -12,7 +11,7 @@ import { AdCustom } from "@tarojs/components";
 import { useEffect } from "react";
 import { formatDate } from "../../../utils";
 import { useRedirectToAutoNewGroup } from "../../../hooks/redirect";
-import { PDD_URL, PDD_APPID, getPddMiniProgramURL } from "../../../consts";
+import { PDD_APPID, getPddMiniProgramURL } from "../../../consts";
 import { useOrderDataStore } from "../../../store";
 import { getOrderById } from "../../../api/index";
 import styles from "./index.module.scss";
@@ -68,54 +67,55 @@ const OrderDetail = () => {
 
   return (
     <div className={styles.container}>
-      <Card order={order!} shareBtn />
-      <div className="p-2 rounded-lg shadow-lg bg-white border-4 border-primary-darker mb-4">
-        <div className="mb-4 text-lg text-primary-darker font-bold">
-          拼团详情
-        </div>
-        <div className={styles.info}>
-          <div className={styles.text}>
-            <img src={Hourglass} className="w-4 h-4 mr-1" alt="到期时间" />
-            <span className="font-semibold	text-[#555] ">到期时间：</span>
-            {order?.expireTime ? formatDate(new Date(order?.expireTime)) : ""}
-          </div>
-          <div className={styles.text}>
-            <img src={RemainAmount} className="w-4 h-4 mr-1" alt="剩余" />
-            <span className="font-semibold	text-[#555]">目前还差：</span>
-            {order?.groupRemainCount} {order?.groupRemainCount && "人"}
-          </div>
-          {order?.groupUserList?.length && (
-            <div className={styles.userList}>
-              <div className={styles.text}>
-                <img src={User} className="w-4 h-4 mr-1" alt="拼团用户" />
-                <span className="font-semibold	text-[#555]">拼团用户：</span>
-              </div>
-              {order?.groupUserList?.map((user) => (
-                <img
-                  key={user.avatar}
-                  src={user.avatar}
-                  className={styles.avatar}
-                />
-              ))}
+      <div className="shadow-lg">
+        <Card order={order!} shareBtn />
+        <div className="p-4 rounded-lg bg-white border-primary-darker mb-4 border-top">
+          <div className={styles.info}>
+            <div className={styles.text}>
+              <img src={Hourglass} className="w-4 h-4 mr-1" alt="到期时间" />
+              <span className="font-semibold	text-[#555] ">到期时间：</span>
+              {order?.expireTime ? formatDate(new Date(order?.expireTime)) : ""}
             </div>
-          )}
-        </div>
-        <div className={styles.operationContainer}>
-          <div
-            className={`${styles.button} ${styles.goto}`}
-            onClick={handleNavigate}
-          >
-            <img className={styles.img} src={pddLogoWhite} /> 前往拼多多
+            <div className={styles.text}>
+              <img src={RemainAmount} className="w-4 h-4 mr-1" alt="剩余" />
+              <span className="font-semibold	text-[#555]">目前还差：</span>
+              {order?.groupRemainCount} {order?.groupRemainCount && "人"}
+            </div>
+            {order?.groupUserList?.length && (
+              <div className={styles.userList}>
+                <div className={styles.text}>
+                  <img src={User} className="w-4 h-4 mr-1" alt="拼团用户" />
+                  <span className="font-semibold	text-[#555]">拼团用户：</span>
+                </div>
+                {order?.groupUserList?.map((user) => (
+                  <img
+                    key={user.avatar}
+                    src={user.avatar}
+                    className={styles.avatar}
+                  />
+                ))}
+              </div>
+            )}
           </div>
-          <div
-            className={`${styles.button} ${styles.newGroup}`}
-            onClick={handleNavigateToOpenNewGroup}
-          >
-            <img className={styles.img} src={pddLogoRed} /> 我要开新团
+          <div className={styles.operationContainer}>
+            <div
+              className={`${styles.button} ${styles.goto}`}
+              onClick={handleNavigate}
+            >
+              <img className={styles.img} src={pddLogoWhite} /> 前往拼多多
+            </div>
+            <div
+              className={`${styles.button} ${styles.newGroup}`}
+              onClick={handleNavigateToOpenNewGroup}
+            >
+              <img className={styles.img} src={pddLogoRed} /> 我要开新团
+            </div>
           </div>
         </div>
       </div>
-      <Follow bgWhite />
+      <div className="px-2">
+        <Follow bgWhite />
+      </div>
       <div className="mt-4 flex justify-center ">
         <div className="rounded-lg shadow overflow-hidden">
           <AdCustom unitId="adunit-d238eeb612faeabe" />

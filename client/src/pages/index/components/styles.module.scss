@@ -1,19 +1,14 @@
 $text-active: #fa5151;
 $text-darker: #f33a50;
 
-
-
 .card-container {
   background: #fff;
-  border-radius: 0.5rem;
   font-size: 0.9rem;
   height: 6rem;
-  margin-bottom: 1rem;
-  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
   display: flex;
   gap: 1.5rem;
   color: #444;
-  padding: 0.5rem;
+  padding: 0.5rem 1rem;
   position: relative;
 
   .img-container {

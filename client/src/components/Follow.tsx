@@ -49,10 +49,10 @@ const FollowOfficialAccount = ({
         <div className="flex flex-col gap-2 items-center pt-2 pb-4">
           <div className="font-bold text-gray-800">关注【百亿拼Go】公众号</div>
           <div className="text-gray-600">关注公众号，获取最新拼团信息</div>
-          <img
+          <Image
             src={officialQrCodeURL}
-            alt="公众号二维码"
             className="w-48 h-48"
+            showMenuByLongpress
           />
           <div className="text-gray-600">长按二维码关注</div>
         </div>
@@ -85,7 +85,12 @@ const JoinWeChatGroup = ({
           <div className="font-bold text-gray-800 text-xl">
             加入微信群，拼团更快
           </div>
-          <Image src={groupUrl} mode="widthFix" style="width:280px" />
+          <Image
+            src={groupUrl}
+            mode="widthFix"
+            style="width:280px"
+            showMenuByLongpress
+          />
           <div className="text-gray-600">长按二维码加群</div>
         </div>
       </SlideModal>

@@ -51,16 +51,18 @@ const Coupon = () => {
     setCurrentPage(0);
   }, [searchKey]);
   return (
-    <div className="px-2 h-screen flex flex-col gap-4">
-      <SearchInput
-        onClear={() => setSearchKey("")}
-        onSearch={(key) => setSearchKey(key)}
-      />
+    <div className="h-screen flex flex-col gap-4">
+      <div className="px-2">
+        <SearchInput
+          onClear={() => setSearchKey("")}
+          onSearch={(key) => setSearchKey(key)}
+        />
+      </div>
       <ScrollView
         scrollY
         enableFlex
         scrollWithAnimation
-        className="h-[calc(100vh_-_3.5rem)] "
+        className="h-[calc(100vh_-_3.5rem)] bg-[#f5f5f5]"
         onScroll={(e) => handleScroll(e)}
       >
         {data?.map((item) => (
@@ -83,7 +85,7 @@ const Coupon = () => {
 const Card = ({ item, onClick }: { item: CouponData; onClick: () => void }) => {
   return (
     <div
-      className="flex gap-2 p-2 bg-white mb-3 rounded-lg shadow-lg "
+      className="flex gap-2 py-2 px-4 bg-white mb-3"
       onClick={() => onClick()}
     >
       {/* 左边图片 */}

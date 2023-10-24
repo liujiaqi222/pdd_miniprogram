@@ -58,7 +58,7 @@ const CardList = ({ searchKey, listType }: Required<OrderParams>) => {
     }
   });
   return (
-    <View >
+    <View className="bg-[#f5f5f5] flex flex-col gap-4">
       {orders.map((order, index) => {
         return (
           <>

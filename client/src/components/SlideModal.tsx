@@ -17,7 +17,7 @@ const SlideModal = ({ isOpen, children, onClose }: Props) => {
     >
       <div
         className={`${styles.modal}`}
-        onClick={(e) => e.preventDefault()}
+        onClick={(e) => e.stopPropagation()}
       >
         {children}
       </div>

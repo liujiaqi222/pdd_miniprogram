@@ -15,7 +15,7 @@ const Promotion = () => {
     <div className="flex flex-col gap-2 px-4 mb-4">
       <AutoNewGroup />
       <div className="flex justify-center gap-5 mt-3">
-        {config?.promotionArr.map((item) => {
+        {config?.promotionArr?.map((item) => {
           return (
             <div
               className="flex flex-col gap-1 items-center"

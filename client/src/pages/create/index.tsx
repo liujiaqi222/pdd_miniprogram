@@ -104,18 +104,18 @@ export default function User() {
       >
         <div className="relative">
           <div className="w-8 h-[2px] bg-gray-200"></div>
-          <div className="absolute l-1/2 -top-4 h-8 w-[2px] bg-gray-200 translate-x-8 "></div>
+          <div className="absolute l-1/2 -top-4 h-8 w-[2px] bg-gray-200 translate-x-8"></div>
         </div>
         <span className="text-xs text-gray-500 mt-6">选择拼团图片</span>
         {url && (
-          <span className="text-xs text-gray-500 mt-1 ellipsis-line-2 ">
+          <span className="text-xs text-gray-500 mt-1 ellipsis-line-3 break-all">
             上传链接：{url}
           </span>
         )}
       </div>
       <div className="flex gap-2 items-end mt-4">
         <div
-          className="flex-1 flex justify-center items-center h-10 bg-pink-light text-primary text-sm font-bold rounded"
+          className="flex-1 flex justify-center items-center h-10 bg-pink-light text-primary  font-bold rounded"
           onClick={handleNavigateToOpenNewGroup}
         >
           开新团自动发布
@@ -126,7 +126,7 @@ export default function User() {
           </div>
           <div
             onClick={handlePost}
-            className="flex justify-center items-center h-10 mt-1 bg-green text-white font-bold text-sm rounded"
+            className="flex justify-center items-center h-10 mt-1 bg-green text-white font-bold  rounded"
           >
             发布
           </div>
