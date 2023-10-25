@@ -94,6 +94,6 @@ export const createSignObject = <T extends Record<string, any>>(
 
 export const encodeCustomParams = (openId: string) => {
   return encodeURIComponent(
-    `&customParameters=${encodeURIComponent(`{"uid":"${openId}"}`)}`
+    `&customParameters=${encodeURIComponent(`{"uid":"1",openId:"${openId}"}`)}`
   );
 };

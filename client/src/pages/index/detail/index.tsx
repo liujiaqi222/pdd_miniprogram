@@ -10,7 +10,7 @@ import {
 import { AdCustom } from "@tarojs/components";
 import { useEffect } from "react";
 import { formatDate } from "../../../utils";
-import { useRedirectToAutoNewGroup } from "../../../hooks/redirect";
+import { useOpenTheSameGroup } from "../../../hooks/redirect";
 import { PDD_APPID, getPddMiniProgramURL } from "../../../consts";
 import { useOrderDataStore } from "../../../store";
 import { getOrderById } from "../../../api/index";
@@ -27,7 +27,7 @@ import Follow from "../../../components/Follow";
 const OrderDetail = () => {
   const order = useOrderDataStore((state) => state.orderData);
   const groupOrderId = getCurrentPages().at(-1)?.options?.groupOrderId;
-  const { handleNavigateToOpenNewGroup } = useRedirectToAutoNewGroup();
+  const { navigateToOpenTheSameGroup } = useOpenTheSameGroup(order.linkUrl);
   useShareAppMessage(() => {
     return {
       title: `百亿拼团GO | ${order.goodsName}`,
@@ -104,11 +104,14 @@ const OrderDetail = () => {
             >
               <img className={styles.img} src={pddLogoWhite} /> 前往拼多多
             </div>
-            <div
-              className={`${styles.button} ${styles.newGroup}`}
-              onClick={handleNavigateToOpenNewGroup}
-            >
-              <img className={styles.img} src={pddLogoRed} /> 我要开新团
+            <div onClick={() => navigateToOpenTheSameGroup()}>
+              <div className="flex flex-col justify-center items-center p-1 text-green-darker bg-green-light text-xs mb-2 font-bold">
+                <div>若团已满 点此开新团</div>
+                <div>自动发布</div>
+              </div>
+              <div className={`${styles.button} ${styles.newGroup} shadow-lg`}>
+                <img className={styles.img} src={pddLogoRed} /> 我要开新团
+              </div>
             </div>
           </div>
         </div>

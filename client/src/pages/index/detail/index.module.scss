@@ -20,7 +20,7 @@
   .operationContainer {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-end;
     padding-top: 1rem;
     gap: 2rem;
     .button {
@@ -40,7 +40,7 @@
       }
 
       &.goto {
-        background-color: #f33a50;
+        background-color: #f50008;
         color: white;
       }
       &.newGroup {

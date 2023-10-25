@@ -23,7 +23,6 @@ export const autoInsertGroup = async () => {
     type: "pdd.ddk.order.list.increment.get",
     start_update_time: Math.trunc((Date.now() - 1000 * 120) / 1000), //  120s前的订单
     end_update_time: Math.trunc(Date.now() / 1000),
-
   });
 
   const res = result.order_list_get_response;
@@ -37,17 +36,20 @@ export const autoInsertGroup = async () => {
     custom_parameters,
     group_id,
   } of res.order_list) {
-    if (order_status !== 0 || !activity_tags.includes(12955)) continue;
-    const sn = order_sn.split("-")[1];
-    const groupOrderId = `${group_id.toString().slice(0, 4)}${sn}`;
     let openId = "";
     if (custom_parameters) {
       try {
-        openId = JSON.parse(custom_parameters).uid;
+        openId = JSON.parse(custom_parameters).openId;
       } catch (err) {
         console.log("解析json错误", err);
       }
     }
+    if (order_status !== 0 || (!activity_tags.includes(12955) && !openId))
+      continue;
+
+    const sn = order_sn.split("-")[1];
+    const groupOrderId = `${group_id.toString().slice(0, 4)}${sn}`;
+
     const uploadResult = await fetch(
       "http://localhost:4000/api/v1/orders/byId",
       {
@@ -56,7 +58,8 @@ export const autoInsertGroup = async () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          groupOrderId,openId
+          groupOrderId,
+          openId,
         }),
       }
     );

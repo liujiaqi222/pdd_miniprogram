@@ -146,3 +146,21 @@ export const generatePromotionUrl = async (
   return res.data?.goods_promotion_url_generate_response
     ?.goods_promotion_url_list[0];
 };
+
+/**
+ * @description 商品推广链接
+ */
+export const genMultiGroupPromotionUrl = async (
+  linkUrl: string,
+  openId: string
+) => {
+  const res = await pddRequest({
+    type: "pdd.ddk.goods.zs.unit.url.gen",
+    pid: "36921809_264961416",
+    source_url: `https://mobile.yangkeduo.com/${linkUrl}`,
+    custom_parameters: `{"uid":"1","openId":"${openId}"}`,
+    hello:1,
+  }).catch();
+  if (!res) return "";
+  return res.data?.goods_zs_unit_generate_response?.mobile_url || "";
+};
