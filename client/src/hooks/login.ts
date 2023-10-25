@@ -1,4 +1,4 @@
-import { getStorageSync, navigateToMiniProgram } from "@tarojs/taro";
+import { getStorageSync, } from "@tarojs/taro";
 import { useState } from "react";
 import { checkLogin } from "../utils";
 

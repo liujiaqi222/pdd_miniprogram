@@ -95,7 +95,7 @@ const Card = ({ item, onClick }: { item: CouponData; onClick: () => void }) => {
           alt={item.goods_name}
           className="h-28 w-28 shadow rounded"
         />
-        <span className="absolute top-1 right-1 px-1 text-white  text-xs  bg-primary shadow rounded-xs">
+        <span className="absolute top-1 right-1 px-1 text-white text-xs bg-primary shadow rounded-xs">
           已售{item.sales_tip}
         </span>
       </div>
@@ -117,7 +117,7 @@ const Card = ({ item, onClick }: { item: CouponData; onClick: () => void }) => {
               <span className="text-sm ml-1">券后价</span>
             </div>
             <div className="text-gray-500">
-              <span className="flex items-baseline ">
+              <span className="flex items-baseline">
                 ￥<span>{item.min_group_price / 100}</span>
               </span>
               <span className="text-sm ml-2">拼团价</span>
