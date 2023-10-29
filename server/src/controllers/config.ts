@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
 import { Config } from "../models/config.js";
 
-export const changeGroupUrl = async (req: Request, res: Response) => {
+export const changeConfig = async (req: Request, res: Response) => {
   const { type, data } = req.body;
-  if (!type || !data)
+  if (!type || data == null)
     return res
       .status(400)
       .json({ message: "type和data不能为空", success: false, data: "" });
@@ -15,9 +15,6 @@ export const changeGroupUrl = async (req: Request, res: Response) => {
   );
   res.json({ message: "更新成功", success: true, data: "" });
 };
-
-
-
 
 export const getConfig = async (req: Request, res: Response) => {
   const config = await Config.findOne({});

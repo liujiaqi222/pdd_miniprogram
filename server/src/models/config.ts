@@ -12,6 +12,7 @@ const configSchema = new mongoose.Schema(
     },
     officialQrCodeURL: String,
     autoNewGroupURL: String,
+    isOnReview: Boolean,
   },
   {
     timestamps: true,
