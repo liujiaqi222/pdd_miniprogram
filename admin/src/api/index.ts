@@ -15,16 +15,39 @@ service.interceptors.request.use(
   }
 );
 
-export const login = (user: { name: string; password: string }) => {
+service.interceptors.response.use(
+  (response) => {
+    return response.data;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
+
+type ResponseBase<T = string> = Promise<{
+  success: boolean;
+  message: string;
+  data: T;
+}>;
+
+export const login = (user: {
+  name: string;
+  password: string;
+}): ResponseBase<{ user: { name: string; role: string }; token: string }> => {
   return service.post("/api/v1/auth/login", user);
 };
 
-export const changeGroupUrl = (
-  type: "groupUrl" | "officialQrCodeURL" | "autoNewGroupURL",
-  data: string
-) => {
+export const changeGroupUrl = (type: string, data: any): ResponseBase => {
   return service.post("/api/v1/config/changeGroupUrl", { type, data });
 };
-export const getConfig = () => {
+
+export type Config = {
+  groupUrl: string;
+  officialQrCodeURL: string;
+  autoNewGroupURL: string;
+  isOnReview: boolean;
+};
+
+export const getConfig = (): ResponseBase<Config> => {
   return service.get("/api/v1/config");
 };

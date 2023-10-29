@@ -26,8 +26,7 @@ export const autoInsertGroup = async () => {
   });
 
   const res = result.order_list_get_response;
-  console.log(res);
-  if (res.total_count === 0) return;
+  if (!res?.total_count) return;
 
   for (let {
     order_sn,
@@ -35,7 +34,7 @@ export const autoInsertGroup = async () => {
     activity_tags,
     custom_parameters,
     group_id,
-  } of res.order_list) {
+  } of res?.order_list) {
     let openId = "";
     if (custom_parameters) {
       try {

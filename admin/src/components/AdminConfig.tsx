@@ -1,98 +1,120 @@
 import { useEffect, useState } from "react";
-import { Button } from "./ui/button";
-import { Textarea } from "@/components/ui/textarea";
-import { changeGroupUrl, getConfig } from "@/api";
-import { useToast } from "@/components/ui/use-toast";
+import { Button, Flex, Form, Spin, Switch } from "antd";
 
-type ConfigType = "groupUrl" | "officialQrCodeURL" | "autoNewGroupURL";
+import { type Config, changeGroupUrl, getConfig } from "@/api";
+import { message } from "antd";
+import TextArea from "antd/es/input/TextArea";
+
 const AdminConfig = () => {
-  const [config, setConfigUrl] = useState<Record<ConfigType, string>>({
+  const [config, setConfigUrl] = useState<Config>({
     groupUrl: "",
     officialQrCodeURL: "",
     autoNewGroupURL: "",
+    isOnReview: false,
   });
-  const { toast } = useToast();
+  const [isLoading, setIsLoading] = useState(true);
+  const [form] = Form.useForm<Config>();
+
   useEffect(() => {
-    getConfig().then((res) => {
-      if (res?.data?.success) {
-        setConfigUrl(res.data.data);
+    getConfig().then(({ success, data }) => {
+      setIsLoading(false);
+      if (success) {
+        console.log(data);
+        form.resetFields();
+        setConfigUrl(data);
+        form.resetFields();
       }
     });
-  }, []);
-  const handleChange = async (type: ConfigType) => {
-    const result = await changeGroupUrl(type, config[type]);
-    if (result?.data?.success) {
-      toast({
-        description: "更新成功",
-      });
+  }, [form]);
+  const handleChange = async (type: keyof Config) => {
+    await form.validateFields([type]);
+    const res = await changeGroupUrl(type, config[type]).catch(() => {
+      message.error("更新失败");
+    });
+    if (res && res.success) {
+      message.success("更新成功");
     }
   };
   return (
-    <div className="grid place-items-center h-screen">
-      <div className="flex flex-col gap-4">
-        <div className="flex items-center gap-2">
-          <span className="w-44 text-sm  text-right">群二维码链接:</span>
-          <Textarea
-            className="w-96 text-sm"
-            placeholder="群链接"
-            value={config.groupUrl}
-            onChange={(e) =>
-              setConfigUrl((pre) => ({ ...pre, groupUrl: e.target.value }))
-            }
-          />
-          <Button
-            type="submit"
-            className="w-20"
-            onClick={() => handleChange("groupUrl")}
-          >
-            更新
-          </Button>
-        </div>
-        <div className="flex items-center gap-2">
-          <span className="w-44 text-sm  text-right">公众号二维码链接:</span>
-          <Textarea
-            className="w-96 text-sm"
-            placeholder="公众号链接"
-            value={config.officialQrCodeURL}
-            onChange={(e) =>
-              setConfigUrl((pre) => ({
-                ...pre,
-                officialQrCodeURL: e.target.value,
-              }))
-            }
-          />
-          <Button
-            type="submit"
-            className="w-20"
-            onClick={() => handleChange("officialQrCodeURL")}
-          >
-            更新
-          </Button>
-        </div>
-        <div className="flex items-center gap-2">
-          <span className="w-44 text-sm  text-right">
-            自动开团小程序跳转地址:
-          </span>
-          <Textarea
-            className="w-96 text-sm"
-            placeholder="群链接"
-            value={config.autoNewGroupURL}
-            onChange={(e) =>
-              setConfigUrl((pre) => ({
-                ...pre,
-                autoNewGroupURL: e.target.value,
-              }))
-            }
-          />
-          <Button
-            type="submit"
-            className="w-20"
-            onClick={() => handleChange("autoNewGroupURL")}
-          >
-            更新
-          </Button>
-        </div>
-      </div>
+    <div className="flex justify-center  pt-8">
+      <Spin spinning={isLoading}>
+        <Form
+          form={form}
+          name="basic"
+          labelWrap
+          layout="vertical"
+          style={{ maxWidth: 600, minWidth: 320 }}
+          autoComplete="off"
+          initialValues={config}
+        >
+          <Form.Item label="群链接">
+            <Flex gap="small">
+              <Form.Item
+                name="groupUrl"
+                noStyle
+                rules={[{ required: true, message: "群链接不能为空" }]}
+              >
+                <TextArea />
+              </Form.Item>
+              <Button type="primary" onClick={() => handleChange("groupUrl")}>
+                更新
+              </Button>
+            </Flex>
+          </Form.Item>
+          <Form.Item label="公众号二维码链接">
+            <Flex gap="small">
+              <Form.Item
+                name="officialQrCodeURL"
+                noStyle
+                rules={[
+                  { required: true, message: "公众号二维码链接不能为空" },
+                ]}
+              >
+                <TextArea />
+              </Form.Item>
+              <Button
+                type="primary"
+                onClick={() => handleChange("officialQrCodeURL")}
+              >
+                更新
+              </Button>
+            </Flex>
+          </Form.Item>
+          <Form.Item label="自动开团小程序跳转地址">
+            <Flex gap="small">
+              <Form.Item
+                name="autoNewGroupURL"
+                noStyle
+                rules={[
+                  { required: true, message: "自动开团小程序跳转地址不能为空" },
+                ]}
+              >
+                <TextArea />
+              </Form.Item>
+              <Button
+                type="primary"
+                onClick={() => handleChange("autoNewGroupURL")}
+              >
+                更新
+              </Button>
+            </Flex>
+          </Form.Item>
+          <Form.Item label="审核模式">
+            <div className="flex">
+              <Form.Item
+                name="isOnReview"
+                wrapperCol={{ span: 8 }}
+                className="flex-1"
+              >
+                <Switch checkedChildren="开启" unCheckedChildren="关闭" />
+              </Form.Item>
+              <Button type="primary" onClick={() => handleChange("isOnReview")}>
+                更新
+              </Button>
+            </div>
+          </Form.Item>
+        </Form>
+      </Spin>
     </div>
   );
 };
