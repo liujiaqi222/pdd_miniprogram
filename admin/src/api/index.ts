@@ -37,8 +37,8 @@ export const login = (user: {
   return service.post("/api/v1/auth/login", user);
 };
 
-export const changeGroupUrl = (type: string, data: any): ResponseBase => {
-  return service.post("/api/v1/config/changeGroupUrl", { type, data });
+export const changeConfig = (type: string, data: any): ResponseBase => {
+  return service.post("/api/v1/config/changeConfig", { type, data });
 };
 
 export type Config = {

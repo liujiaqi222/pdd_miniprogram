@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Button, Flex, Form, Spin, Switch } from "antd";
 
-import { type Config, changeGroupUrl, getConfig } from "@/api";
+import { type Config, changeConfig, getConfig } from "@/api";
 import { message } from "antd";
 import TextArea from "antd/es/input/TextArea";
 
@@ -20,7 +20,6 @@ const AdminConfig = () => {
       setIsLoading(false);
       if (success) {
         console.log(data);
-        form.resetFields();
         setConfigUrl(data);
         form.resetFields();
       }
@@ -28,7 +27,7 @@ const AdminConfig = () => {
   }, [form]);
   const handleChange = async (type: keyof Config) => {
     await form.validateFields([type]);
-    const res = await changeGroupUrl(type, config[type]).catch(() => {
+    const res = await changeConfig(type, form.getFieldValue(type)).catch(() => {
       message.error("更新失败");
     });
     if (res && res.success) {
@@ -103,7 +102,7 @@ const AdminConfig = () => {
             <div className="flex">
               <Form.Item
                 name="isOnReview"
-                wrapperCol={{ span: 8 }}
+                valuePropName="checked"
                 className="flex-1"
               >
                 <Switch checkedChildren="开启" unCheckedChildren="关闭" />
