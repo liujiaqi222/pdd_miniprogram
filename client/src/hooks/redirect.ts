@@ -34,7 +34,6 @@ export const useOpenTheSameGroup = (linkUrl: string) => {
   }, [linkUrl, openId]);
 
   const navigateToOpenTheSameGroup = () => {
-    console.log(url);
     navigateToMiniProgram({
       appId: PDD_COUPON_APPID,
       path: url

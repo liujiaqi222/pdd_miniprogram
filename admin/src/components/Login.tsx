@@ -25,7 +25,7 @@ export const Login = ({ onLogin }: Props) => {
       <Form
         form={form}
         onFinish={onFinish}
-        labelCol={{ span: 8 }}
+        labelCol={{ span: 4 }}
         wrapperCol={{ span: 16 }}
         style={{ width: 400 }}
         initialValues={{ remember: true }}

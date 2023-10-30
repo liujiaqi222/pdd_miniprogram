@@ -12,7 +12,8 @@ import userRoute from "./routes/user.js";
 import authRoute from "./routes/auth.js";
 import configRoute from "./routes/config.js";
 import path from "path";
-// import pddRoute from "./routes/pdd.js";
+import pddRoute from "./routes/pdd.js";
+import { autoInsertGroup } from "./util/autoInsertGroup.js";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 dotenv.config();
@@ -22,7 +23,7 @@ app.use(express.static(path.resolve(__dirname, "../../admin/dist")));
 app.use(express.json());
 
 /** 这个是使用pdd的接口，用来后端方便调试，没有必要暴露，因为前端可以直接调用pdd的接口 */
-// app.use("/api/v1/pdd", pddRoute);
+app.use("/api/v1/pdd", pddRoute);
 app.use("/api/v1/config", configRoute);
 app.use("/api/v1/auth", authRoute);
 app.use("/api/v1/orders", orderRoute);
@@ -32,6 +33,7 @@ connectDB(process.env.MONGO_URI!)
   .then(async () => {
     app.listen(process.env.PORT || 4000, () => {
       // import("./cron/index.js");
+      autoInsertGroup()
       console.log(`running at http://localhost:${process.env.PORT || 4000}`);
     });
   })

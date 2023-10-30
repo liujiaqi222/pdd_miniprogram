@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Button, Flex, Form, Spin, Switch } from "antd";
-
-import { type Config, changeConfig, getConfig } from "@/api";
+import { changeConfig, getConfig, type Config } from "@/api";
 import { message } from "antd";
 import TextArea from "antd/es/input/TextArea";
 
@@ -11,9 +10,15 @@ const AdminConfig = () => {
     officialQrCodeURL: "",
     autoNewGroupURL: "",
     isOnReview: false,
+    promotionBanner: {
+      isShow: false,
+      image: "",
+      url: "",
+    },
   });
   const [isLoading, setIsLoading] = useState(true);
   const [form] = Form.useForm<Config>();
+  const isShowBanner = Form.useWatch(["promotionBanner", "isShow"], form);
 
   useEffect(() => {
     getConfig().then(({ success, data }) => {
@@ -25,9 +30,15 @@ const AdminConfig = () => {
       }
     });
   }, [form]);
-  const handleChange = async (type: keyof Config) => {
-    await form.validateFields([type]);
-    const res = await changeConfig(type, form.getFieldValue(type)).catch(() => {
+  const handleChange = async (type: keyof Config, path: string[][] = []) => {
+    await form.validateFields(path.length ? path : [type]);
+    const value = !path.length
+      ? form.getFieldValue(type)
+      : path.reduce((acc: Record<string, any>, cur) => {
+          acc[cur[1]] = form.getFieldValue(cur);
+          return acc;
+        }, {});
+    const res = await changeConfig(type, value).catch(() => {
       message.error("更新失败");
     });
     if (res && res.success) {
@@ -35,7 +46,7 @@ const AdminConfig = () => {
     }
   };
   return (
-    <div className="flex justify-center  pt-8">
+    <div className="flex justify-center  pt-2">
       <Spin spinning={isLoading}>
         <Form
           form={form}
@@ -98,6 +109,60 @@ const AdminConfig = () => {
               </Button>
             </Flex>
           </Form.Item>
+          <div className="border border-gray-200 border-solid px-2 pt-2 rounded-lg mb-2">
+            <Form.Item label="营销Banner">
+              <div className="flex">
+                <div className="flex-1">
+                  <Form.Item
+                    name={["promotionBanner", "isShow"]}
+                    valuePropName="checked"
+                  >
+                    <Switch checkedChildren="开启" unCheckedChildren="关闭" />
+                  </Form.Item>
+                  {isShowBanner && (
+                    <>
+                      <Form.Item
+                        name={["promotionBanner", "image"]}
+                        label="图片链接"
+                        rules={[
+                          {
+                            required: true,
+                            message: "图片链接不能为空",
+                          },
+                        ]}
+                      >
+                        <TextArea />
+                      </Form.Item>
+                      <Form.Item
+                        name={["promotionBanner", "url"]}
+                        label="跳转链接"
+                        rules={[
+                          {
+                            required: true,
+                            message: "跳转链接不能为空",
+                          },
+                        ]}
+                      >
+                        <TextArea />
+                      </Form.Item>
+                    </>
+                  )}
+                </div>
+                <Button
+                  type="primary"
+                  onClick={() =>
+                    handleChange("promotionBanner", [
+                      ["promotionBanner", "isShow"],
+                      ["promotionBanner", "image"],
+                      ["promotionBanner", "url"],
+                    ])
+                  }
+                >
+                  更新
+                </Button>
+              </div>
+            </Form.Item>
+          </div>
           <Form.Item label="审核模式">
             <div className="flex">
               <Form.Item

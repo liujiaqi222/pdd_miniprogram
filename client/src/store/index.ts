@@ -37,6 +37,12 @@ type Config = {
   }>;
   officialQrCodeURL: string;
   autoNewGroupURL: string;
+  isOnReview: boolean;
+  promotionBanner: {
+    isShow: boolean;
+    image: string;
+    url: string;
+  };
 };
 
 type ConfigStoreState = {
@@ -49,7 +55,6 @@ export const useConfigStore = create<ConfigStoreState>((set) => {
     config: {} as Config,
     fetchConfig: async () => {
       const { data } = await getConfig();
-      console.log(data);
       if (data.success) {
         set(() => ({ config: data.data }));
       }

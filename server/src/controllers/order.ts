@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { Order } from "../models/order.js";
+import { ExpiredOrder, Order } from "../models/order.js";
 import { isValidUrl, reverseShortUrl, getOrderData } from "../util/index.js";
 import { saveOrderData } from "../db/saveOrder.js";
 
@@ -113,9 +113,16 @@ export const getOrderById = async (req: Request, res: Response) => {
   }
 
   const order = await Order.findOne({ groupOrderId }).exec();
-  if (!order) {
-    res.json({ success: false, message: "该拼单不存在" });
+  if (order) {
+    res.json({ success: true, data: order, expired: false });
     return;
   }
-  res.json({ success: true, data: order });
+
+  const expiredOrder = await ExpiredOrder.findOne({ groupOrderId }).exec();
+  if (expiredOrder) {
+    res.json({ success: true, data: expiredOrder, expired: true });
+    return;
+  }
+
+  res.json({ success: false, message: "groupOrderId不存在" });
 };

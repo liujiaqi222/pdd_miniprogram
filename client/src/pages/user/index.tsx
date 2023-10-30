@@ -7,8 +7,11 @@ import supportIcon from "../../assets/support.svg";
 import groupBuyIcon from "../../assets/group-buy.svg";
 import infoIcon from "../../assets/info.svg";
 import styles from "./index.module.scss";
+import { useConfigStore } from "../../store/";
 
 const User = () => {
+  const isOnReview = useConfigStore((state) => state.config.isOnReview);
+
   useShareAppMessage(() => {
     return {
       title: "百亿拼团GO | 一键参团 快速成团",
@@ -47,7 +50,7 @@ const User = () => {
         </div>
       </div>
 
-      <Follow />
+      {!isOnReview && <Follow />}
 
       <div className="flex gap-4">
         <div

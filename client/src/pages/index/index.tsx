@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { usePullDownRefresh, useShareAppMessage } from "@tarojs/taro";
 import { View, Text } from "@tarojs/components";
-import { useRefreshStore } from "../../store";
+import { useRefreshStore, useConfigStore } from "../../store";
 import SearchInput from "../../components/SearchInput";
 import Promotion from "./components/Promotion";
 import CardList from "./components/CardList";
@@ -11,6 +11,7 @@ function Index() {
   const [refreshKey, setRefreshKey] = useState(0);
   const [searchKey, setSearchKey] = useState("");
   const refreshStore = useRefreshStore();
+  const isOnReview = useConfigStore((state) => state.config.isOnReview);
 
   if (refreshStore.refresh) {
     refreshStore.setRefresh(false);
@@ -31,11 +32,15 @@ function Index() {
     };
   });
 
-  const categoryTextStyle = "font-bold text-primary-lighter underline ";
+  const categoryTextStyle = "font-bold text-primary-lighter underline";
   return (
     <View>
-      <Promotion />
-      <View className="h-2 bg-gray-light w-full"></View>
+      {!isOnReview && (
+        <>
+          <Promotion />
+          <View className="h-2 bg-gray-light w-full"></View>
+        </>
+      )}
       <View className="sticky top-0 z-[999] bg-white py-2">
         <View className="flex justify-between px-20 mb-3 underline-offset-4">
           <Text

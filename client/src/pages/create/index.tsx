@@ -7,22 +7,24 @@ import {
   switchTab,
 } from "@tarojs/taro";
 import { useState, useContext } from "react";
-import { useRefreshStore } from "../../store/";
-import {useRedirectToAutoNewGroup} from '../../hooks/redirect'
+import { useRefreshStore, useConfigStore } from "../../store/";
+import { useRedirectToAutoNewGroup } from "../../hooks/redirect";
 import TipModal from "./components/TipModal";
 import { createNewGroup } from "../../api";
 import { OpenIdContext } from "../../context";
 import styles from "./index.module.scss";
 import questionSvg from "../../assets/question.svg";
-import AutoNewGroup from "../index/components/AutoNewGroup";
+import AutoNewGroup from "../../components/AutoNewGroup";
 
 export default function User() {
   const [url, setUrl] = useState("");
   const openId = useContext(OpenIdContext);
-  const {handleNavigateToOpenNewGroup} = useRedirectToAutoNewGroup()
+  const { handleNavigateToOpenNewGroup } = useRedirectToAutoNewGroup();
   const [isLoading, setIsLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const setRefresh = useRefreshStore((state) => state.setRefresh);
+  const isOnReview = useConfigStore((state) => state.config.isOnReview);
+
   useShareAppMessage(() => {
     return {
       title: "百亿拼团GO | 发布拼团",
@@ -84,9 +86,11 @@ export default function User() {
       className="px-3 relative h-screen overflow-hidden"
       onClick={() => setShowModal(false)}
     >
-      <AutoNewGroup />
+      {!isOnReview && <AutoNewGroup />}
       <div className="flex gap-1 items-center mt-6 mb-2">
-        <span className="text-sm font-bold text-[#555]">选择拼团分享图片</span>
+        <span className="text-sm font-bold text-[#555]">
+          上传多多拼团分享图片
+        </span>
         <img
           src={questionSvg}
           alt="拼团教程"
@@ -114,15 +118,17 @@ export default function User() {
         )}
       </div>
       <div className="flex gap-2 items-end mt-4">
-        <div
-          className="flex-1 flex justify-center items-center h-10 bg-pink-light text-primary  font-bold rounded"
-          onClick={handleNavigateToOpenNewGroup}
-        >
-          开新团自动发布
-        </div>
+        {!isOnReview && (
+          <div
+            className="flex-1 flex justify-center items-center h-10 bg-pink-light text-primary  font-bold rounded"
+            onClick={handleNavigateToOpenNewGroup}
+          >
+            开新团自动发布
+          </div>
+        )}
         <div className="flex-1">
           <div className="flex justify-center items-center h-6 text-green-darker bg-green-light font-bold text-xs">
-            发布前 先搜索
+            发布前 请先搜索
           </div>
           <div
             onClick={handlePost}
@@ -132,7 +138,11 @@ export default function User() {
           </div>
         </div>
       </div>
-
+      {isOnReview && (
+        <div className="mt-2">
+          注意：本小程序采用微信原生的二维码识别工具识别您上传的二维码，仅存储拼团排队的链接。
+        </div>
+      )}
       {showModal && <div className={styles.mask}></div>}
       <TipModal showModal={showModal} setShowModal={setShowModal} />
     </div>

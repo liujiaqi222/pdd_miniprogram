@@ -46,6 +46,11 @@ export type Config = {
   officialQrCodeURL: string;
   autoNewGroupURL: string;
   isOnReview: boolean;
+  promotionBanner: {
+    isShow: false;
+    image: "";
+    url: "";
+  };
 };
 
 export const getConfig = (): ResponseBase<Config> => {

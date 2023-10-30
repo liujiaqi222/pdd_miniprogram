@@ -33,7 +33,7 @@ export const getOrders = (
 
 export const getOrderById = (
   groupOrderId: string
-): RequestTask<{ data: OrderData; success: boolean }> => {
+): RequestTask<{ data: OrderData; success: boolean,expired:boolean }> => {
   return request({
     url: `${process.env.URL_PREFIX}/orders/byId`,
     method: "GET",
@@ -55,7 +55,6 @@ export const createNewGroup = (url: string, openId: string) => {
   });
 };
 
-// 获取群聊二维码
 export const getConfig = () => {
   return request({
     url: `${urlPrefix}/config/`,
@@ -159,7 +158,6 @@ export const genMultiGroupPromotionUrl = async (
     pid: "36921809_264961416",
     source_url: `https://mobile.yangkeduo.com/${linkUrl}`,
     custom_parameters: `{"uid":"1","openId":"${openId}"}`,
-    hello:1,
   }).catch();
   if (!res) return "";
   return res.data?.goods_zs_unit_generate_response?.mobile_url || "";

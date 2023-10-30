@@ -1,5 +1,5 @@
 import { navigateToMiniProgram } from "@tarojs/taro";
-import AutoNewGroup from "./AutoNewGroup";
+import AutoNewGroup from "../../../components/AutoNewGroup";
 import { PDD_COUPON_APPID } from "../../../consts";
 import { useConfigStore } from "../../../store";
 

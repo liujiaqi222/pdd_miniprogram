@@ -13,6 +13,11 @@ const configSchema = new mongoose.Schema(
     officialQrCodeURL: String,
     autoNewGroupURL: String,
     isOnReview: Boolean,
+    promotionBanner: {
+      isShow: Boolean,
+      image: String,
+      url: String,
+    },
   },
   {
     timestamps: true,

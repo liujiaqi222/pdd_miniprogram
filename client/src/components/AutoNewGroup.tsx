@@ -1,4 +1,4 @@
-import { useRedirectToAutoNewGroup } from "../../../hooks/redirect";
+import { useRedirectToAutoNewGroup } from "../hooks/redirect";
 
 const AutoNewGroup = () => {
   const { handleNavigateToOpenNewGroup } = useRedirectToAutoNewGroup();
