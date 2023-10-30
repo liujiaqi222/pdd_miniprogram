@@ -21,13 +21,12 @@ const AdminConfig = () => {
   const isShowBanner = Form.useWatch(["promotionBanner", "isShow"], form);
 
   useEffect(() => {
-    getConfig().then(({ success, data }) => {
-      setIsLoading(false);
-      if (success) {
-        console.log(data);
-        setConfigUrl(data);
+    getConfig().then(({ data }) => {
+      setConfigUrl(data);
+      setTimeout(() => {
         form.resetFields();
-      }
+      });
+      setIsLoading(false);
     });
   }, [form]);
   const handleChange = async (type: keyof Config, path: string[][] = []) => {
