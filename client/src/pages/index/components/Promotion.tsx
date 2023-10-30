@@ -18,12 +18,12 @@ const Promotion = () => {
         {config?.promotionArr?.map((item) => {
           return (
             <div
-              className="flex flex-col gap-1 items-center"
+              className="flex flex-col gap-1 flex-1 items-center justify-center"
               key={item.name}
               onClick={() => handleNavigate(item.prefix, item.url)}
             >
               <img src={item.image} alt="promotion" className="w-7 h-7" />
-              <div className="text-[#555]">{item.name}</div>
+              <div className="text-[#555] text-sm">{item.name}</div>
             </div>
           );
         })}
