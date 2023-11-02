@@ -6,7 +6,7 @@ import { SetConfig } from "./components/AdminConfig";
 
 // 简单弄一下，也不写啥路由了
 function App() {
-  const [isLogin, setIsLogin] = useState(true);
+  const [isLogin, setIsLogin] = useState(false);
   const [messageApi, contextHolder] = message.useMessage();
 
   const handleLogin = async (name: string, password: string) => {
