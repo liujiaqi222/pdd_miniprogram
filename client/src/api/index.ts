@@ -33,7 +33,7 @@ export const getOrders = (
 
 export const getOrderById = (
   groupOrderId: string
-): RequestTask<{ data: OrderData; success: boolean,expired:boolean }> => {
+): RequestTask<{ data: OrderData; success: boolean; expired: boolean }> => {
   return request({
     url: `${process.env.URL_PREFIX}/orders/byId`,
     method: "GET",
@@ -59,6 +59,9 @@ export const getConfig = () => {
   return request({
     url: `${urlPrefix}/config/`,
     method: "GET",
+    data: {
+      appType: "app1",
+    },
   });
 };
 

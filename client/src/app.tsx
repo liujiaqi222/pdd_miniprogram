@@ -13,7 +13,9 @@ function App(props: any) {
   const fetchConfig = useConfigStore((state) => state.fetchConfig);
 
   // 对应 onShow
-  useDidShow(() => {});
+  useDidShow((options) => {
+    console.log(options)
+  });
 
   // 对应 onHide
   useDidHide(() => {});

@@ -6,10 +6,12 @@ const Card = ({
   order,
   onClick,
   shareBtn,
+  isOnReview,
 }: {
   order: OrderData;
   onClick?: () => void;
   shareBtn?: boolean;
+  isOnReview: boolean;
 }) => {
   const {
     goodsName,
@@ -29,7 +31,7 @@ const Card = ({
       <div className={styles["order-info"]}>
         <div className="ellipsis-line-2">{goodsName}</div>
         <div className={styles["price-container"]}>
-          {activityPrice && originPrice && (
+          {activityPrice && originPrice && !isOnReview && (
             <div className="flex gap-2 items-end">
               <span className="text-xl leading-5 text-primary font-bold">
                 ￥{activityPrice}

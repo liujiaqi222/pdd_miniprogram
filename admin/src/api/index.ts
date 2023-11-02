@@ -37,8 +37,12 @@ export const login = (user: {
   return service.post("/api/v1/auth/login", user);
 };
 
-export const changeConfig = (type: string, data: any): ResponseBase => {
-  return service.post("/api/v1/config/changeConfig", { type, data });
+export const changeConfig = (
+  type: string,
+  data: any,
+  appType: string
+): ResponseBase => {
+  return service.post("/api/v1/config/changeConfig", { type, data, appType });
 };
 
 export type Config = {
@@ -53,6 +57,6 @@ export type Config = {
   };
 };
 
-export const getConfig = (): ResponseBase<Config> => {
-  return service.get("/api/v1/config");
+export const getConfig = (appType: string): ResponseBase<Config> => {
+  return service.get("/api/v1/config", { params: { appType } });
 };

@@ -30,7 +30,6 @@ import PromotionBanner from "../../../components/PromotionBanner";
 const OrderDetail = () => {
   const order = useOrderDataStore((state) => state.orderData);
   const groupOrderId = getCurrentPages().at(-1)?.options?.groupOrderId;
-  const isOnReview = useConfigStore((state) => state.config.isOnReview);
   const isShowBanner = useConfigStore(
     (state) => state.config.promotionBanner.isShow
   );
@@ -79,7 +78,7 @@ const OrderDetail = () => {
   return (
     <div className={styles.container}>
       <div className="shadow-lg">
-        <Card order={order!} shareBtn />
+        <Card order={order!} shareBtn isOnReview={false} />
         <div className="p-4 rounded-lg bg-white border-primary-darker mb-4 border-top">
           {!isExpired && (
             <div className={styles.info}>
@@ -133,27 +132,24 @@ const OrderDetail = () => {
               </div>
             )}
             <div onClick={() => navigateToOpenTheSameGroup()}>
-              {!isOnReview && (
-                <div className="flex flex-col justify-center items-center p-1 text-green-darker bg-green-light text-xs mb-2 font-bold">
-                  <div>自动发布</div>
-                </div>
-              )}
+              <div className="flex flex-col justify-center items-center p-1 text-green-darker bg-green-light text-xs mb-2 font-bold">
+                <div>自动发布</div>
+              </div>
+
               <div className={`${styles.button} ${styles.newGroup} shadow-lg`}>
-                <img className={styles.img} src={pddLogoRed} />{" "}
-                {`${isExpired ? "该团已过期，" : ""}${
-                  isOnReview ? "前往拼多多" : "我要开新团"
-                }`}
+                <img className={styles.img} src={pddLogoRed} />
+                {`${isExpired ? "该团已拼满，" : ""}点此开新团`}
               </div>
             </div>
           </div>
         </div>
       </div>
-      {!isOnReview && (
-        <div className="px-2">
-          <Follow bgWhite />
-        </div>
-      )}
-      {!isOnReview && isShowBanner && (
+
+      <div className="px-2">
+        <Follow bgWhite />
+      </div>
+
+      {isShowBanner && (
         <div className="px-2 mt-4">
           <PromotionBanner />
         </div>

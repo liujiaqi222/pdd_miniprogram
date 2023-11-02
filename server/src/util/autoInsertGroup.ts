@@ -59,6 +59,7 @@ export const autoInsertGroup = async () => {
         body: JSON.stringify({
           groupOrderId,
           openId,
+          isAuto: true,
         }),
       }
     );

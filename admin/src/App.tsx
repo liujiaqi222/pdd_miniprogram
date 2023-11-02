@@ -2,11 +2,11 @@ import { useState } from "react";
 import { message } from "antd";
 import { Login } from "./components/Login";
 import { login } from "@/api/index";
-import AdminConfig from "./components/AdminConfig";
+import { SetConfig } from "./components/AdminConfig";
 
 // 简单弄一下，也不写啥路由了
 function App() {
-  const [isLogin, setIsLogin] = useState(false);
+  const [isLogin, setIsLogin] = useState(true);
   const [messageApi, contextHolder] = message.useMessage();
 
   const handleLogin = async (name: string, password: string) => {
@@ -22,7 +22,7 @@ function App() {
   };
   return (
     <>
-      {isLogin ? <AdminConfig /> : <Login onLogin={handleLogin}></Login>}{" "}
+      {isLogin ? <SetConfig /> : <Login onLogin={handleLogin}></Login>}{" "}
       {contextHolder}
     </>
   );

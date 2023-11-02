@@ -140,7 +140,7 @@ export default function User() {
       </div>
       {isOnReview && (
         <div className="mt-2">
-          注意：本小程序采用微信原生的二维码识别工具识别您上传的二维码，仅存储拼团排队的链接。
+          注意：本小程序采用微信原生的二维码识别工具识别您上传的二维码，仅存储拼团组队的链接。
         </div>
       )}
       {showModal && <div className={styles.mask}></div>}

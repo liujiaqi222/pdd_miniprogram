@@ -1,10 +1,56 @@
 import { useEffect, useState } from "react";
-import { Button, Flex, Form, Spin, Switch } from "antd";
+import { Button, Flex, Form, Select, Spin, Switch } from "antd";
 import { changeConfig, getConfig, type Config } from "@/api";
 import { message } from "antd";
 import TextArea from "antd/es/input/TextArea";
 
-const AdminConfig = () => {
+export const SetConfig = () => {
+  const [appType, setAppType] = useState("");
+  const handleAppTypeChange = (value: string) => {
+    setAppType(value);
+  };
+  return (
+    <div className="flex justify-center flex-col items-center pt-2">
+      <SelectApp onChange={handleAppTypeChange} />
+      <hr />
+      {appType && <AdminConfig appType={appType} />}
+    </div>
+  );
+};
+
+const appOptions = [
+  {
+    value: "default",
+    label: "默认",
+  },
+  {
+    value: "app1",
+    label: "百亿拼团GO",
+  },
+  {
+    value: "app2",
+    label: "百亿拼团助手GO",
+  },
+  {
+    value: "app3",
+    label: "百亿补贴拼团助手",
+  },
+  {
+    value: "app4",
+    label: "拼团呀百亿拼团助手",
+  },
+];
+
+const SelectApp = ({ onChange }: { onChange: (value: string) => void }) => {
+  return (
+    <div className="flex items-center">
+      <span>选择小程序：</span>
+      <Select style={{ width: 170 }} options={appOptions} onChange={onChange} />
+    </div>
+  );
+};
+
+const AdminConfig = ({ appType }: { appType: string }) => {
   const [config, setConfigUrl] = useState<Config>({
     groupUrl: "",
     officialQrCodeURL: "",
@@ -21,14 +67,15 @@ const AdminConfig = () => {
   const isShowBanner = Form.useWatch(["promotionBanner", "isShow"], form);
 
   useEffect(() => {
-    getConfig().then(({ data }) => {
+    setIsLoading(true);
+    getConfig(appType).then(({ data }) => {
       setConfigUrl(data);
       setTimeout(() => {
         form.resetFields();
       });
       setIsLoading(false);
     });
-  }, [form]);
+  }, [form, appType]);
   const handleChange = async (type: keyof Config, path: string[][] = []) => {
     await form.validateFields(path.length ? path : [type]);
     const value = !path.length
@@ -37,7 +84,7 @@ const AdminConfig = () => {
           acc[cur[1]] = form.getFieldValue(cur);
           return acc;
         }, {});
-    const res = await changeConfig(type, value).catch(() => {
+    const res = await changeConfig(type, value, appType).catch(() => {
       message.error("更新失败");
     });
     if (res && res.success) {
@@ -45,7 +92,7 @@ const AdminConfig = () => {
     }
   };
   return (
-    <div className="flex justify-center  pt-2">
+    <div>
       <Spin spinning={isLoading}>
         <Form
           form={form}
@@ -181,5 +228,3 @@ const AdminConfig = () => {
     </div>
   );
 };
-
-export default AdminConfig;

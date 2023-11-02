@@ -32,6 +32,10 @@ const OrderSchema = new Schema(
       ref: "User",
     },
     groupOrderType: Number, // 0 普通多人拼团 1多人任意商品团
+    isAuto: {
+      type: Boolean,
+      default: false,
+    },
   },
   { timestamps: true }
 );
