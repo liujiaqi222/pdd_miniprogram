@@ -76,9 +76,7 @@ node + express + ts + mongodb + mongoose
 如`.env.example` -> `.env`
 如`.env.production.example` -> `.env.production`
 
-## 未来优化
+## 部署
 
-1. 支持 docker 部署
-2. 列表虚拟滚动
-3. 后端完善防重放校验
-4. 使用 github actions 自动更新部署后端到服务器
+1.支持 docker 部署
+2.使用 github actions 自动更新部署后端到服务器
