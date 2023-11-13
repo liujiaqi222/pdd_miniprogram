@@ -44,7 +44,7 @@
 
 </div>
 
-管理面,能进行更换链接，图片等操作
+**管理面**,能进行更换链接，图片等操作:
 
 <img src="https://raw.githubusercontent.com/liujiaqi222/warehouse/main/img/20231113221629.png" alt="image-20230503233318367" style="width: 500px;" />
 <img src="https://raw.githubusercontent.com/liujiaqi222/warehouse/main/img/20231113221850.png" alt="image-20230503233318367" style="width: 500px;" />
@@ -67,9 +67,9 @@
 
 
 <div>
-<img src="https://raw.githubusercontent.com/liujiaqi222/warehouse/main/image-20230503233141521.png" alt="image-20230503233141521" style="width:33%;" />
-<img src="https://raw.githubusercontent.com/liujiaqi222/warehouse/main/image-20230503233219963.png" alt="image-20230503233219963" style="width:33%;" />
-<img src="https://raw.githubusercontent.com/liujiaqi222/warehouse/main/image-20230503233318367.png" alt="image-20230503233318367" style="width: 33%;" />
+<img src="https://raw.githubusercontent.com/liujiaqi222/warehouse/main/image-20230503233141521.png" alt="image-20230503233141521" style="width:32%;" />
+<img src="https://raw.githubusercontent.com/liujiaqi222/warehouse/main/image-20230503233219963.png" alt="image-20230503233219963" style="width:32%;" />
+<img src="https://raw.githubusercontent.com/liujiaqi222/warehouse/main/image-20230503233318367.png" alt="image-20230503233318367" style="width: 32%;" />
 </div>
 
 
