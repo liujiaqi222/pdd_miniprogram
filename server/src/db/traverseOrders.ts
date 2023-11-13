@@ -1,5 +1,5 @@
 import type { Types } from "mongoose";
-import { Order } from "../models/order.js";
+import { ExpiredOrder, Order } from "../models/order.js";
 import { getOrderData } from "../util/index.js";
 import { timeOut } from "../util/index.js";
 
@@ -23,50 +23,43 @@ export const deleteIncompleteOrders = () => {
 };
 
 // 处理已经过期的订单
-// 需要优化：管道聚合移动到过期订单集合中的同时删除orders中的订单
 export const moveExpiredOrders = async () => {
-  await Order.aggregate([
-    { $match: { expireTime: { $lt: new Date() } } },
-    { $project: { _id: 0 } },
-    {
-      $merge: {
-        into: "expiredOrders",
-        on: "groupOrderId",
-        whenMatched: "replace",
-        whenNotMatched: "insert",
-      },
-    },
-  ]).catch((err) => console.log("移动过期订单报错", err));
-
   const expiredOrders = await Order.find({
     expireTime: { $lt: Date.now() },
   }).catch((err) => console.log("查询过期订单报错", err));
-  console.log(expiredOrders);
   expiredOrders?.forEach((doc) => {
-    console.log("从orders中删除过期订单", doc._id);
+    if (doc.user) {
+      ExpiredOrder.create(doc.toObject()).catch((err) => {
+        console.log(err, "存储过期订单报错");
+      });
+    }
     deleteOrderById(doc._id);
   });
 };
 
 export const traverseOrders = async () => {
   const orders = await Order.find({ expireTime: { $gt: Date.now() } });
-
   for (const order of orders) {
     const { groupOrderId, _id } = order;
     await timeOut(Math.random() * 1200);
     getOrderData(groupOrderId!).then((res) => {
       if (!res || !res.groupInfo) {
-        return 
+        return;
       }
       const { groupStatus, groupRemainCount, groupUserList } = res.groupInfo;
       if (groupStatus !== 0 || !groupRemainCount) {
         // 等于1代表拼单成功，等于2拼单失败，但只要不是0，就代表拼单结束，pdd会将groupRemainCount设置为undefined
+        if (!order.user) {
+          console.log(_id, "订单已经拼满或过期，删除该订单");
+          deleteOrderById(order._id);
+          return;
+        }
         order.groupRemainCount = groupStatus === 1 ? 0 : order.groupRemainCount;
         order.groupUserList = groupUserList;
         order.groupStatus = groupStatus;
         console.log(_id, "订单已经拼满或过期，移动到过期订单集合中");
-        order.save().then(() => {
-          moveOrderById(_id);
+        ExpiredOrder.create(order.toObject()).catch((err) => {
+          console.log("移动到过期订单集合失败", err);
         });
         return;
       }
@@ -81,24 +74,9 @@ export const traverseOrders = async () => {
   }
 };
 
-const moveOrderById = async (id: Types.ObjectId) => {
-  await Order.aggregate([
-    { $match: { _id: id } },
-    { $project: { _id: 0 } },
-    {
-      $merge: {
-        into: "expiredOrders",
-        on: "groupOrderId",
-        whenMatched: "replace",
-        whenNotMatched: "insert",
-      },
-    },
-  ]).catch((err) => console.log("移动过期订单报错", err));
-  deleteOrderById(id);
-};
-
 const deleteOrderById = (id: Types.ObjectId) => {
   Order.findByIdAndDelete(id).catch((err) => {
     console.log(err);
   });
 };
+
