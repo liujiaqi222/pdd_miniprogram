@@ -27,19 +27,27 @@
 版本二主要是在23年10月开始开发的，功能点有1.增加了管理面 2.支持以团开团自动发布拼团 3.页面大优化，后端性能优化
 
 首页、拼团详情页、加群滑窗(群二维码支持后端配置)
-
+<div>
 <img src='https://raw.githubusercontent.com/liujiaqi222/warehouse/main/img/20231113220934.png' style="width: 32%;" />
 <img src='https://raw.githubusercontent.com/liujiaqi222/warehouse/main/img/20231113221057.png' style="width: 32%;" />
 <img src='https://raw.githubusercontent.com/liujiaqi222/warehouse/main/img/20231113221219.png' style="width: 32%;" />
 
+</div>
 
 领券页面、发布拼团页面、我的页面、我发布的拼团
 
+<div>
 <img src='https://raw.githubusercontent.com/liujiaqi222/warehouse/main/img/20231113221316.png' style="width: 32%;" />
 <img src='https://raw.githubusercontent.com/liujiaqi222/warehouse/main/img/20231113221400.png' style="width: 32%;" />
 <img src='https://raw.githubusercontent.com/liujiaqi222/warehouse/main/img/20231113221447.png' style="width: 32%;" />
 <img src='https://raw.githubusercontent.com/liujiaqi222/warehouse/main/img/20231113221530.png' style="width: 32%;" />
 
+</div>
+
+管理面,能进行更换链接，图片等操作
+
+<img src="https://raw.githubusercontent.com/liujiaqi222/warehouse/main/img/20231113221629.png" alt="image-20230503233318367" style="width: 500px;" />
+<img src="https://raw.githubusercontent.com/liujiaqi222/warehouse/main/img/20231113221850.png" alt="image-20230503233318367" style="width: 500px;" />
 
 
 
@@ -49,21 +57,20 @@
 
 多人团拼单界面（图1图2）优惠券页面（图3）
 
+<div>
 <img src="https://raw.githubusercontent.com/liujiaqi222/warehouse/main/20230522223404.png" alt="image-20230503233003395" style="width: 33%;" />
 <img src="https://raw.githubusercontent.com/liujiaqi222/warehouse/main/20230522222705.png" alt="image-20230503233003395" style="width: 33%;" />
 <img src="https://raw.githubusercontent.com/liujiaqi222/warehouse/main/20230522223141.png" alt="image-20230503233003395" style="width: 32%;" />
+</div>
 
 发布界面(图1) 我的页面(图2) 查看自己发布的拼团（图3）
 
 
+<div>
 <img src="https://raw.githubusercontent.com/liujiaqi222/warehouse/main/image-20230503233141521.png" alt="image-20230503233141521" style="width:33%;" />
 <img src="https://raw.githubusercontent.com/liujiaqi222/warehouse/main/image-20230503233219963.png" alt="image-20230503233219963" style="width:33%;" />
 <img src="https://raw.githubusercontent.com/liujiaqi222/warehouse/main/image-20230503233318367.png" alt="image-20230503233318367" style="width: 33%;" />
-
-管理面,能进行更换链接，图片等操作
-
-<img src="https://raw.githubusercontent.com/liujiaqi222/warehouse/main/img/20231113221629.png" alt="image-20230503233318367" style="width: 500px;" />
-<img src="https://raw.githubusercontent.com/liujiaqi222/warehouse/main/img/20231113221850.png" alt="image-20230503233318367" style="width: 500px;" />
+</div>
 
 
 
