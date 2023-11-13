@@ -1,13 +1,17 @@
 import { navigateTo, useShareAppMessage, setClipboardData } from "@tarojs/taro";
+import Follow from "../../components/Follow";
 import avatar from "../../assets/user-avatar.svg";
 import shareIcon from "../../assets/share.svg";
-import arrowIcon from "../../assets/arrow.svg";
+import arrow from "../../assets/arrow.svg";
+import supportIcon from "../../assets/support.svg";
 import groupBuyIcon from "../../assets/group-buy.svg";
 import infoIcon from "../../assets/info.svg";
-import trumpetIcon from "../../assets/trumpet.svg";
 import styles from "./index.module.scss";
+import { useConfigStore } from "../../store/";
 
 const User = () => {
+  const isOnReview = useConfigStore((state) => state.config.isOnReview);
+
   useShareAppMessage(() => {
     return {
       title: "百亿拼团GO | 一键参团 快速成团",
@@ -44,30 +48,37 @@ const User = () => {
           />
           <div className={styles.title}>我的拼团</div>
         </div>
-        <img src={arrowIcon} alt="arrow-icon" className={styles.arrowIcon} />
       </div>
-      <div
-        className={styles.content}
-        onClick={() => navigateTo({ url: "/pages/user/pages/tutorial/index" })}
-      >
-        <div className={styles.info}>
-          <img className={styles.icon} src={infoIcon} alt="info-icon" />
-          <div className={styles.title}>使用教程</div>
+
+      {!isOnReview && <Follow />}
+
+      <div className="flex gap-4">
+        <div
+          className="flex-1 flex flex-col justify-center gap-1 bg-gray-light rounded-xl py-4 px-4"
+          onClick={() =>
+            navigateTo({ url: "/pages/user/pages/tutorial/index" })
+          }
+        >
+          <div>
+            <img className={styles.icon} src={infoIcon} alt="info-icon" />
+          </div>
+          <div className="flex items-center gap-1 font-bold text-sm">
+            帮助与反馈
+            <img src={arrow} alt="" className="w-4 h-4" />
+          </div>
         </div>
-        <img src={arrowIcon} alt="arrow-icon" className={styles.arrowIcon} />
+        <button
+          className="flex-1 flex flex-col justify-center gap-2 bg-gray-light rounded-xl py-4 px-4 ml-0 after:border-0"
+          open-type="contact"
+        >
+          <img className={styles.icon} src={supportIcon} alt="support-icon" />
+          <div className="flex items-center gap-1 font-bold text-sm">
+            在线客服
+            <img src={arrow} alt="" className="w-4 h-4" />
+          </div>
+        </button>
       </div>
-      <div
-        className={styles.content}
-        onClick={() =>
-          navigateTo({ url: "/pages/user/pages/introduction/index" })
-        }
-      >
-        <div className={styles.info}>
-          <img className={styles.icon} src={trumpetIcon} alt="trumpet-icon" />
-          <div className={styles.title}>版本介绍</div>
-        </div>
-        <img src={arrowIcon} alt="arrow-icon" className={styles.arrowIcon} />
-      </div>
+
       <div
         className="flex text-sm py-2"
         onClick={() => {
@@ -77,7 +88,7 @@ const User = () => {
         }}
       >
         注：本小程序完全免费且已在
-        <span className="text-primary font-bold underline ">GitHub</span>
+        <span className="font-bold underline">GitHub</span>
         开源，欢迎Star
       </div>
     </div>

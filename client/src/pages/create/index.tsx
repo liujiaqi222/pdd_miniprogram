@@ -7,24 +7,27 @@ import {
   switchTab,
 } from "@tarojs/taro";
 import { useState, useContext } from "react";
-import { useRefreshStore } from "../../store/";
+import { useRefreshStore, useConfigStore } from "../../store/";
+import { useRedirectToAutoNewGroup } from "../../hooks/redirect";
 import TipModal from "./components/TipModal";
 import { createNewGroup } from "../../api";
 import { OpenIdContext } from "../../context";
 import styles from "./index.module.scss";
-import warningSvg from "../../assets/warning.svg";
-import postSvg from "../../assets/post.svg";
 import questionSvg from "../../assets/question.svg";
+import AutoNewGroup from "../../components/AutoNewGroup";
 
 export default function User() {
   const [url, setUrl] = useState("");
   const openId = useContext(OpenIdContext);
+  const { handleNavigateToOpenNewGroup } = useRedirectToAutoNewGroup();
   const [isLoading, setIsLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const setRefresh = useRefreshStore((state) => state.setRefresh);
+  const isOnReview = useConfigStore((state) => state.config.isOnReview);
+
   useShareAppMessage(() => {
     return {
-      title: "百亿拼团GO | 发布拼团", 
+      title: "百亿拼团GO | 发布拼团",
     };
   });
   const handleUpload = () => {
@@ -79,45 +82,67 @@ export default function User() {
     }
   };
   return (
-    <div className={styles.container} onClick={() => setShowModal(false)}>
-      <div>
-        <div className={styles.tips}>
-          <header className={styles.header}>
-            <img src={warningSvg} className={styles.svg} alt="" />
-            <span className={styles.text}>温馨提示:</span>
-          </header>
-          <p className={styles.text}>
-            请先搜索已经开团的商品，如果有您想要的商品，直接参与拼团，不必发布新的拼团！
-          </p>
-        </div>
-        <div className={styles.upload}>
-          <div className={styles.uploadTip}>
-            <span className={styles.text}>上传拼团分享图片</span>
-            <img
-              src={questionSvg}
-              alt=""
-              className={styles.svg}
-              onClick={(e) => {
-                e.stopPropagation();
-                setShowModal((pre) => !pre);
-              }}
-            />
-          </div>
-          <div className={styles.uploadBtn} onClick={handleUpload}>
-            点击上传
-          </div>
-          <div>
-            <span className={styles.text}>拼团连接：{url}</span>
-          </div>
-        </div>
+    <div
+      className="px-3 relative h-screen overflow-hidden"
+      onClick={() => setShowModal(false)}
+    >
+      {!isOnReview && <AutoNewGroup />}
+      <div className="flex gap-1 items-center mt-6 mb-2">
+        <span className="text-sm font-bold text-[#555]">
+          上传多多拼团分享图片
+        </span>
+        <img
+          src={questionSvg}
+          alt="拼团教程"
+          className="w-3 h-3"
+          onClick={(e) => {
+            e.stopPropagation();
+            setShowModal((pre) => !pre);
+          }}
+        />
       </div>
+      {/* 上传 */}
       <div
-        className={`${styles.uploadBtn} ${styles.postBtn}`}
-        onClick={handlePost}
+        onClick={handleUpload}
+        className="border border-gray h-44 rounded flex flex-col items-center justify-center relative px-4"
       >
-        <img src={postSvg} alt="发布拼团" className={styles.svg} />
-        发布拼团
+        <div className="relative">
+          <div className="w-8 h-[2px] bg-gray-200"></div>
+          <div className="absolute l-1/2 -top-4 h-8 w-[2px] bg-gray-200 translate-x-8"></div>
+        </div>
+        <span className="text-xs text-gray-500 mt-6">选择拼团图片</span>
+        {url && (
+          <span className="text-xs text-gray-500 mt-1 ellipsis-line-3 break-all">
+            上传链接：{url}
+          </span>
+        )}
       </div>
+      <div className="flex gap-2 items-end mt-4">
+        {!isOnReview && (
+          <div
+            className="flex-1 flex justify-center items-center h-10 bg-pink-light text-primary  font-bold rounded"
+            onClick={handleNavigateToOpenNewGroup}
+          >
+            开新团自动发布
+          </div>
+        )}
+        <div className="flex-1">
+          <div className="flex justify-center items-center h-6 text-green-darker bg-green-light font-bold text-xs">
+            发布前 请先搜索
+          </div>
+          <div
+            onClick={handlePost}
+            className="flex justify-center items-center h-10 mt-1 bg-green text-white font-bold  rounded"
+          >
+            发布
+          </div>
+        </div>
+      </div>
+      {isOnReview && (
+        <div className="mt-2">
+          注意：本小程序采用微信原生的二维码识别工具识别您上传的二维码，仅存储拼团组队的链接。
+        </div>
+      )}
       {showModal && <div className={styles.mask}></div>}
       <TipModal showModal={showModal} setShowModal={setShowModal} />
     </div>

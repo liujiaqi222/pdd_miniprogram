@@ -1,10 +1,10 @@
 export default defineAppConfig({
   pages: [
     "pages/index/index",
-    "pages/coupon/index", // 这是拼多多优惠券页面，如果不需要可以注释
     "pages/index/detail/index",
     "pages/user/index",
     "pages/create/index",
+    "pages/coupon/index", // 这是拼多多优惠券页面，如果不需要可以注释
     "pages/user/pages/orders/index",
     "pages/user/pages/introduction/index",
     "pages/user/pages/tutorial/index",
@@ -17,7 +17,7 @@ export default defineAppConfig({
   },
   tabBar: {
     color: "#999",
-    selectedColor: "#3b82f6",
+    selectedColor: "#fa5151",
     list: [
       {
         pagePath: "pages/index/index",

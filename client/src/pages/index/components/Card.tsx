@@ -6,10 +6,12 @@ const Card = ({
   order,
   onClick,
   shareBtn,
+  isOnReview,
 }: {
   order: OrderData;
   onClick?: () => void;
   shareBtn?: boolean;
+  isOnReview: boolean;
 }) => {
   const {
     goodsName,
@@ -27,29 +29,21 @@ const Card = ({
         <img className={styles["goods-img"]} src={hdThumbUrl} alt="" />
       </div>
       <div className={styles["order-info"]}>
-        <div className={styles["goods-name"]}>{goodsName}</div>
+        <div className="ellipsis-line-2">{goodsName}</div>
         <div className={styles["price-container"]}>
-          <div className={styles["price"]}>
-            {activityPrice && (
-              <div className={`${styles["goods-price"]} ${styles["current"]}`}>
-                <span className={styles.wrapper}>
-                  ￥<span className={styles.number}>{activityPrice}</span>
-                </span>
-                <span className={styles["price-type"]}>拼团价</span>
-              </div>
-            )}
-            {originPrice && (
-              <div className={styles["goods-price"]}>
-                <span className={styles.wrapper}>
-                  ￥<span className={styles.number}>{originPrice}</span>
-                </span>
-                <span className={styles["price-type"]}>单买价</span>
-              </div>
-            )}
-          </div>
+          {activityPrice && originPrice && !isOnReview && (
+            <div className="flex gap-2 items-end">
+              <span className="text-xl leading-5 text-primary font-bold">
+                ￥{activityPrice}
+              </span>
+              <span className="line-through text-gray-500">
+                ￥{originPrice}
+              </span>
+            </div>
+          )}
           {shareBtn ? (
             <button
-              className="text-blue-600  h-8 bg-white shadow ml-auto mr-0  flex items-center gap-2 text-sm"
+              className="text-green h-8 bg-white shadow ml-auto mr-0  flex items-center gap-2 text-sm font-bold"
               open-type="share"
             >
               <img className="w-4" alt="share-icon" src={shareIcon}></img> 分享

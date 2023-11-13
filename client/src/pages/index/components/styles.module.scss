@@ -1,19 +1,14 @@
-$text-active: #3b82f6;
-$text-darker: #2563eb;
-
-
+$text-active: #fa5151;
+$text-darker: #f33a50;
 
 .card-container {
   background: #fff;
-  border-radius: 0.5rem;
   font-size: 0.9rem;
   height: 6rem;
-  margin-bottom: 1rem;
-  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
   display: flex;
   gap: 1.5rem;
   color: #444;
-  padding: 0.5rem;
+  padding: 0.5rem 1rem;
   position: relative;
 
   .img-container {
@@ -36,40 +31,14 @@ $text-darker: #2563eb;
   .order-info {
     flex: 1;
     width: 200px;
-    .goods-name {
-      overflow: hidden;
-      text-overflow: ellipsis;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-    }
+
     .price-container {
       display: flex;
       justify-content: space-between;
+      align-items: flex-start;
       margin-top: 1rem;
-      .price {
-        display: flex;
-        gap: 1rem;
-        .goods-price {
-          &.current {
-            color: $text-active;
-          }
-          text-align: center;
-          .wrapper {
-            display: flex;
-            align-items: center;
-            .number {
-              font-size: 1rem;
-            }
-          }
-          .price-type {
-            font-size: 0.8rem;
-            text-align: center;
-          }
-        }
-      }
       .btn {
-        background-color: $text-darker;
+        background-color: $text-active;
         color: #fff;
         padding: 0.5rem;
         border-radius: 0.5rem;

@@ -6,10 +6,18 @@ import {
   createNewGroupByOrderId,
   getOrderById,
 } from "../controllers/order.js";
+import { authSignMiddleware } from "../middleware/authSign.js";
 const router = express.Router();
 
-router.route("/").get(getAllOrders).post(createNewGroup).delete(deleteGroup);
+router
+  .route("/")
+  .get(authSignMiddleware,getAllOrders)
+  .post(createNewGroup)
+  .delete(deleteGroup);
 
-router.route("/byId").get(getOrderById).post(createNewGroupByOrderId);
+router
+  .route("/byId")
+  .get(authSignMiddleware,getOrderById)
+  .post(createNewGroupByOrderId);
 
 export default router;

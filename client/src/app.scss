@@ -8,7 +8,6 @@
   -webkit-box-orient: vertical;
 }
 
-
 .translate-x-y {
   transform: translateX(-50%) translateY(-50%);
 }
@@ -16,6 +15,10 @@
 .fade-out {
   opacity: 1;
   animation: fade-out 2s linear forwards;
+}
+
+.h-auto{
+  height: auto !important;
 }
 
 @keyframes fade-out {
@@ -30,16 +33,48 @@
   }
 }
 
-
-.rotate-animation{
+.rotate-animation {
   animation: rotate 1s linear infinite;
 }
 
 @keyframes rotate {
-  0%{
+  0% {
     transform: rotate(0deg);
   }
-  100%{
+  100% {
     transform: rotate(360deg);
   }
 }
+
+.border {
+  border: 1px solid;
+}
+
+.border-gray {
+  border-color: #ccc;
+}
+
+// 定义基础类
+.ellipsis-line {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+}
+
+// 继承基础类并设置具体行数
+.ellipsis-line-2 {
+  @extend .ellipsis-line;
+  -webkit-line-clamp: 2;
+}
+
+.ellipsis-line-3 {
+  @extend .ellipsis-line;
+  -webkit-line-clamp: 3;
+}
+
+
+.translate-x-8{
+  transform: translateX(32px);
+}
+

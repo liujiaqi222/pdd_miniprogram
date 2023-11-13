@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { Order } from "../models/order.js";
+import { ExpiredOrder, Order } from "../models/order.js";
 import { isValidUrl, reverseShortUrl, getOrderData } from "../util/index.js";
 import { saveOrderData } from "../db/saveOrder.js";
 
@@ -67,15 +67,17 @@ export const createNewGroup = async (req: Request, res: Response) => {
   if (isExist) return res.json({ message: "该拼单已存在", success: false });
   const fetchResult = await getOrderData(validateUrlResult.orderId);
   if (!fetchResult) return res.json({ message: "URL错误", success: false });
-  const saveResult = await saveOrderData(fetchResult, openId).catch(() => {
-    res.json({ success: false, message: "上传失败！" });
-  });
+  const saveResult = await saveOrderData(fetchResult, openId, false).catch(
+    () => {
+      res.json({ success: false, message: "上传失败！" });
+    }
+  );
   res.json(saveResult);
 };
 
 // 根据groupOrderId这个接口方便我上传新的拼单
 export const createNewGroupByOrderId = async (req: Request, res: Response) => {
-  let { groupOrderId, openId } = req.body;
+  let { groupOrderId, openId, isAuto } = req.body;
   if (!groupOrderId) {
     return res.json({ message: "groupOrderId不存在", success: false });
   }
@@ -85,9 +87,11 @@ export const createNewGroupByOrderId = async (req: Request, res: Response) => {
     return res.json({ message: "groupOrderId已存在", success: false });
   const fetchResult = await getOrderData(groupOrderId);
   if (!fetchResult) return res.json({ message: "URL错误", success: false });
-  const saveResult = await saveOrderData(fetchResult, openId).catch(() => {
-    res.json({ success: false, message: "上传失败！" });
-  });
+  const saveResult = await saveOrderData(fetchResult, openId, isAuto).catch(
+    () => {
+      res.json({ success: false, message: "上传失败！" });
+    }
+  );
   res.json(saveResult);
 };
 
@@ -113,9 +117,16 @@ export const getOrderById = async (req: Request, res: Response) => {
   }
 
   const order = await Order.findOne({ groupOrderId }).exec();
-  if (!order) {
-    res.json({ success: false, message: "该拼单不存在" });
+  if (order) {
+    res.json({ success: true, data: order, expired: false });
     return;
   }
-  res.json({ success: true, data: order });
+
+  const expiredOrder = await ExpiredOrder.findOne({ groupOrderId }).exec();
+  if (expiredOrder) {
+    res.json({ success: true, data: expiredOrder, expired: true });
+    return;
+  }
+
+  res.json({ success: false, message: "groupOrderId不存在" });
 };

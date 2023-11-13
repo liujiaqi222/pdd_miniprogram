@@ -1,3 +1,4 @@
+import { Order } from "../models/order.js";
 import { timeOut } from "../util/index.js";
 
 export const uploadOrderData2 = async () => {
@@ -8,7 +9,11 @@ export const uploadOrderData2 = async () => {
   const { result_msg, result_object } = await orders.json().catch();
   if (result_msg !== "Success!") return;
   const { data } = result_object;
-  for (const { id } of data) {
+  for (const { id, goods_name } of data) {
+    if (goods_name) {
+      const res = await Order.findOne({ goodsName: goods_name }).exec();
+      if (res) continue;
+    }
     await timeOut(Math.random() * 3000);
     const res = await fetch(`${process.env.URL_PREFIX_OTHER2}/place_an_order`, {
       method: "POST",

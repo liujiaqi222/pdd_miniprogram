@@ -114,7 +114,9 @@ const OrderCard = ({
       </div>
       <div className={styles.orderDetail}>
         <img src={orderData.hdThumbUrl} className={styles.goodsImage} />
-        <div className={styles.goodsInfo}>{orderData.goodsName}</div>
+        <div className={`${styles.goodsInfo} text-overflow-2`}>
+          {orderData.goodsName}
+        </div>
       </div>
     </div>
   );

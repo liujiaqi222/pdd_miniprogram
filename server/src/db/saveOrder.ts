@@ -4,7 +4,8 @@ import { User } from "../models/user.js";
 
 export const saveOrderData = async (
   pddData: PddData["store"],
-  openId?: string
+  openId?: string,
+  isAuto?:boolean
 ) => {
   const { goodsInfo, groupInfo, endTimeMs } = pddData || {};
   let {
@@ -55,6 +56,7 @@ export const saveOrderData = async (
     groupUserList,
     groupOrderId,
     groupRemainCount,
+    isAuto
   };
   if (openId) {
     const doc = await User.findOne({ openId })

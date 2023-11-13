@@ -16,7 +16,7 @@ const TipModal = ({ showModal, setShowModal }: TipModalProps) => {
       <div className={styles.modalContent}>
         <div className={styles.title}>
           <span>如何发布拼团?</span>
-          <img src={closeSvg} alt="" className={styles.svg} onClick={() => setShowModal(false)} />
+          <img src={closeSvg} alt="" className='w-4 h-4' onClick={() => setShowModal(false)} />
         </div>
         <div className={styles.text}>1. 在拼多多上购买某个需要多人拼团的百亿补贴的商品。</div>
         <div className={styles.text}>2. 购买后，会弹出如下弹窗，点击分享图片，即可保存图片到本地。</div>

@@ -1,11 +1,6 @@
-$text-active: #3b82f6;
-$text-darker: #2563eb;
-
 .container {
-  background: $text-active;
   height: 100vh;
-  padding-inline: 0.5rem;
-
+  background: #f5f5f5;
   .info {
     display: flex;
     flex-direction: column;
@@ -25,25 +20,33 @@ $text-darker: #2563eb;
   .operationContainer {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-end;
     padding-top: 1rem;
     gap: 2rem;
     .button {
       display: flex;
       align-items: center;
       gap: 0.4rem;
-      background-color: #409eff;
-      color: #fff;
       padding: 1.5rem;
       border-radius: 0.5rem;
       box-sizing: border-box;
-      box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1),
-        0 4px 6px -4px rgb(0 0 0 / 0.1);
+      font-weight: bold;
       cursor: pointer;
       height: 2rem;
+
       .img {
         width: 1rem;
         height: 1rem;
+      }
+
+      &.goto {
+        background-color: #f50008;
+        color: white;
+      }
+      &.newGroup {
+        color: #f33a50;
+        border: 1px solid #fceae9;
+        background-color: #fff4f6;
       }
     }
   }

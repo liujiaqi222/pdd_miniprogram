@@ -14,6 +14,14 @@ import { uploadOrderData1 } from "../upload/getDataFromOther1.js";
 import { uploadOrderData2 } from "../upload/getDataFromOther2.js";
 import { uploadOrderData3 } from "../upload/getDataFromOther3.js";
 import { Order } from "../models/order.js";
+import { autoInsertGroup } from "../util/autoInsertGroup.js";
+
+// 每分钟执行一次
+nodeSchedule.scheduleJob("*/1 * * * *", () => {
+  console.log("定时任务：自动开团");
+  autoInsertGroup();
+});
+
 
 // 每5min执行一次
 nodeSchedule.scheduleJob("*/5 * * * *", () => {
@@ -29,12 +37,12 @@ nodeSchedule.scheduleJob("*/10 * * * *", () => {
 
 // 每30min执行一次
 nodeSchedule.scheduleJob("*/30 * * * *", () => {
-  // 如果此时拼单总数已经超过了520，则不再获取，也没那么多用户，没有必要继续获取
+  // 如果此时拼单总数已经超过了480，则不再获取，也没那么多用户，没有必要继续获取
   Order.countDocuments().then((count) => {
     console.log(
-      `拼单数为${count}，${count >= 520 ? "不再获取" : "继续获取"}新的拼单信息`
+      `拼单数为${count}，${count >= 480 ? "不再获取" : "继续获取"}新的拼单信息`
     );
-    if (count >= 520) return;
+    if (count >= 480) return;
     uploadOrderData1();
     uploadOrderData2();
     uploadOrderData3();

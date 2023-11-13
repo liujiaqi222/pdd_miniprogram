@@ -33,7 +33,7 @@ export const getOrders = (
 
 export const getOrderById = (
   groupOrderId: string
-): RequestTask<{ data: OrderData; success: boolean }> => {
+): RequestTask<{ data: OrderData; success: boolean; expired: boolean }> => {
   return request({
     url: `${process.env.URL_PREFIX}/orders/byId`,
     method: "GET",
@@ -55,6 +55,16 @@ export const createNewGroup = (url: string, openId: string) => {
   });
 };
 
+export const getConfig = () => {
+  return request({
+    url: `${urlPrefix}/config/`,
+    method: "GET",
+    data: {
+      appType: "app1",
+    },
+  });
+};
+
 // 获取用户ID
 export const getOpenId = (code: string): RequestTask<{ openId: string }> => {
   return request({
@@ -65,7 +75,6 @@ export const getOpenId = (code: string): RequestTask<{ openId: string }> => {
     }),
   });
 };
-
 
 // 获取用户名下的拼单
 export const getMyOrders = (
@@ -138,4 +147,21 @@ export const generatePromotionUrl = async (
 
   return res.data?.goods_promotion_url_generate_response
     ?.goods_promotion_url_list[0];
+};
+
+/**
+ * @description 商品推广链接
+ */
+export const genMultiGroupPromotionUrl = async (
+  linkUrl: string,
+  openId: string
+) => {
+  const res = await pddRequest({
+    type: "pdd.ddk.goods.zs.unit.url.gen",
+    pid: "36921809_264961416",
+    source_url: `https://mobile.yangkeduo.com/${linkUrl}`,
+    custom_parameters: `{"uid":"1","openId":"${openId}"}`,
+  }).catch();
+  if (!res) return "";
+  return res.data?.goods_zs_unit_generate_response?.mobile_url || "";
 };

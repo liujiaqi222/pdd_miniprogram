@@ -1,68 +1,40 @@
-.container {
-  padding: 0.5rem;
-  height: 95vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  overflow: hidden;
-  position: relative;
-  .tips {
-    border: 1px solid #e7a239;
-    border-radius: 0.2rem;
-    padding: 0.5rem;
-    background-color: rgba($color: #fdf4ed, $alpha: 0.7);
-
-    .header {
-      display: flex;
-      align-items: center;
-    }
-  }
-  .upload {
-    margin-top: 0.5rem;
-
-    .uploadTip {
-      display: flex;
-      gap: 0.2rem;
-
-    }
-  }
-  .modal {
-    position: absolute;
-    background: white;
-    height: 45vh;
-    bottom: 0;
-    inset-inline: 0;
-    padding: 0.5rem;
-    z-index: 2;
-    transition: bottom 0.3s linear;
-    &.close{
-      bottom: -100vh;
-    }
-    .modalContent {
-      display: flex;
-      flex-direction: column;
-      gap: 0.4rem;
-      .title {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-      }
-    }
-  }
-  .mask{
-    background: #000;
-    opacity: 0.5;
-    z-index: 1;
-    inset: 0;
-    position: absolute;
-  }
-}
-
 .text {
   color: #444;
   font-size: 0.9rem;
   display: flex;
   word-break: break-all;
+}
+
+.modal {
+  position: absolute;
+  background: white;
+  height: 23rem;
+  bottom: 0;
+  inset-inline: 0;
+  padding: 0.5rem;
+  z-index: 2;
+  transition: bottom 0.3s linear;
+  &.close {
+    bottom: -100vh;
+  }
+  .modalContent {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    .title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+}
+.mask {
+  background: #000;
+  opacity: 0.5;
+  z-index: 1;
+  inset: 0;
+
+  position: absolute;
 }
 
 .uploadBtn {
@@ -82,9 +54,3 @@
 .postBtn {
   background-color: #67c23a;
 }
-
-.svg {
-  width: 1rem;
-  height: 1rem;
-}
-

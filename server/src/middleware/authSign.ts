@@ -4,20 +4,12 @@ import crypto from "crypto";
 /**
  *  @description 验证sign，防止恶意请求
  */
-export const authMiddleware = (
+export const authSignMiddleware = (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
-  // 创建拼单这些接口不需要验证
-  if (
-    (req.path.includes("/api/v1/orders/byId") ||
-      req.path.includes("/api/v1/orders")) &&
-    req.method === "POST"
-  ) {
-    next();
-    return;
-  }
+
   const { sign, timestamp, ...params } =
     req.method === "GET" ? req.query : req.body;
   if (!sign) {
