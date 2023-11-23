@@ -7,12 +7,16 @@ export const changeConfig = async (req: Request, res: Response) => {
     return res
       .status(400)
       .json({ message: "type和data不能为空", success: false, data: "" });
-  // 更新数据库中的groupUrl字段
-  await Config.findOneAndUpdate(
-    { appType: appType || "default" },
-    { $set: { [type]: data } },
-    { upsert: true }
-  );
+  if (appType === "all") {
+    // 更新数据库中所有document的指定type字段
+    await Config.updateMany({}, { $set: { [type]: data } });
+  } else {
+    // 更新数据库中的指定type字段
+    await Config.findOneAndUpdate(
+      { appType: appType || "default" },
+      { $set: { [type]: data } },
+    );
+  }
   res.json({ message: "更新成功", success: true, data: "" });
 };
 

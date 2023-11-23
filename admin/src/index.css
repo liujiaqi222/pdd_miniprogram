@@ -2,4 +2,7 @@
 @tailwind utilities;
 
 
+.button{
+  @apply  cursor-pointer;
+}
 

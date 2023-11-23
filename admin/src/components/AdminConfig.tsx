@@ -5,15 +5,15 @@ import { message } from "antd";
 import TextArea from "antd/es/input/TextArea";
 
 export const SetConfig = () => {
-  const [appType, setAppType] = useState("");
+  const [appType, setAppType] = useState("default");
   const handleAppTypeChange = (value: string) => {
     setAppType(value);
   };
   return (
     <div className="flex justify-center flex-col items-center pt-2">
-      <SelectApp onChange={handleAppTypeChange} />
+      <SelectApp onChange={handleAppTypeChange} defaultValue={appType} />
       <hr />
-      {appType && <AdminConfig appType={appType} />}
+      <AdminConfig appType={appType} />
     </div>
   );
 };
@@ -41,17 +41,28 @@ const appOptions = [
   },
 ];
 
-const SelectApp = ({ onChange }: { onChange: (value: string) => void }) => {
+const SelectApp = ({
+  onChange,
+  defaultValue,
+}: {
+  onChange: (value: string) => void;
+  defaultValue: string;
+}) => {
   return (
     <div className="flex items-center">
       <span>选择小程序：</span>
-      <Select style={{ width: 170 }} options={appOptions} onChange={onChange} />
+      <Select
+        style={{ width: 170 }}
+        options={appOptions}
+        onChange={onChange}
+        defaultValue={defaultValue}
+      />
     </div>
   );
 };
 
 const AdminConfig = ({ appType }: { appType: string }) => {
-  const [config, setConfigUrl] = useState<Config>({
+  const [config, setConfig] = useState<Config>({
     groupUrl: "",
     officialQrCodeURL: "",
     autoNewGroupURL: "",
@@ -61,6 +72,7 @@ const AdminConfig = ({ appType }: { appType: string }) => {
       image: "",
       url: "",
     },
+    cookie: "",
   });
   const [isLoading, setIsLoading] = useState(true);
   const [form] = Form.useForm<Config>();
@@ -69,14 +81,14 @@ const AdminConfig = ({ appType }: { appType: string }) => {
   useEffect(() => {
     setIsLoading(true);
     getConfig(appType).then(({ data }) => {
-      setConfigUrl(data);
+      setConfig(data);
       setTimeout(() => {
         form.resetFields();
       });
       setIsLoading(false);
     });
   }, [form, appType]);
-  const handleChange = async (type: keyof Config, path: string[][] = []) => {
+  const handleChange = async (type: keyof Config, path: string[][] = [],changeAll=false) => {
     await form.validateFields(path.length ? path : [type]);
     const value = !path.length
       ? form.getFieldValue(type)
@@ -84,7 +96,7 @@ const AdminConfig = ({ appType }: { appType: string }) => {
           acc[cur[1]] = form.getFieldValue(cur);
           return acc;
         }, {});
-    const res = await changeConfig(type, value, appType).catch(() => {
+    const res = await changeConfig(type, value, changeAll?'all':appType).catch(() => {
       message.error("更新失败");
     });
     if (res && res.success) {
@@ -103,6 +115,31 @@ const AdminConfig = ({ appType }: { appType: string }) => {
           autoComplete="off"
           initialValues={config}
         >
+          <Form.Item label="拼多多Cookie">
+            <Flex gap="small">
+              <Form.Item
+                name="cookie"
+                noStyle
+                rules={[{ required: true, message: "群链接不能为空" }]}
+              >
+                <TextArea />
+              </Form.Item>
+              <div className="flex flex-col w-24 gap-2">
+                <button
+                  onClick={() => handleChange("cookie")}
+                  className="button"
+                >
+                  更新
+                </button>
+                <button
+                  className="button"
+                  onClick={() => handleChange("cookie",[],true)}
+                >
+                  更新全部
+                </button>
+              </div>
+            </Flex>
+          </Form.Item>
           <Form.Item label="群链接">
             <Flex gap="small">
               <Form.Item
@@ -112,9 +149,20 @@ const AdminConfig = ({ appType }: { appType: string }) => {
               >
                 <TextArea />
               </Form.Item>
-              <Button type="primary" onClick={() => handleChange("groupUrl")}>
-                更新
-              </Button>
+              <div className="flex flex-col w-24 gap-2">
+                <button
+                  onClick={() => handleChange("groupUrl")}
+                  className="button"
+                >
+                  更新
+                </button>
+                <button
+                  className="button"
+                  onClick={() => handleChange("groupUrl", [], true)}
+                >
+                  更新全部
+                </button>
+              </div>
             </Flex>
           </Form.Item>
           <Form.Item label="公众号二维码链接">
@@ -128,12 +176,20 @@ const AdminConfig = ({ appType }: { appType: string }) => {
               >
                 <TextArea />
               </Form.Item>
-              <Button
-                type="primary"
-                onClick={() => handleChange("officialQrCodeURL")}
-              >
-                更新
-              </Button>
+              <div className="flex flex-col w-24 gap-2">
+                <button
+                  onClick={() => handleChange("officialQrCodeURL")}
+                  className="button"
+                >
+                  更新
+                </button>
+                <button
+                  className="button"
+                  onClick={() => handleChange("officialQrCodeURL", [], true)}
+                >
+                  更新全部
+                </button>
+              </div>
             </Flex>
           </Form.Item>
           <Form.Item label="自动开团小程序跳转地址">
@@ -147,12 +203,20 @@ const AdminConfig = ({ appType }: { appType: string }) => {
               >
                 <TextArea />
               </Form.Item>
-              <Button
-                type="primary"
-                onClick={() => handleChange("autoNewGroupURL")}
-              >
-                更新
-              </Button>
+              <div className="flex flex-col w-24 gap-2">
+                <button
+                  onClick={() => handleChange("autoNewGroupURL")}
+                  className="button"
+                >
+                  更新
+                </button>
+                <button
+                  className="button"
+                  onClick={() => handleChange("autoNewGroupURL", [], true)}
+                >
+                  更新全部
+                </button>
+              </div>
             </Flex>
           </Form.Item>
           <div className="border border-gray-200 border-solid px-2 pt-2 rounded-lg mb-2">
@@ -194,18 +258,37 @@ const AdminConfig = ({ appType }: { appType: string }) => {
                     </>
                   )}
                 </div>
-                <Button
-                  type="primary"
-                  onClick={() =>
-                    handleChange("promotionBanner", [
-                      ["promotionBanner", "isShow"],
-                      ["promotionBanner", "image"],
-                      ["promotionBanner", "url"],
-                    ])
-                  }
-                >
-                  更新
-                </Button>
+
+                <div className="flex flex-col w-18 gap-2">
+                  <button
+                    onClick={() =>
+                      handleChange("promotionBanner", [
+                        ["promotionBanner", "isShow"],
+                        ["promotionBanner", "image"],
+                        ["promotionBanner", "url"],
+                      ])
+                    }
+                    className="button"
+                  >
+                    更新
+                  </button>
+                  <button
+                    className="button"
+                    onClick={() =>
+                      handleChange(
+                        "promotionBanner",
+                        [
+                          ["promotionBanner", "isShow"],
+                          ["promotionBanner", "image"],
+                          ["promotionBanner", "url"],
+                        ],
+                        true
+                      )
+                    }
+                  >
+                    更新全部
+                  </button>
+                </div>
               </div>
             </Form.Item>
           </div>

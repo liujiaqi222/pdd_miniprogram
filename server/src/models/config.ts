@@ -30,6 +30,9 @@ const configSchema = new mongoose.Schema(
       default: "默认",
       unique: true,
     },
+    cookie: {
+      type: String,
+    },
   },
   {
     timestamps: true,

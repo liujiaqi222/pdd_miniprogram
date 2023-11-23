@@ -2,6 +2,7 @@ import https from "https";
 import http from "http";
 import type { ReverseResult, PddData } from "../types/index.js";
 import nodeFetch from "node-fetch";
+import { Config } from "../models/config.js";
 
 export function reverseShortUrl(url: string): ReverseResult {
   let urlObj: URL;
@@ -61,14 +62,17 @@ export const isValidUrl = (url: string) => {
 
 const PDD_URL =
   "https://mobile.yangkeduo.com/pincard_ask.html?__rp_name=brand_amazing_price_group&_pdd_tc=ffffff&_pdd_sbs=1&group_order_id=";
-export const getOrderData = async (orderId: string): Promise<PddData["store"]|false> => {
+export const getOrderData = async (
+  orderId: string
+): Promise<PddData["store"] | false> => {
   // 如果fetch不存在，使用node-fetch
   const fetch = globalThis.fetch || nodeFetch;
   const url = (process.env.PDD_URL || PDD_URL) + orderId;
+  const config = await Config.findOne({ appType: "default" }).exec();
   const response = await fetch(url, {
     headers: {
       "accept-encoding": "gzip, deflate, br",
-      cookie: process.env.COOKIE!,
+      cookie: config?.cookie || process.env.COOKIE!,
     },
   }).catch((err) => {
     console.log(err);
@@ -82,8 +86,6 @@ export const getOrderData = async (orderId: string): Promise<PddData["store"]|fa
 
   return pddData?.store;
 };
-
-
 
 export const timeOut = (ms: number) => {
   return new Promise((resolve, reject) => {

@@ -50,6 +50,7 @@ export type Config = {
   officialQrCodeURL: string;
   autoNewGroupURL: string;
   isOnReview: boolean;
+  cookie:string,
   promotionBanner: {
     isShow: false;
     image: "";
