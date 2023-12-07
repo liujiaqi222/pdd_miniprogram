@@ -31,7 +31,7 @@ const OrderDetail = () => {
   const order = useOrderDataStore((state) => state.orderData);
   const groupOrderId = getCurrentPages().at(-1)?.options?.groupOrderId;
   const isShowBanner = useConfigStore(
-    (state) => state.config.promotionBanner.isShow
+    (state) => state?.config?.promotionBanner?.isShow
   );
 
   const [isExpired, setIsExpired] = useState(false);
