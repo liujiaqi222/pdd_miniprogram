@@ -4,9 +4,9 @@
 
 目前已经做了2个大版本，具体可以看下面的截图展示部分。
 
-扫码体验：小程序名《百亿拼团 GO》
+扫码体验：小程序名《百亿拼团助手 GO》
 
-![gh_d90acd8d17ce_258.jpg](https://raw.githubusercontent.com/liujiaqi222/warehouse/main/gh_d90acd8d17ce_258.jpg)
+![扫码_搜索联合传播样式-标准色版](https://github.com/liujiaqi222/pdd_miniprogram/assets/51473151/1cdd41cc-c5af-48be-af16-31b0b49e0182)
 
 ## 核心功能
 
