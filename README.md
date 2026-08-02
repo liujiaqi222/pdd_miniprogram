@@ -1,37 +1,59 @@
-# 拼团神器
+<div align="center">
+  <h1>拼团神器</h1>
+  <p><strong>上传拼团截图，自动识别商品与拼团信息</strong></p>
+  <p>微信搜索小程序「拼团神器」即可体验</p>
+  <p><strong>需要部署自己的拼团系统？添加微信 <code>z473487465</code></strong></p>
+  <p><sub>原名「百亿拼团助手 GO」</sub></p>
+</div>
 
-拼团神器是一款帮助用户发布、搜索和参与拼团的微信小程序，原名「百亿拼团助手 GO」。
+## 当前线上版本
 
-## 项目现状
+本仓库保留的是早期公开版本代码，当前线上版本维护在私有仓库。当前版本的核心变化，是将拼团信息获取方式从链接解析升级为截图 OCR 识别。
 
-本仓库保留的是早期公开版本代码。早期版本会从用户上传的拼团图片中识别二维码，再根据二维码中的拼团链接请求拼多多页面和接口，获取商品及拼团信息。
+| | 早期公开版本 | 当前线上版本 |
+| --- | --- | --- |
+| 信息来源 | 拼团二维码中的链接 | 用户上传的拼团截图 |
+| 获取方式 | 请求拼多多页面和接口 | Python、FastAPI、PaddleOCR |
+| 提取内容 | 商品及拼团信息 | 商品名称、拼团价格、成团人数 |
 
-当前线上版本维护在私有仓库，拼团信息的获取方式已经调整。用户上传拼团截图后，服务端会调用基于 Python、FastAPI 和 PaddleOCR 的 OCR 服务，从图片中识别商品名称、拼团价格、成团人数等信息，不再通过拼多多页面或接口获取这些字段。
+拼多多截图仍会识别二维码，用于保留参团链接和 `group_order_id`；商品名称、价格和成团人数由 OCR 从截图中获取。
 
-## 当前版本技术栈
-
-- 小程序端：React 18、Taro 4、TypeScript、Tailwind CSS
-- 后端：Node.js、Express、TypeScript、MongoDB、Mongoose、Redis
-- OCR 服务：Python 3.11、FastAPI、PaddleOCR 3、OpenCV
-- 管理端：Vue 3、Vite、PrimeVue、Tailwind CSS
-
-## 体验小程序
-
-打开微信，搜索小程序「拼团神器」即可体验当前线上版本。
-
-## 当前版本截图
+## 产品截图
 
 首页、发布拼团页和个人中心：
 
-![拼团神器当前版本：首页、发布拼团页和个人中心](./docs/images/pdd-helper-current.png)
+[![拼团神器当前版本：首页、发布拼团页和个人中心](./docs/images/pdd-helper-current.png)](./docs/images/pdd-helper-current.png)
 
-## 私有化部署与二开
+<p align="center"><sub>点击图片可查看大图</sub></p>
 
-提供拼团神器私有化部署和二次开发服务。如有需求，可添加微信：`z473487465`，添加时请备注「拼团神器」。
+> ## 私有化部署与二次开发
+>
+> 提供拼团神器私有化部署和二次开发服务，支持根据业务需求调整小程序、OCR 服务、后端和管理端。
+>
+> **微信：`z473487465`**
+>
+> 添加时请备注「拼团神器」，并简单说明私有化部署或二开需求。
 
-## 历史开源版本
+## 当前版本技术栈
 
-下方内容为本仓库早期版本的功能、运行方式、部署说明和历史截图，仅供学习与参考。
+| 模块 | 技术栈 |
+| --- | --- |
+| 小程序端 | React 18、Taro 4、TypeScript、Tailwind CSS |
+| 后端 | Node.js、Express、TypeScript、MongoDB、Mongoose、Redis |
+| OCR 服务 | Python 3.11、FastAPI、PaddleOCR 3、OpenCV |
+| 管理端 | Vue 3、Vite、PrimeVue、Tailwind CSS |
+
+<br>
+<br>
+
+---
+
+<div align="center">
+  <h2>历史开源版本</h2>
+  <p>下方内容为本仓库早期版本的功能、运行方式、部署说明和历史截图，仅供学习与参考。</p>
+</div>
+
+<br>
 
 ## 核心功能
 
